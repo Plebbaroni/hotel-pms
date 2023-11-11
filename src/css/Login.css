@@ -1,0 +1,81 @@
+.wrapper{
+    height: 80%;
+    width: 100%;
+    background-image: url('../src/assets/homepagebg.jpeg');
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.transWrapper{
+    display: flex;
+    height: 90%;
+    width: 95%;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, .7)
+}
+
+.loginWrapper{
+    display: flex;
+    height: 90%;
+    width: 95%;
+    align-items: center;
+    justify-content: center;
+    background-color: whitesmoke;
+    flex-direction: column;
+    opacity: 100%;
+}
+
+.loginCard{
+    height: 80%;
+    width: 30%;
+    border-radius: 10%;
+    border: 1px solid lightgray;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 40%;
+}
+
+.inputForm{
+    margin-bottom: 5%;
+    width: 70%;
+    height: 20%;
+}
+.loginHeader{
+    font-size: 32px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a{
+    text-decoration: none;
+}
+
+.joeText{
+    font-size: 24px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.signUpText{
+    text-decoration: none!important;
+}
+
+.loginButton{
+    width: 30%;
+    height: 10%;
+    margin-bottom: 10%;
+    background-color: #E0FDFF;
+    border: 1px solid black;
+}
