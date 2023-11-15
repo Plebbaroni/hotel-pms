@@ -84,6 +84,18 @@ app.post('/login', (req, res) => {
   );
 });
 
+app.get('/roomdata', (req, res) => {
+  const query = 'SELECT * FROM Room_Type';
+  db.query(query, (err, results) => {
+    if(err){
+      console.log(err);
+    }else{
+      res.json(results);
+    }
+  })
+})
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+

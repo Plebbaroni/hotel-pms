@@ -5,6 +5,7 @@ function ReservationForm() {
   return (
     <div className='transWrapper'>
         <div className='reserveWrapper'>
+            <a className='bookARoom'>Book a Room</a>
             <div className='forms'>
                 <form action="submit" className='daForm'>
                   <input type="text" name="checkIn" id=""placeholder="Check In" 
