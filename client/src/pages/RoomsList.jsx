@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import {Link} from 'react-router-dom'
 import axios from 'axios'
 import RoomCard from "../components/RoomCard.jsx"
 import '../css/RoomCard.css'
@@ -28,7 +29,9 @@ function RoomsList() {
             <div className='roomListDiv'>
                 <center>
                     {roomData.map(item => (
-                        <RoomCard key={item.room_type} TypeRoom={item.room_type} DescriptionRoom={item.room_description} RoomOccMin={item.min_number_of_occupants} RoomOccMax={item.max_number_of_occupants} />
+                        <Link key={item.room_type} to={`/room/${item.room_type}`} state={{room_type: item.room_type}}className="cardLink">
+                            <RoomCard key={item.room_type} TypeRoom={item.room_type} DescriptionRoom={item.room_description} RoomOccMin={item.min_number_of_occupants} RoomOccMax={item.max_number_of_occupants} />
+                        </Link>
                     ))}
                 </center>
             </div>

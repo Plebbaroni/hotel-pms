@@ -1,21 +1,21 @@
-import $ from "jquery"
-
+import React from 'react'
+import { useHistory } from 'react-router-dom';
 
 function Body(){
-
-    function Compile(){
-        var FN = $('#fname').val();
-        var LN = $('#lname').val();
-        var E = $('#email').val();
-        var C = $('#country').val();
-        var N = $('#number').val();
+    const history = useHistory();
+    function returnHome(){
+        history.push('/')
     }
-
+    const handleConfirm = async (e) => {
+        e.preventDefault();
+        //Logic for db thingy here
+        returnHome();
+    }
     return(
         <div>
             <center>
                 <div className="Title">
-                    <h1>Your Reservation</h1><a href=""><button>X</button></a>
+                    <h1>Your Reservation</h1><a href=""><button onClick={returnHome}>X</button></a>
                 </div>
                 <div className="Form">
                     <div className="ReserveBox">
@@ -34,7 +34,7 @@ function Body(){
                     </div>
                     <div className="ReserveBox">
                         <div>
-                            <h1>Payement Information</h1>
+                            <h1>Payment Information</h1>
                         </div>
                     </div>
                     <div className="ReserveBox">
@@ -43,7 +43,7 @@ function Body(){
                         </div>
                     </div>
                     <div className="ButtonDiv">
-                        <button onClick={Compile}>Confrim</button>
+                        <button onClick={handleConfirm}>Confirm</button>
                     </div>
                 </div>
             </center>

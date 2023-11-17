@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import Navbar from "./Navbar";
-import ReservationBody from "./ReservationBody"
+import ReservationBody from "../components/ReservationBody"
 import "../css/Reservation.css"
 
 class Reservation extends Component{

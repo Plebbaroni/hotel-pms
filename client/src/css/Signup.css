@@ -77,4 +77,5 @@ a{
     margin-bottom: 10%;
     background-color: #E0FDFF;
     border: 1px solid black;
+    cursor: pointer;
 }

@@ -1,10 +1,12 @@
 import React, {useState} from 'react'
 import "../css/Login.css"
 import {Link, useHistory } from 'react-router-dom'
+import {useAuth} from '../contexts/AuthContext.jsx';
 import axios from 'axios';
 
 function Login() {
   const history = useHistory();
+  const {dispatch } = useAuth();
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -22,15 +24,17 @@ function Login() {
 
     try {
       const response = await axios.post('http://localhost:3001/login', formData);
-      console.log(response.data);
-
-      // Assuming successful login, redirect to another page (e.g., dashboard)
+      const { id, username, role } = response.data;
+      sessionStorage.setItem('user', JSON.stringify({ id, username, role }));
+      const userDataString = sessionStorage.getItem('user');
+      console.log('userDataString:', userDataString);
       history.push('/');
     } catch (error) {
       console.error('Error submitting form:', error.response.data);
-      // Handle login failure, display error message, etc.
+      
     }
   };
+
   return (
     <div className='wrapper'>
             <div className='transWrapper'>

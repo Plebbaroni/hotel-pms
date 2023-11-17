@@ -17,6 +17,7 @@ body{
     background: none;
     width: 50px;
     height: 30px;
+    cursor: pointer;
 }
 
 .Title>a>button:hover{
@@ -62,6 +63,7 @@ body{
     color: #fff;
     background-color: #15883e;
     height: 48px;
+    cursor: pointer;
 }
 
 .ButtonDiv > button:hover{

@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mysql = require('mysql2');
 const bcrypt = require('bcrypt');
-
+const session = require('express-session');
 const app = express();
 const port = 3001;
 
@@ -20,7 +20,19 @@ db.connect(function(err){
   }
 })
 
-app.use(cors());
+app.use(
+  session({
+    secret: 'j03m4m4t3mpk3y', 
+    resave: false,
+    saveUninitialized: true,
+    cookie: { 
+      secure: false,
+      expires: 60000
+    }, 
+  })
+);
+
+app.use(cors()); 
 app.use(bodyParser.json());
 
 app.post('/register', async (req, res) => {
@@ -72,7 +84,12 @@ app.post('/login', (req, res) => {
       } else if (result.length > 0) {
         bcrypt.compare(password, result[0].password, (err, match) => {
           if (match) {
-            res.status(200).send('Login successful');
+            req.session.user = {
+              id: result[0].id,
+              username: result[0].username,
+              role: result[0].role,
+            };
+            res.status(200).send(req.session.user);
           } else {
             res.status(401).send('Incorrect password');
           }
@@ -94,6 +111,14 @@ app.get('/roomdata', (req, res) => {
     }
   })
 })
+
+app.get('/check-auth', (req, res) => {
+  if (req.session && req.session.user) {
+    res.status(200).json({ user: req.session.user });
+  } else {
+    res.status(401).json({ user: null });
+  }
+});
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

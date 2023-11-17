@@ -1,4 +1,6 @@
-
+.cardLink{
+    color: black;
+}
 
 .roomListDiv{
     border: solid 1px;
@@ -17,6 +19,7 @@
     display: flex;
     align-items: center;
     background-color: white;
+    cursor: pointer;
 }
 
 .roomCard:last-child{
