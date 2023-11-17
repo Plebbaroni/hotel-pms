@@ -112,6 +112,17 @@ app.get('/roomdata', (req, res) => {
   })
 })
 
+app.get('/indivroomdata', (req, res) => {
+  const query = 'SELECT * FROM Room_Type';
+  db.query(query, (err, results) => {
+    if(err){
+      console.log(err);
+    }else{
+      res.json(results);
+    }
+  })
+})
+
 app.get('/check-auth', (req, res) => {
   if (req.session && req.session.user) {
     res.status(200).json({ user: req.session.user });

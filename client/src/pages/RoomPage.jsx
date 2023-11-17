@@ -3,7 +3,7 @@ import {useParams} from 'react-router-dom'
 
 function RoomPage({RoomType, RoomDescription}) {
   const params = useParams();
-  console.log(params)
+  
 
 
   return (
