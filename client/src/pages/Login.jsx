@@ -4,7 +4,7 @@ import {Link, useHistory } from 'react-router-dom'
 import {useAuth} from '../contexts/AuthContext.jsx';
 import axios from 'axios';
 
-function Login() {
+const Login = ({ onLogin }) => {
   const history = useHistory();
   const {dispatch } = useAuth();
   const [formData, setFormData] = useState({
@@ -19,21 +19,26 @@ function Login() {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    const handleSubmit = async (e) => {
+      e.preventDefault();
 
-    try {
-      const response = await axios.post('http://localhost:3001/login', formData);
-      const { id, username, role } = response.data;
-      sessionStorage.setItem('user', JSON.stringify({ id, username, role }));
-      const userDataString = sessionStorage.getItem('user');
-      console.log('userDataString:', userDataString);
-      history.push('/');
-    } catch (error) {
-      console.error('Error submitting form:', error.response.data);
-      
-    }
-  };
+      try {
+        const response = await axios.post('http://localhost:3001/login', formData);
+        const { id, username, role } = response.data;
+        sessionStorage.setItem('user', JSON.stringify({ id, username, role }));
+        const userDataString = sessionStorage.getItem('user');
+        console.log('userDataString:', userDataString);
+        const userData = userDataString ? JSON.parse(userDataString) : {};
+        if(userData.role === "Customer"){
+          history.push('/')
+        }else if(userData.role === "Employee"){
+          history.push('/Employee')
+        }
+      } catch (error) {
+        console.error('Error submitting form:', error.response.data);
+        
+      }
+    };
 
   return (
     <div className='wrapper'>

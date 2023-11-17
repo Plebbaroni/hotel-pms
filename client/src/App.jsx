@@ -10,24 +10,58 @@ import AboutUs from "./pages/AboutUs.jsx"
 import Amenities from "./pages/Amenities.jsx"
 import Reservationpage from "./pages/Reservationpage.jsx"
 import RoomPage from "./pages/RoomPage.jsx"
+import EmployeeNavbar from "./components/EmployeeNavbar"
+import EmployeePage from "./pages/EmployeePage.jsx"
 
 function App() {
   const userDataString = sessionStorage.getItem('user');
   const userData = userDataString ? JSON.parse(userDataString) : {};
   
+
   return (
     <>
-          <Navbar/>
-          <Switch>
-            <Route path="/" exact component={Homepage}/>
-            <Route path="/Login" component = {Login}/>
-            <Route path="/Signup" component = {Signup}/>
-            <Route path="/RoomsList" component={RoomsList}/>
-            <Route path="/AboutUs" component={AboutUs}/>
-            <Route path="/Amenities" component={Amenities}/>
-            <Route path="/Reservationpage" component={Reservationpage}/>
-            <Route path="/room/:roomType" component={RoomPage} />
-          </Switch>
+      <Switch>
+          <Route path="/" exact>
+            <Navbar />
+            <Homepage/>
+          </Route>
+          <Route path="/Login">
+            <Navbar />
+            <Login/>
+          </Route>
+          <Route path="/Signup">
+            <Navbar />
+            <Signup/>
+          </Route>
+          <Route path="/RoomsList">
+            <Navbar />
+            <RoomsList/>
+          </Route>
+          <Route path="/Reservationpage">
+            <Navbar />
+            <Reservationpage/>
+          </Route>
+          <Route path="/AboutUs">
+            <Navbar />
+            <AboutUs/>
+          </Route>
+          <Route path="/Amenities">
+            <Navbar />
+            <Amenities/>
+          </Route>
+          <Route path="/RoomsList">
+            <Navbar />
+            <RoomsList/>
+          </Route>
+          <Route path="/room/:roomType">
+            <Navbar/>
+            <RoomPage/>
+          </Route>
+          <Route path="/Employee">
+            <EmployeeNavbar/>
+            <EmployeePage/>
+          </Route>
+      </Switch>
     </>
   )
 }
