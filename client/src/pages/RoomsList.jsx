@@ -29,7 +29,7 @@ function RoomsList() {
             <div className='roomListDiv'>
                 <center>
                     {roomData.map(item => (
-                        <Link key={item.room_type} to={`/room/${item.room_type}`} state={{room_type: item.room_type}}className="cardLink">
+                       <Link key={item.room_type} to={`/room/${item.room_type}`} state={{room_type: item.room_type}} className="cardLink">
                             <RoomCard key={item.room_type} TypeRoom={item.room_type} DescriptionRoom={item.room_description} RoomOccMin={item.min_number_of_occupants} RoomOccMax={item.max_number_of_occupants} />
                         </Link>
                     ))}

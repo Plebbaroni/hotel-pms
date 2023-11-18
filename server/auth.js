@@ -114,6 +114,27 @@ app.get('/roomdata', (req, res) => {
   })
 })
 
+app.get('/getRoomData/:roomType', (req, res) => {
+  const roomType = req.params.roomType;
+  const query = `SELECT * FROM Room_Type WHERE room_type = ?`;
+
+  db.query(query, [roomType], (error, results) => {
+    if (error) {
+      console.log(error);
+      res.status(500).json({ error: 'Internal server error' });
+      return;
+    }
+
+    if (results.length > 0) {
+      console.log(results);
+      res.json(results[0]);
+    } else {
+      console.log(error);
+      res.status(404).json({ error: 'Room not found' });
+    }
+  });
+});
+
 app.get('/indivroomdata', (req, res) => {
   const query = 'SELECT * FROM Room_Type';
   db.query(query, (err, results) => {
