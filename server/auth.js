@@ -10,7 +10,7 @@ const port = 3001;
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "Joemamadb!", 
+  password: "", 
   database: "hoteldb"
 });
 
@@ -134,4 +134,3 @@ app.get('/check-auth', (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
-

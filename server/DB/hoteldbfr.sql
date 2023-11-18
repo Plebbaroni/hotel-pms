@@ -1,15 +1,3 @@
-CREATE TABLE `Booking` (
-  `booking_id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `room_number` int NOT NULL,
-  `number_of_guests_adult` int NOT NULL,
-  `number_of_guests_children` int NOT NULL,
-  `first_name` varchar(50) NOT NULL,
-  `last_name` varchar(50) NOT NULL,
-  `check_in_date` date NOT NULL,
-  `check_out_date` date NOT NULL,
-  `customer_id` int NOT NULL,
-  `created_at` timestamp NOT NULL
-);
 
 CREATE TABLE `Checkout_Balance` (
   `current_balance` float PRIMARY KEY NOT NULL,
@@ -59,6 +47,19 @@ CREATE TABLE `Room_Type` (
   `max_number_of_occupants_adults` int NOT NULL,
   `max_number_of_occupants_children` int NOT NULL,
   `room_description` text
+);
+
+CREATE TABLE `Booking` (
+  `booking_id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `room_number` int NOT NULL,
+  `number_of_guests_adult` int NOT NULL,
+  `number_of_guests_children` int NOT NULL,
+  `first_name` varchar(50) NOT NULL,
+  `last_name` varchar(50) NOT NULL,
+  `check_in_date` date NOT NULL,
+  `check_out_date` date NOT NULL,
+  `customer_id` int NOT NULL,
+  `created_at` timestamp NOT NULL
 );
 
 CREATE TABLE `Tenant` (
