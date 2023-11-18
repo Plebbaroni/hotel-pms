@@ -33,6 +33,8 @@ const Login = ({ onLogin }) => {
           history.push('/')
         }else if(userData.role === "Employee"){
           history.push('/Employee')
+        }else if(userData.role === "Admin"){
+          history.push('/Admin')
         }
       } catch (error) {
         console.error('Error submitting form:', error.response.data);

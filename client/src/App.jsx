@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import ProtectedRouteEmployee from './contexts/ProtectedRouteEmployee'
+import ProtectedRouteAdmin from './contexts/ProtectedRouteAdmin'
 import Navbar from "./components/Navbar"
 import Signup from "./pages/Signup.jsx"
 import Homepage from "./pages/Homepage"
@@ -60,6 +61,7 @@ function App() {
             <RoomPage/>
           </Route>
           <ProtectedRouteEmployee path="/Employee" component={EmployeePage}/>
+          <ProtectedRouteAdmin path="/Admin" component={EmployeePage}/>
           <ProtectedRouteEmployee path="/Housekeeping" component={EmployeePageInventory}/>
           <ProtectedRouteEmployee path="/Inventory" component={EmployeePageHousekeeping}/>
       </Switch>
