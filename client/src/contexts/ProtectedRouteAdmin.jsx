@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-const ProtectedRoute = ({ component: Component, ...rest }) => {
+const ProtectedRouteAdmin = ({ component: Component, ...rest }) => {
   // Retrieve user data from sessionStorage
   const userDataString = sessionStorage.getItem('user');
 
@@ -9,7 +9,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
   const userData = userDataString ? JSON.parse(userDataString) : {};
 
   // Check if user is authenticated based on the parsed data
-  const isCustomer = !!userData.id && userData.role === 'customer';
+  const isCustomer = !!userData.id && userData.role === 'Admin';
 
   return (
     <Route
@@ -25,4 +25,4 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
   );
 };
 
-export default ProtectedRoute;
+export default ProtectedRouteAdmin;

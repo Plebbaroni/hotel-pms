@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import ProtectedRoute from './contexts/ProtectedRoute'
+import ProtectedRouteEmployee from './contexts/ProtectedRouteEmployee'
 import Navbar from "./components/Navbar"
 import Signup from "./pages/Signup.jsx"
 import Homepage from "./pages/Homepage"
@@ -57,10 +57,7 @@ function App() {
             <Navbar/>
             <RoomPage/>
           </Route>
-          <Route path="/Employee">
-            <EmployeeNavbar/>
-            <EmployeePage/>
-          </Route>
+          <ProtectedRouteEmployee path="/Employee" component={EmployeePage}/>
       </Switch>
     </>
   )
