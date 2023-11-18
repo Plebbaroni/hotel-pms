@@ -48,7 +48,7 @@ const Login = ({ onLogin }) => {
                             <p className='loginHeader'>Log In</p>
                             <form action="submit" className='loginForm'>
                                 <input type="text" name="username" id=""  onChange={handleChange} placeholder="Username" className='inputFormLogin'/>
-                                <input type="text" name="password" id=""  onChange={handleChange} placeholder="Password" className='inputFormLogin'/>
+                                <input type="password" name="password" id=""  onChange={handleChange} placeholder="Password" className='inputFormLogin'/>
                             </form>
                                 <p className='joeText'>Don't have an account?<Link to="/Signup"> Sign Up</Link></p>
                             <button className='loginButton' onClick={handleSubmit}>Log In</button>
