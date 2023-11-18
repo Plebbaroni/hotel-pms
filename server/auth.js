@@ -83,6 +83,8 @@ app.post('/login', (req, res) => {
         res.status(500).send('Error fetching user');
       } else if (result.length > 0) {
         bcrypt.compare(password, result[0].password, (err, match) => {
+          console.log(password)
+          console.log(result[0].password)
           if (match) {
             req.session.user = {
               id: result[0].id,
