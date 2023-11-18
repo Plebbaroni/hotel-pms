@@ -12,6 +12,8 @@ import Reservationpage from "./pages/Reservationpage.jsx"
 import RoomPage from "./pages/RoomPage.jsx"
 import EmployeeNavbar from "./components/EmployeeNavbar"
 import EmployeePage from "./pages/EmployeePage.jsx"
+import EmployeePageInventory from "./pages/EmployeePageInventory.jsx"
+import EmployeePageHousekeeping from "./pages/EmployeePageHousekeeping.jsx"
 
 function App() {
   const userDataString = sessionStorage.getItem('user');
@@ -58,6 +60,8 @@ function App() {
             <RoomPage/>
           </Route>
           <ProtectedRouteEmployee path="/Employee" component={EmployeePage}/>
+          <ProtectedRouteEmployee path="/Housekeeping" component={EmployeePageInventory}/>
+          <ProtectedRouteEmployee path="/Inventory" component={EmployeePageHousekeeping}/>
       </Switch>
     </>
   )

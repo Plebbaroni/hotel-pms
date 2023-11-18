@@ -1,0 +1,15 @@
+.employeeSidebarWrapper{
+    height: 80%;
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebarThingy{
+    border: 1px solid black;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 0;
+}

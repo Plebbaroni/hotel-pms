@@ -2,7 +2,7 @@ import React from 'react'
 import EmployeeNavbar from '../components/EmployeeNavbar.jsx'
 import EmployeeSidebar from '../components/EmployeeSidebar.jsx'
 import "../css/EmployeePage.css"
-import OccupancyOverview from '../components/OccupancyOverview.jsx'
+import HousekeepingOverview from '../components/HousekeepingOverview.jsx'
 
 function EmployeePage() {
   return (
@@ -10,7 +10,7 @@ function EmployeePage() {
       <EmployeeNavbar/>
       <div className='employeePageMain'>
         <EmployeeSidebar/>
-        <OccupancyOverview/>
+        <HousekeepingOverview/>
       </div>
     </div>
   )
