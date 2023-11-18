@@ -8,7 +8,7 @@ CREATE TABLE `Booking` (
   `check_in_date` date NOT NULL,
   `check_out_date` date NOT NULL,
   `customer_id` int NOT NULL,
-  `created_at` timestamp NOT NULL
+  `created_at` timestamp NOT NULL DEFAULT (CURRENT_TIMESTAMP)
 );
 
 CREATE TABLE `Checkout_Balance` (
@@ -40,7 +40,7 @@ CREATE TABLE `Inventory_Order` (
   `item_quantity` int NOT NULL,
   `item_price` float NOT NULL,
   `tenant_id` int NOT NULL,
-  `created_at` timestamp NOT NULL
+  `created_at` timestamp NOT NULL DEFAULT (CURRENT_TIMESTAMP)
 );
 
 CREATE TABLE `Room` (
@@ -54,10 +54,8 @@ CREATE TABLE `Room_Type` (
   `room_type` varchar(50) PRIMARY KEY NOT NULL,
   `room_rate` float DEFAULT NULL,
   `room_images` tinyblob,
-  `min_number_of_occupants_adults` int NOT NULL,
-  `min_number_of_occupants_children` int NOT NULL,
-  `max_number_of_occupants_adults` int NOT NULL,
-  `max_number_of_occupants_children` int NOT NULL,
+  `min_number_of_occupants` int NOT NULL,
+  `max_number_of_occupants` int NOT NULL,
   `room_description` text
 );
 
@@ -73,13 +71,13 @@ CREATE TABLE `Tenant` (
 CREATE TABLE `User_Account` (
   `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
-  `password` varchar(20) NOT NULL,
+  `password` varchar(200) NOT NULL,
   `first_name` varchar(50) NOT NULL,
   `last_name` varchar(50) NOT NULL,
   `phone_number` int NOT NULL,
   `email` varchar(50) NOT NULL,
   `role` ENUM ('Employee', 'Customer', 'Admin') NOT NULL DEFAULT "Customer",
-  `created_at` timestamp NOT NULL
+  `created_at` timestamp NOT NULL DEFAULT (CURRENT_TIMESTAMP)
 );
 
 CREATE INDEX `fk_booking_room_type` ON `Booking` (`room_number`);
