@@ -9,7 +9,7 @@ const ProtectedRouteEmployee = ({ component: Component, ...rest }) => {
   const userData = userDataString ? JSON.parse(userDataString) : {};
 
   // Check if user is authenticated based on the parsed data
-  const isCustomer = !!userData.id && userData.role === 'Employee';
+  const isCustomer = !!userData.id && (userData.role === 'Employee' || userData.role === 'Admin');
 
   return (
     <Route
