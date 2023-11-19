@@ -9,7 +9,7 @@ function RoomPage(props) {
   console.log(params);
   
   useEffect(() => {
-    axios.get(`http://localhost:3001/getRoomData/${params.roomType}`)
+    axios.get(`http://localhost:3001/room/getRoomData/${params.roomType}`)
       .then((response) => {
         console.log('Response Data:', response.data);
         setRoomData(response.data);

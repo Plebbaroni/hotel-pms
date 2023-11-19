@@ -14,7 +14,7 @@ function RoomsList() {
 
     const fetchData = async () => {
         try{
-            const response = await axios.get('http://localhost:3001/roomdata');
+            const response = await axios.get('http://localhost:3001/room/roomdata');
             console.log(response);
             setRoomData(response.data);
         }catch(err){

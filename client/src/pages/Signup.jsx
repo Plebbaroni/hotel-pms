@@ -59,7 +59,7 @@ function Signup(){
 
       if(!(pwdError||emailErr||firstNErr||lastNErr||userNErr||phoneErr)){
         try {
-          const response = await axios.post('http://localhost:3001/register', formData);
+          const response = await axios.post('http://localhost:3001/user/register', formData);
           console.log(response.data);
           history.push('/Login');
         } catch (error) {

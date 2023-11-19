@@ -23,7 +23,7 @@ const Login = ({ onLogin }) => {
       e.preventDefault();
 
       try {
-        const response = await axios.post('http://localhost:3001/login', formData);
+        const response = await axios.post('http://localhost:3001/user/login', formData);
         const { id, username, role } = response.data;
         sessionStorage.setItem('user', JSON.stringify({ id, username, role }));
         const userDataString = sessionStorage.getItem('user');
