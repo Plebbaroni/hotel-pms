@@ -30,3 +30,8 @@ center > button{
 center > p{
     font-size: larger;
 }
+
+.roomDataDiv{
+    display: flex;
+    justify-content: center;
+}

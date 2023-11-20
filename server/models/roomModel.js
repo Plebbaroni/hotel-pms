@@ -26,6 +26,36 @@ const roomModel = {
       });
     });
   },
+
+    checkRoomExists: async (room_number) => {
+      return new Promise((resolve, reject) => {
+        db.query('SELECT * FROM room WHERE room_number = ?', [room_number], (err, result) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(result.length > 0);
+          }
+        });
+      });
+    },
+
+    addRoom: async (roomData) => {
+      const {roomnumber, roomfloor, roomtype} = roomData;
+      console.log(roomfloor)
+      return new Promise((resolve, reject) => {
+        db.query(
+          "INSERT INTO room (room_number, floor_number, room_type) VALUES (?, ?, ?)",
+          [roomnumber, roomfloor, roomtype],
+          (err, result) => {
+            if(err){
+              reject(err)
+            }else{
+              resolve(result);
+            }
+          }
+        )
+      })
+    }
 };
 
 module.exports = roomModel;

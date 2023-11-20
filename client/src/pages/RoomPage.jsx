@@ -26,14 +26,16 @@ function RoomPage(props) {
       <center>
         <img src="" alt="" width={"90%"} height={"500"}/>
         <br />
-        {Object.keys(roomData).length > 0 ? (
-          <>
-            <p>{roomData.min_number_of_occupants || "N/A"}</p>
-            <p>{roomData.max_number_of_occupants || "N/A"}</p>
-          </>
-        ) : (
-          <p>Loading...</p>
-        )}
+        <div className='roomDataDiv'>
+          {Object.keys(roomData).length > 0 ? (
+            <>
+              <p>min: {roomData.min_number_of_occupants || "N/A"} </p>
+              <p>max: {roomData.max_number_of_occupants || "N/A"} </p>
+            </>
+          ) : (
+            <p>Loading...</p>
+          )}
+        </div>
         <button>Book Now</button>
       </center>
     </div>

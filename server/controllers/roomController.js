@@ -27,6 +27,27 @@ const roomController = {
       res.status(500).json({ error: 'Internal server error' });
     }
   },
+
+  addRoom: async (req, res) => {
+    const{roomnumber, roomfloor, roomtype} = req.body;
+    try{
+      const roomExists = await roomModel.checkRoomExists(roomnumber);
+      if(roomExists){
+        res.status(409).send('Room already exists');
+      }else{
+        console.log(req.body)
+        await roomModel.addRoom({
+          roomnumber,
+          roomfloor,
+          roomtype
+        });
+        res.status(201).send('Room added!');
+      }
+    }catch(error){
+      console.error('Error:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  },
 };
 
 module.exports = roomController;
