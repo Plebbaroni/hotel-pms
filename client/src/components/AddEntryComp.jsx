@@ -73,14 +73,15 @@ function AddEntryComp() {
       <div className='addInvDiv'>
         <h1>Add Inventory</h1>
         <form action="submit">
-          <input type="text" />
-          <input type="text" />
-          <input type="text" />
-          <select name="" id="">
-            <option value="" disabled selected></option>
-            <option value=""></option>
-            <option value=""></option>
+          <input type="text" name="itemname" placeholder='Item Name' onChange={handleChangeItem}/>
+          <input type="number" name="itemprice" placeholder='Item Price' onChange={handleChangeItem}/>
+          <input type="number" name="itemquantity" placeholder='Item Quantity' onChange={handleChangeItem}/>
+          <select name="isperishable" id="" onChange={handleChangeItem} value={inventoryFormData.isperishable}>
+            <option value="" disabled selected>Perishable?</option>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
           </select>
+          <button onClick={handleItemSubmit}>Add Item</button>
         </form>
       </div>
     </div>
