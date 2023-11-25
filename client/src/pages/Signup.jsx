@@ -28,6 +28,14 @@ function Signup(){
     };
 
     const handleSubmit = async (e) => {
+      setUserNErr(false);
+      setPwdError(false);
+      setFirstNErr(false);
+      setFirstNErr(false);
+      setLastNErr(false);
+      setEmailErr(false);
+      setPhoneErr(false);
+
       e.preventDefault();
       const emailRegEx=new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
       const passwRegEx=new RegExp('^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$');
