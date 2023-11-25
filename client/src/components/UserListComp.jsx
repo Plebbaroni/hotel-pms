@@ -149,10 +149,34 @@ function UserListComp() {
           onChange={(e) => setSelectedUser({ ...selectedUser, email: e.target.value })}
         />
       </div>
-    </form>
-  ) : (
-    <p>No user selected</p>
-  )}
+      <div className="form-group">
+        <label htmlFor="number">Phone Number:</label>
+        <input
+          type="text"
+          className="form-control"
+          id="phonenumber"
+          value={selectedUser.phone_number}
+          onChange={(e) => setSelectedUser({ ...selectedUser, phone_number: e.target.value })}
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="role">Role:</label>
+        <select
+          className="form-control"
+          id="role"
+          value={selectedUser.role}
+          onChange={(e) => setSelectedUser({ ...selectedUser, role: e.target.value })}
+        >
+        <option value="Customer">Customer</option>
+        <option value="Employee">Employee</option>
+        <option value="Admin">Admin</option>
+        </select>
+      </div>
+
+      </form>
+    ) : (
+      <p>No user selected</p>
+    )}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseEditModal}>
