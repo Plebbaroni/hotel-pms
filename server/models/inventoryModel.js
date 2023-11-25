@@ -5,7 +5,7 @@ const inventoryModel = {
 
     getAllItems: async (req, res) => {
       return new Promise((resolve, reject) => {
-        const query = 'SELECT * from inventory_item';
+        const query = 'SELECT * from inventory_item WHERE is_deleted = 0';
         db.query(query, (err, results) => {
           if(err){
             reject(err);
@@ -18,7 +18,7 @@ const inventoryModel = {
 
     checkItemExists: async (itemname) => {
         return new Promise((resolve, reject) => {
-          db.query('SELECT * FROM inventory_item WHERE item_name = ?', [itemname], (err, result) => {
+          db.query('SELECT * FROM inventory_item WHERE item_name = ? AND is_deleted = 0', [itemname], (err, result) => {
             if (err) {
               reject(err);
             } else {

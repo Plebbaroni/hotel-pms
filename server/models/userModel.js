@@ -4,7 +4,7 @@ const userModel = {
 
   getAllUsers: async (req, res) => {
     return new Promise((resolve, reject) => {
-      const query = 'SELECT * from user_account';
+      const query = 'SELECT * from user_account WHERE is_deleted = 0';
       db.query(query, (err, results) => {
         if(err){
           reject(err);
@@ -15,15 +15,22 @@ const userModel = {
     })
   },
 
-  // deleteUser: async (id) -> {
-  //   return new Promise((resolve, reject) => {
-  //     const query = 'UPDATE user_account SET (username, password, first_name, last_name, phone_number, email, role) VALUES ("NULL")'
-  //   })
-  // },
+  deleteUser: async (id) => {
+    return new Promise((resolve, reject) => {
+      const query = 'UPDATE user_account SET is_deleted = 1 WHERE id = ?'
+      db.query(query, id, (err, result) =>{
+        if(err){
+          reject(err)
+        }else{
+          resolve(result)
+        }
+      })
+    })
+  },
 
   checkUsernameExists: async (username) => {
     return new Promise((resolve, reject) => {
-      db.query('SELECT * FROM User_Account WHERE username = ?', [username], (err, result) => {
+      db.query('SELECT * FROM User_Account WHERE username = ? AND is_deleted = 0', [username], (err, result) => {
         if (err) {
           reject(err);
         } else {

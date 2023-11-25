@@ -4,7 +4,7 @@ const roomModel = {
 
   getHousekeeping: () => {
     return new Promise((resolve, reject) => {
-      const query = 'SELECT * FROM room WHERE room_status = "Needs Maintenance"';
+      const query = 'SELECT * FROM room WHERE room_status = "Needs Maintenance" AND is_deleted = 0';
       db.query(query, (err, results) => {
         if (err) {
           reject(err);
@@ -17,7 +17,7 @@ const roomModel = {
 
   getAllRooms: async (req, res) => {
     return new Promise((resolve, reject) => {
-      const query = 'SELECT * from room';
+      const query = 'SELECT * from room WHERE is_deleted = 0';
       db.query(query, (err, results) => {
         if(err){
           reject(err);
@@ -30,7 +30,7 @@ const roomModel = {
   
   getAllRooms: async (req, res) => {
     return new Promise((resolve, reject) => {
-      const query = 'SELECT * from room';
+      const query = 'SELECT * from room WHERE is_deleted = 0';
       db.query(query, (err, results) => {
         if(err){
           reject(err);
@@ -69,7 +69,7 @@ const roomModel = {
 
     checkRoomExists: async (room_number) => {
       return new Promise((resolve, reject) => {
-        db.query('SELECT * FROM room WHERE room_number = ?', [room_number], (err, result) => {
+        db.query('SELECT * FROM room WHERE room_number = ? AND is_deleted = 0', [room_number], (err, result) => {
           if (err) {
             reject(err);
           } else {
