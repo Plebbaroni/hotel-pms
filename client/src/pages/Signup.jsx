@@ -66,12 +66,6 @@ function Signup(){
           console.error('Error submitting form:', error.response.data);
         }
       }
-      setEmailErr(false)
-      setFirstNErr(false)
-      setLastNErr(false)
-      setPhoneErr(false)
-      setPwdError(false)
-      setUserNErr(false)
     };
 
   return (
@@ -81,18 +75,20 @@ function Signup(){
                     <div className='signupCard'>
                             <p className='signupHeader'>Sign Up</p>
                             <form action="submit" className='signupForm' autoComplete='off'>
-                                <input type="text" name="username" id=""  onChange={handleChange} placeholder="Username" className='inputFormSignup'/>
-                                {userNErr&&<span style={{color:"red"}}>Please enter a username</span>}
-                                <input type="password" name="password" id=""  onChange={handleChange} placeholder="Password" className='inputFormSignup'/>
-                                {pwdError&&<span style={{color:"red"}}>Please enter a password</span>}
-                                <input type="text" name="firstName" id=""  onChange={handleChange} placeholder="First Name" className='inputFormSignup'/>
-                                {firstNErr&&<span style={{color:"red"}}>Please enter your first name</span>}
-                                <input type="text" name="lastName" id=""  onChange={handleChange} placeholder="Last Name" className='inputFormSignup'/>
-                                {lastNErr&&<span style={{color:"red"}}>Please enter your last name</span>}
-                                <input type="text" name="phoneNumber" id=""  onChange={handleChange} placeholder="Phone Number" className='inputFormSignup'/>
-                                {phoneErr&&<span style={{color:"red"}}>Please enter your phone number</span>}
-                                <input type="email" name="email" id=""  onChange={handleChange} placeholder="Email" className='inputFormSignup'/>
-                                {emailErr&&<span style={{color:"red"}}>Please enter valid Email Address</span>}
+                                <input type="text" name="username" id=""  onChange={handleChange} placeholder="Username" className={userNErr ? "Red" : "inputFormSignup"}/>                               
+                                <input type="password" name="password" id=""  onChange={handleChange} placeholder="Password" className={pwdError ? "Red" : "inputFormSignup"}/>
+                                <span style={{color:"red"}}>{userNErr&&"Please enter a username"}</span>
+                                <span style={{color:"red"}}>{pwdError&&"Please enter a password"}</span>
+
+                                <input type="text" name="firstName" id=""  onChange={handleChange} placeholder="First Name" className={firstNErr ? "Red" : "inputFormSignup"}/>
+                                <input type="text" name="lastName" id="" onChange={handleChange} placeholder="Last Name" className={lastNErr ? "Red" : "inputFormSignup"}/>
+                                <span style={{color:"red"}}>{firstNErr&&"Please enter your first name"}</span>
+                                <span style={{color:"red"}}>{lastNErr&&"Please enter your last name"}</span>     
+
+                                <input type="text" name="phoneNumber" id="" onChange={handleChange} placeholder="Phone Number" className={phoneErr ? "Red" : "inputFormSignup"}/>
+                                <input type="email" name="email" id=""  onChange={handleChange} placeholder="Email" className={emailErr ? "Red" : "inputFormSignup"}/>
+                                <span style={{color:"red"}}>{phoneErr&&"Please enter your phone number"}</span>
+                                <span style={{color:"red"}}>{emailErr&&"Please enter valid Email Address"}</span>                                              
                             </form>
                                 <p className='joeText'>Already have an account?<Link to="/Login"> Log In</Link></p>
                             <button className='signupButton' onClick={handleSubmit}>Sign Up</button>
