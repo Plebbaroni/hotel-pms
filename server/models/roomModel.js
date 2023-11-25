@@ -1,7 +1,47 @@
 const db = require('../db');
 
 const roomModel = {
-  getAllRooms: async () => {
+
+  getHousekeeping: () => {
+    return new Promise((resolve, reject) => {
+      const query = 'SELECT * FROM room WHERE room_status = "Needs Maintenance"';
+      db.query(query, (err, results) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(results);
+        }
+      });
+    });
+  },
+
+  getAllRooms: async (req, res) => {
+    return new Promise((resolve, reject) => {
+      const query = 'SELECT * from room';
+      db.query(query, (err, results) => {
+        if(err){
+          reject(err);
+        }else{
+          resolve(results);
+        }
+      })
+    })
+  },
+  
+  getAllRooms: async (req, res) => {
+    return new Promise((resolve, reject) => {
+      const query = 'SELECT * from room';
+      db.query(query, (err, results) => {
+        if(err){
+          reject(err);
+        }else{
+          resolve(results);
+        }
+      })
+    })
+  },
+
+  getAllRoomTypes: async () => {
     return new Promise((resolve, reject) => {
       const query = 'SELECT * FROM Room_Type';
       db.query(query, (err, results) => {

@@ -48,7 +48,7 @@ const Login = ({ onLogin }) => {
                 <div className='loginWrapper'>
                     <div className='loginCard'>
                             <p className='loginHeader'>Log In</p>
-                            <form action="submit" className='loginForm'>
+                            <form action="submit" className='loginForm' autoComplete='off'>
                                 <input type="text" name="username" id=""  onChange={handleChange} placeholder="Username" className='inputFormLogin'/>
                                 <input type="password" name="password" id=""  onChange={handleChange} placeholder="Password" className='inputFormLogin'/>
                             </form>

@@ -80,7 +80,7 @@ function Signup(){
                 <div className='signupWrapper'>
                     <div className='signupCard'>
                             <p className='signupHeader'>Sign Up</p>
-                            <form action="submit" className='signupForm'>
+                            <form action="submit" className='signupForm' autoComplete='off'>
                                 <input type="text" name="username" id=""  onChange={handleChange} placeholder="Username" className='inputFormSignup'/>
                                 {userNErr&&<span style={{color:"red"}}>Please enter a username</span>}
                                 <input type="password" name="password" id=""  onChange={handleChange} placeholder="Password" className='inputFormSignup'/>

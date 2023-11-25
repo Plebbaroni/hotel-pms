@@ -63,11 +63,11 @@ function App() {
             <RoomPage/>
           </Route>
           <ProtectedRouteEmployee path="/Employee" component={EmployeePage}/>
-          <ProtectedRouteAdmin path="/Admin" component={EmployeePage}/>
+          <ProtectedRouteAdmin path="/Admin" component  ={EmployeePage}/>
           <ProtectedRouteAdmin path="/UserList" component={UserList}/>
           <ProtectedRouteAdmin path="/AddEntry" component={AddEntry}/>
-          <ProtectedRouteEmployee path="/Housekeeping" component={EmployeePageInventory}/>
-          <ProtectedRouteEmployee path="/Inventory" component={EmployeePageHousekeeping}/>
+          <ProtectedRouteEmployee path="/Housekeeping" component={EmployeePageHousekeeping}/>
+          <ProtectedRouteEmployee path="/Inventory" component={EmployeePageInventory}/>
       </Switch>
     </>
   )

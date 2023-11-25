@@ -45,7 +45,7 @@ function AddEntryComp() {
     e.preventDefault();
     console.log(inventoryFormData)
     try{
-      const response = await axios.post('', inventoryFormData)
+      const response = await axios.post('http://localhost:3001/inventory/addItem', inventoryFormData)
       console.log(response.data)
     }catch(error){
       console.error('Error submitting form:', error.response.data)
@@ -56,7 +56,7 @@ function AddEntryComp() {
     <div className='addEntryWrapper'>
       <div className='addRoomDiv'>
         <h1>Add Room</h1>
-        <form action="submit">
+        <form action="submit" autoComplete='off'>
           <input type="number" name="roomnumber" placeholder='Room Number' onChange={handleChangeRoom}/>
           <input type="number" name="roomfloor" placeholder='Room Floor' onChange={handleChangeRoom}/>
           <select name="roomtype" placeholder='Room Type' onChange={handleChangeRoom} value={roomFormData.roomtype}>
@@ -72,7 +72,7 @@ function AddEntryComp() {
       </div>
       <div className='addInvDiv'>
         <h1>Add Inventory</h1>
-        <form action="submit">
+        <form action="submit" autoComplete='off'>
           <input type="text" name="itemname" placeholder='Item Name' onChange={handleChangeItem}/>
           <input type="number" name="itemprice" placeholder='Item Price' onChange={handleChangeItem}/>
           <input type="number" name="itemquantity" placeholder='Item Quantity' onChange={handleChangeItem}/>

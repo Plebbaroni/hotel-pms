@@ -1,9 +1,30 @@
 const roomModel = require('../models/roomModel');
 
 const roomController = {
-  getAllRooms: async (req, res) => {
+  
+    getHousekeeping: async (req, res) => {
+      try {
+        const rooms = await roomModel.getHousekeeping();
+        res.status(200).json(rooms);
+      } catch (error) {
+        console.error('Error: ', error);
+        res.status(500).json({ error: 'Internal server error' });
+      }
+    },
+
+    getAllRooms: async (req, res) => {
+      try {
+        const rooms = await roomModel.getAllRooms();
+        res.status(200).json(rooms);
+      } catch (error) {
+        console.error('Error: ', error);
+        res.status(500).json({ error: 'Internal server error' });
+      }
+    },
+
+  getAllRoomTypes: async (req, res) => {
     try {
-      const rooms = await roomModel.getAllRooms();
+      const rooms = await roomModel.getAllRoomTypes();
       res.status(200).json(rooms);
     } catch (error) {
       console.error('Error:', error);

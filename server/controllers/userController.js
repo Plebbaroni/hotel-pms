@@ -2,6 +2,17 @@ const bcrypt = require('bcrypt');
 const userModel = require('../models/userModel');
 
 const userController = {
+
+  getAllUsers: async (req, res) => {
+    try{
+      const users = await userModel.getAllUsers();
+      res.status(200).json(users);
+    }catch(error){
+      console.error('Error: ', error);
+      res.status(500).json({error: 'Internal server error'});
+    }
+  },
+
   registerUser: async (req, res) => {
     const { username, password, firstName, lastName, phoneNumber, email } = req.body;
 
@@ -55,6 +66,26 @@ const userController = {
         });
       } else {
         res.status(404).send('User not found');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  },
+
+  logoutUser: (req, res) => {
+    try {
+      if (req.session) {
+        req.session.destroy((err) => {
+          if (err) {
+            console.error('Error destroying session:', err);
+            res.status(500).send('Internal Server Error');
+          } else {
+            res.status(200).send('Logout successful');
+          }
+        });
+      } else {
+        res.status(200).send('User not logged in');
       }
     } catch (error) {
       console.error('Error:', error);
