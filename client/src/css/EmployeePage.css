@@ -1,10 +1,33 @@
 .employeePageWrapper{
     height: 100%;
     width: 100%;
+    background-color: rgba(255, 255, 255, .7);
 }
 
 .employeePageMain{
     height: 80%;
     width: 100%;
     display: flex;
+}
+
+.floorcontent{
+    flex: 2;
+    background-color: white;
+    text-align: center;
+    margin: 50px;
+    outline: solid 2px;
+}
+
+.floorcontent > h1{
+    outline: solid 2px;
+}
+
+.floornumber{
+    float: left;
+    margin-left: 10px;
+}
+
+.floorbody{
+    max-height: 300px;
+    overflow-y: scroll;
 }
