@@ -15,6 +15,19 @@ const userModel = {
     })
   },
 
+  updateUser: async (id, updatedUserData) => {
+    return new Promise((resolve, reject) => {
+      const query = 'UPDATE user_account SET ? WHERE id = ?';
+      db.query(query, [updatedUserData, id], (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+    });
+  },
+
   deleteUser: async (id) => {
     return new Promise((resolve, reject) => {
       const query = 'UPDATE user_account SET is_deleted = 1 WHERE id = ?'

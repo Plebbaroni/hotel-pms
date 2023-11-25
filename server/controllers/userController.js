@@ -45,8 +45,26 @@ const userController = {
     }
   },
 
+  updateUser: async (req, res) => {
+    const userId = req.params.id; 
+    const updatedUserData = req.body;
+
+    try {
+      const result = await userModel.updateUser(userId, updatedUserData);
+
+      if (result.affectedRows > 0) {
+        res.status(200).json({ message: 'User updated successfully' });
+      } else {
+        res.status(404).json({ message: 'User not found' });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  },
+
   deleteUser: async (req, res) => {
-    const userId = req.params.id; // Assuming the user ID is in the request parameters
+    const userId = req.params.id; 
 
     try {
       const result = await userModel.deleteUser(userId);

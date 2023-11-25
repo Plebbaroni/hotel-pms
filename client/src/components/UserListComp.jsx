@@ -44,12 +44,22 @@ function UserListComp() {
   }
 
   const handleSaveEdit = async () => {
-    // Implement the logic to save the edited user data
-    // You may need to make a PUT request to update the user details
-    // After updating, close the modal and fetch the updated data
-    setShowEditModal(false);
-    setSelectedUser(null);
-    fetchData();
+    try {
+      // Assuming you have an API endpoint to update the user details
+      await axios.put(`http://localhost:3001/user/updateUser/${selectedUser.id}`, {
+        username: selectedUser.username,
+        first_name: selectedUser.first_name,
+        last_name: selectedUser.last_name,
+        email: selectedUser.email,
+        phone_number: selectedUser.phone_number,
+        role: selectedUser.role,
+      });
+      setShowEditModal(false);
+      setSelectedUser(null);
+      fetchData();
+    } catch (err) {
+      console.log(err);
+    }
   }
 
 
@@ -97,9 +107,52 @@ function UserListComp() {
           <Modal.Title>Edit User</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* Edit form components based on selectedUser */}
-          {/* For example: */}
-          {/* <input type="text" value={selectedUser.username} onChange={(e) => setSelectedUser({ ...selectedUser, username: e.target.value })} /> */}
+        {selectedUser ? (
+    <form>
+      <div className="form-group">
+        <label htmlFor="username">Username:</label>
+        <input
+          type="text"
+          className="form-control"
+          id="username"
+          value={selectedUser.username}
+          onChange={(e) => setSelectedUser({ ...selectedUser, username: e.target.value })}
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="firstName">First Name:</label>
+        <input
+          type="text"
+          className="form-control"
+          id="firstName"
+          value={selectedUser.first_name}
+          onChange={(e) => setSelectedUser({ ...selectedUser, first_name: e.target.value })}
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="lastName">Last Name:</label>
+        <input
+          type="text"
+          className="form-control"
+          id="lastName"
+          value={selectedUser.last_name}
+          onChange={(e) => setSelectedUser({ ...selectedUser, last_name: e.target.value })}
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="email">Email:</label>
+        <input
+          type="email"
+          className="form-control"
+          id="email"
+          value={selectedUser.email}
+          onChange={(e) => setSelectedUser({ ...selectedUser, email: e.target.value })}
+        />
+      </div>
+    </form>
+  ) : (
+    <p>No user selected</p>
+  )}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseEditModal}>
