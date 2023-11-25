@@ -29,8 +29,8 @@ function OccupancyOverview() {
     <div>
       {Object.entries(roomsByFloor).map(([floor, rooms]) => (
         <div key={floor}>
-          <h2>Floor {floor}</h2>
-          <table className="table table-striped table-bordered">
+          <h2 className='floornumber'>Floor {floor}</h2>
+          <table className="table table-striped table-bordered floorbody">
             <thead className="thead-dark">
               <tr>
                 <th>Room Number</th>
