@@ -5,7 +5,6 @@ import "../css/EmployeePage.css"
 import OccupancyOverview from '../components/OccupancyOverview.jsx'
 
 function EmployeePage() {
-
   function getCurrentDate(separator=''){
 
     let newDate = new Date()
@@ -22,8 +21,8 @@ function EmployeePage() {
       <div className='employeePageMain'>
         <EmployeeSidebar/>
         <div className='floorcontent'>
-            <h1>{getCurrentDate('/')}</h1>
-            <OccupancyOverview/>
+          <h1>{getCurrentDate('/')}</h1>
+          <OccupancyOverview/>
         </div>
       </div>
     </div>

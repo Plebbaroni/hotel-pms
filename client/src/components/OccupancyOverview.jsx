@@ -30,39 +30,19 @@ function OccupancyOverview() {
   return (
     <div className='occupancyWrapper'>
       {Object.entries(roomsByFloor).map(([floor, rooms]) => (
-        <div key={floor}>
-          <h2>Floor {floor}</h2>
-          <table className="table table-striped table-bordered">
-            <thead className="thead-dark">
-              <tr>
-                <th>Room Number</th>
-                <th>Room Type</th>
-                <th>Room Status</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
+        <div className='floorDiv'>
+        <h1 className='floorHeader'>Floor {floor}</h1>
+        <div key={floor} className='horizontalFloorWrapper'>
               {rooms.map(item => (
-                <tr key={item.room_number}>
-                  <td>{item.room_number}</td>
-                  <td>{item.room_type}</td>
-                  <td>{item.room_status}</td>
-                  <td>
-                    <button className="btn btn-sm btn-primary m1-2">
-                      View
-                    </button>
-                    <button className="btn btn-sm btn-secondary mr-2" >
-                      Edit
-                    </button>
-                    <button className="btn btn-sm btn-danger m1-2">
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                  <IndivRoomCard
+                  key={item.room_number}
+                  roomNumber={item.room_number}
+                  roomType={item.room_type}
+                  roomStatus={item.room_status}
+                />
+                ))}
         </div>
+      </div>
       ))}
     </div>
   );

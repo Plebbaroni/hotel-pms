@@ -30,7 +30,7 @@ function HousekeepingOverview() {
     <div>
       {Object.entries(roomsByFloor).map(([floor, rooms]) => (
         <div key={floor}>
-          <h2>Floor {floor}</h2>
+          <h2> Floor {floor}</h2>
               {rooms.map(item => (
                 <IndivRoomCard
                 key={item.room_number}
