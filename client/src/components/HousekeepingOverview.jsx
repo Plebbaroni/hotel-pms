@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
-
+import IndivRoomCard from "./IndivRoomCard.jsx"
 function HousekeepingOverview() {
 
   const [roomData, setRoomData] = useState([]);
@@ -31,36 +31,14 @@ function HousekeepingOverview() {
       {Object.entries(roomsByFloor).map(([floor, rooms]) => (
         <div key={floor}>
           <h2>Floor {floor}</h2>
-          <table className="table table-striped table-bordered">
-            <thead className="thead-dark">
-              <tr>
-                <th>Room Number</th>
-                <th>Room Type</th>
-                <th>Room Status</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
               {rooms.map(item => (
-                <tr key={item.room_number}>
-                  <td>{item.room_number}</td>
-                  <td>{item.room_type}</td>
-                  <td>{item.room_status}</td>
-                  <td>
-                    <button className="btn btn-sm btn-primary m1-2">
-                      View
-                    </button>
-                    <button className="btn btn-sm btn-secondary mr-2" >
-                      Edit
-                    </button>
-                    <button className="btn btn-sm btn-danger m1-2">
-                      Delete
-                    </button>
-                  </td>
-                </tr>
+                <IndivRoomCard
+                key={item.room_number}
+                roomNumber={item.room_number}
+                roomType={item.room_type}
+                roomStatus={item.room_status}
+              />
               ))}
-            </tbody>
-          </table>
         </div>
       ))}
     </div>

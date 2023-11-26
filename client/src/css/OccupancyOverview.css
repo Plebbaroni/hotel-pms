@@ -1,0 +1,12 @@
+.occupancyWrapper{
+    height: 100%;
+    width: 85%;   
+    overflow-y: scroll;
+    padding: 0.5%;
+    padding-left: 0.5%;
+}
+
+.horizontalFloorWrapper{
+    display: flex;
+    overflow-x: scroll;
+}
