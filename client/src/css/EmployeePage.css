@@ -1,3 +1,7 @@
+*{
+    box-sizing: border-box;
+}
+
 .employeePageWrapper{
     height: 100%;
     width: 100%;
@@ -20,21 +24,23 @@
     overflow: hidden;
 }
 
-.inventorycontent{
+.pagecontent{
     flex: 2;
     background-color: white;
     text-align: center;
     margin: 50px;
     outline: solid 2px;
     max-height: 93%;
+    min-height: 90%;
 }
 
-.inventorycontent > h1{
+.pagecontent > h1{
     margin-bottom: 0px;
     outline: solid 2px;
 }
 
 .tablewrapper{
+    min-height: inherit;
     max-height: inherit;
     overflow-y: scroll;
 }
