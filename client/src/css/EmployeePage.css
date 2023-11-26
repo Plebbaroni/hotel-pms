@@ -17,6 +17,7 @@
     text-align: center;
     margin: 50px;
     outline: solid 2px;
+    overflow: hidden;
 }
 
 .inventorycontent{
