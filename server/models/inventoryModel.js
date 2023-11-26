@@ -28,6 +28,32 @@ const inventoryModel = {
         });
       },
 
+      updateItem: async (id, updatedItemData) => {
+        return new Promise((resolve, reject) => {
+          const query = 'UPDATE inventory_item SET ? WHERE id = ?';
+          db.query(query, [updatedItemData, id], (err, result) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(result);
+            }
+          });
+        });
+      },
+    
+      deleteItem: async (id) => {
+        return new Promise((resolve, reject) => {
+          const query = 'UPDATE inventory_item SET is_deleted = 1 WHERE id = ?'
+          db.query(query, id, (err, result) =>{
+            if(err){
+              reject(err)
+            }else{
+              resolve(result)
+            }
+          })
+        })
+      },
+
     addItem: async (itemData) => {
         const {itemname, itemprice, itemquantity, isperishable} = itemData;
         console.log(itemname);

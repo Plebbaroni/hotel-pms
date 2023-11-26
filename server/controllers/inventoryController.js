@@ -12,6 +12,41 @@ const inventoryController = {
         }
     },
 
+    updateItem: async (req, res) => {
+        const itemId = req.params.id; 
+        const updatedItemData = req.body;
+    
+        try {
+          const result = await inventoryModel.updateItem(itemId, updatedItemData);
+    
+          if (result.affectedRows > 0) {
+            res.status(200).json({ message: 'Item updated successfully' });
+          } else {
+            res.status(404).json({ message: 'Item not found' });
+          }
+        } catch (error) {
+          console.error(error);
+          res.status(500).json({ error: 'Internal Server Error' });
+        }
+      },
+    
+      deleteItem: async (req, res) => {
+        const itemId = req.params.id; 
+    
+        try {
+          const result = await inventoryModel.deleteItem(itemId);
+    
+          if (result.affectedRows > 0) {
+            res.status(200).json({ message: 'User deleted successfully' });
+          } else {
+            res.status(404).json({ message: 'User not found' });
+          }
+        } catch (error) {
+          console.error(error);
+          res.status(500).json({ error: 'Internal Server Error' });
+        }
+      },
+
     addItem: async (req, res) => {
         const{itemname, itemprice, itemquantity, isperishable} = req.body;
         try{
