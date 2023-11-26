@@ -30,7 +30,7 @@ function OccupancyOverview() {
   return (
     <div className='occupancyWrapper'>
       {Object.entries(roomsByFloor).map(([floor, rooms]) => (
-        <div className='floorDiv'>
+        <div className='floorDiv' key={floor}>
         <h1 className='floorHeader'>Floor {floor}</h1>
         <div key={floor} className='horizontalFloorWrapper'>
               {rooms.map(item => (

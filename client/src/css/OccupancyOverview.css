@@ -1,6 +1,7 @@
 .occupancyWrapper{
     height: 100%;
-    width: 85%;   
+    width: 100%;   
+    overflow: hidden;
     overflow-y: scroll;
     padding: 0.5%;
     padding-left: 0.5%;
@@ -9,8 +10,9 @@
 .horizontalFloorWrapper{
     display: flex;
     overflow-x: scroll;
+    margin-bottom: 5%;
 }
 
 .floorHeader{
-    width: 10%;
+    width: 20%;
 }

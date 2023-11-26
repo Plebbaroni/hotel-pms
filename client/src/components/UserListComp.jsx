@@ -64,8 +64,7 @@ function UserListComp() {
 
 
   return (
-    <div className='userListCompWrapper'>
-    <h2>User List</h2>
+    <div className='tablewrapper'>
     <table className="table table-striped table-bordered">
       <thead className="thead-dark">
         <tr>

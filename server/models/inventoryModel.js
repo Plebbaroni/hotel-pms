@@ -30,7 +30,7 @@ const inventoryModel = {
 
       updateItem: async (id, updatedItemData) => {
         return new Promise((resolve, reject) => {
-          const query = 'UPDATE inventory_item SET ? WHERE id = ?';
+          const query = 'UPDATE inventory_item SET ? WHERE item_id = ?';
           db.query(query, [updatedItemData, id], (err, result) => {
             if (err) {
               reject(err);
@@ -43,7 +43,7 @@ const inventoryModel = {
     
       deleteItem: async (id) => {
         return new Promise((resolve, reject) => {
-          const query = 'UPDATE inventory_item SET is_deleted = 1 WHERE id = ?'
+          const query = 'UPDATE inventory_item SET is_deleted = 1 WHERE item_id = ?'
           db.query(query, id, (err, result) =>{
             if(err){
               reject(err)

@@ -10,7 +10,7 @@ function EmployeePage() {
       <EmployeeNavbar/>
       <div className='employeePageMain'>
         <EmployeeSidebar/>
-        <div className='inventorycontent'>
+        <div className='pagecontent'>
             <h1>Inventory</h1>
             <InventoryOverview/>
         </div>
