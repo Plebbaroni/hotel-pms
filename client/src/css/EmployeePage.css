@@ -8,6 +8,7 @@
     height: 80%;
     width: 100%;
     display: flex;
+    background-color: #FFF9F9;
 }
 
 .floorcontent{
@@ -16,6 +17,30 @@
     text-align: center;
     margin: 50px;
     outline: solid 2px;
+}
+
+.inventorycontent{
+    flex: 2;
+    background-color: white;
+    text-align: center;
+    margin: 50px;
+    outline: solid 2px;
+    max-height: 93%;
+}
+
+.inventorycontent > h1{
+    margin-bottom: 0px;
+    outline: solid 2px;
+}
+
+.tablewrapper{
+    max-height: inherit;
+    overflow-y: scroll;
+}
+
+.tablewrapper table thead th {
+    position: sticky;
+    top: 0;
 }
 
 .floorcontent > h1{
