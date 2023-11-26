@@ -10,7 +10,10 @@ function UserList() {
       <EmployeeNavbar/>
       <div className='employeePageMain'>
         <EmployeeSidebar/>
-        <UserListComp/>
+        <div className='pagecontent'>
+          <h1>UserList</h1>
+            <UserListComp/>
+        </div>
       </div>
     </div>
   )
