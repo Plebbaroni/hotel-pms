@@ -27,18 +27,22 @@ function HousekeepingOverview() {
   }, {});
 
   return (
-    <div>
+    <div className='occupancyWrapper'>
       {Object.entries(roomsByFloor).map(([floor, rooms]) => (
-        <div key={floor}>
-          <h2> Floor {floor}</h2>
+        <div key={floor} className='floorDiv'>
+          <h2 className='floorHeader'> Floor {floor}</h2>
+            <div className='horizontalFloorWrapper'>
               {rooms.map(item => (
-                <IndivRoomCard
-                key={item.room_number}
-                roomNumber={item.room_number}
-                roomType={item.room_type}
-                roomStatus={item.room_status}
-              />
+              
+                    <IndivRoomCard
+                      key={item.room_number}
+                      roomNumber={item.room_number}
+                      roomType={item.room_type}
+                      roomStatus={item.room_status}
+                    />
+                
               ))}
+              </div>
         </div>
       ))}
     </div>
