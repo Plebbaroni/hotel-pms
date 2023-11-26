@@ -19,7 +19,7 @@ function InventoryOverview() {
   }
 
   return (
-    <div>
+    <div className='tablewrapper'>
     <table className="table table-striped table-bordered">
       <thead className="thead-dark">
         <tr>
