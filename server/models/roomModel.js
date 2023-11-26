@@ -79,6 +79,32 @@ const roomModel = {
       });
     },
 
+    updateRoom: async (roomNumber, updatedRoomData) => {
+      return new Promise((resolve, reject) => {
+        const query = 'UPDATE room SET ? WHERE room_number = ?';
+        db.query(query, [updatedRoomData, roomNumber], (err, result) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
+      });
+    },
+  
+    deleteRoom: async (roomNumber) => {
+      return new Promise((resolve, reject) => {
+        const query = 'UPDATE room SET is_deleted = 1 WHERE room_number = ?'
+        db.query(query, roomNumber, (err, result) =>{
+          if(err){
+            reject(err)
+          }else{
+            resolve(result)
+          }
+        })
+      })
+    },
+
     addRoom: async (roomData) => {
       const {roomnumber, roomfloor, roomtype} = roomData;
       console.log(roomfloor)

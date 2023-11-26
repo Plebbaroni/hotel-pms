@@ -32,6 +32,41 @@ const roomController = {
     }
   },
 
+  updateRoom: async (req, res) => {
+    const roomNumber = req.params.roomNumber; 
+    const updatedRoomData = req.body;
+
+    try {
+      const result = await roomModel.updateRoom(roomNumber, updatedRoomData);
+
+      if (result.affectedRows > 0) {
+        res.status(200).json({ message: 'User updated successfully' });
+      } else {
+        res.status(404).json({ message: 'User not found' });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  },
+
+  deleteRoom: async (req, res) => {
+    const roomNumber = req.params.roomNumber; 
+
+    try {
+      const result = await roomModel.deleteRoom(roomNumber);
+
+      if (result.affectedRows > 0) {
+        res.status(200).json({ message: 'User deleted successfully' });
+      } else {
+        res.status(404).json({ message: 'User not found' });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  },
+
   getRoomByType: async (req, res) => {
     const roomType = req.params.roomType;
 

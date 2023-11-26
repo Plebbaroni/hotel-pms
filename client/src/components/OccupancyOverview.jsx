@@ -39,6 +39,8 @@ function OccupancyOverview() {
                   roomNumber={item.room_number}
                   roomType={item.room_type}
                   roomStatus={item.room_status}
+                  floorNumber = {floor}
+                  fetchData = {fetchData}
                 />
                 ))}
         </div>
