@@ -28,44 +28,44 @@ function Signup(){
     };
 
     const handleSubmit = async (e) => {
+      e.preventDefault(); // Move this line to the top
+    
       setUserNErr(false);
       setPwdError(false);
       setFirstNErr(false);
-      setFirstNErr(false);
       setLastNErr(false);
+      setPhoneErr(false); // Correct the state name
       setEmailErr(false);
-      setPhoneErr(false);
-
-      e.preventDefault();
-      const emailRegEx=new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
-      const passwRegEx=new RegExp('^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$');
-      const phoneRegEx=new RegExp('^[0-9]+$');
-
-      if(formData.username===""){
+    
+      const emailRegEx = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
+      const passwRegEx = new RegExp('^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$');
+      const phoneRegEx = new RegExp('^[0-9]+$');
+    
+      if (formData.username === "") {
         setUserNErr(true);
       }
-
-      if(!passwRegEx.test(formData.password)){
+    
+      if (!passwRegEx.test(formData.password)) {
         setPwdError(true);
       }
-
-      if(formData.firstName===""){
+    
+      if (formData.firstName === "") {
         setFirstNErr(true);
       }
-
-      if(formData.lastName===""){
+    
+      if (formData.lastName === "") {
         setLastNErr(true);
       }
-
-      if(!emailRegEx.test(formData.email)){
+    
+      if (!emailRegEx.test(formData.email)) {
         setEmailErr(true);
       }
-
-      if(!phoneRegEx.test(formData.phoneNumber)){
+    
+      if (!phoneRegEx.test(formData.phoneNumber)) {
         setPhoneErr(true);
       }
-
-      if(!(pwdError||emailErr||firstNErr||lastNErr||userNErr||phoneErr)){
+    
+      if (!(pwdError || emailErr || firstNErr || lastNErr || userNErr || phoneErr)) {
         try {
           const response = await axios.post('http://localhost:3001/user/register', formData);
           console.log(response.data);
@@ -85,18 +85,18 @@ function Signup(){
                             <form action="submit" className='signupForm' autoComplete='off'>
                                 <input type="text" name="username" id=""  onChange={handleChange} placeholder="Username" className={userNErr ? "Red" : "inputFormSignup"}/>                               
                                 <input type="password" name="password" id=""  onChange={handleChange} placeholder="Password" className={pwdError ? "Red" : "inputFormSignup"}/>
-                                <span style={{color:"red"}}>{userNErr&&"Please enter a username"}</span>
-                                <span style={{color:"red"}}>{pwdError&&"Please enter a password"}</span>
+                                <span style={{ color: "red" }}>{userNErr ? "Please enter a username" : null}</span>
+                                <span style={{ color: "red" }}>{pwdError ? "Please enter a password" : null}</span>
 
                                 <input type="text" name="firstName" id=""  onChange={handleChange} placeholder="First Name" className={firstNErr ? "Red" : "inputFormSignup"}/>
                                 <input type="text" name="lastName" id="" onChange={handleChange} placeholder="Last Name" className={lastNErr ? "Red" : "inputFormSignup"}/>
-                                <span style={{color:"red"}}>{firstNErr&&"Please enter your first name"}</span>
-                                <span style={{color:"red"}}>{lastNErr&&"Please enter your last name"}</span>     
+                                <span style={{ color: "red" }}>{firstNErr ? "Please enter your first name" : null}</span>
+                                <span style={{ color: "red" }}>{lastNErr ? "Please enter your last name" : null}</span>     
 
-                                <input type="text" name="phoneNumber" id="" onChange={handleChange} placeholder="Phone Number" className={phoneErr ? "Red" : "inputFormSignup"}/>
+                                <input type="number" name="phoneNumber" id="" onChange={handleChange} placeholder="Phone Number" className={phoneErr ? "Red" : "inputFormSignup"}/>
                                 <input type="email" name="email" id=""  onChange={handleChange} placeholder="Email" className={emailErr ? "Red" : "inputFormSignup"}/>
-                                <span style={{color:"red"}}>{phoneErr&&"Please enter your phone number"}</span>
-                                <span style={{color:"red"}}>{emailErr&&"Please enter valid Email Address"}</span>                                              
+                                <span style={{ color: "red" }}>{phoneErr ? "Please enter your phone number" : null}</span>
+                                <span style={{ color: "red" }}>{emailErr ? "Please enter valid Email Address" : null}</span>
                             </form>
                                 <p className='joeText'>Already have an account?<Link to="/Login"> Log In</Link></p>
                             <button className='signupButton' onClick={handleSubmit}>Sign Up</button>
