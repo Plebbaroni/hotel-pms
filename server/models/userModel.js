@@ -41,6 +41,19 @@ const userModel = {
     })
   },
 
+  confirmEmp: async (id) => {
+    return new Promise((resolve, reject) => {
+      const query = 'UPDATE user_account SET role = "Employee" WHERE id = ?';
+      db.query(query, id, (err, result) =>{
+        if(err){
+          reject(err);
+        }else{
+          resolve(result);
+        }
+      })
+    })
+  },
+
   checkUsernameExists: async (username) => {
     return new Promise((resolve, reject) => {
       db.query('SELECT * FROM User_Account WHERE username = ? AND is_deleted = 0', [username], (err, result) => {
