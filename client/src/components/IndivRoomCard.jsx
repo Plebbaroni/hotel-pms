@@ -10,6 +10,8 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData }
 
   const [viewModalOpen, setViewModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
+  const [occupancyModalOpen, setOccupancyModalOpen] = useState(false);
+
   const [editedRoomNumber, setEditedRoomNumber] = useState(roomNumber);
   const [editedRoomType, setEditedRoomType] = useState(roomType);
   const [editedFloorNumber, setEditedFloorNumber] = useState(floorNumber);
@@ -22,6 +24,9 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData }
 
   const openEditModal = () => setEditModalOpen(true);
   const closeEditModal = () => setEditModalOpen(false);
+
+  const openOccupancyModal = () => setOccupancyModalOpen(true);
+  const closeOccupancyModal = () => setOccupancyModalOpen(false);
 
   const handleEdit = (roomData) => {
     setSelectedItem(roomData);
@@ -94,7 +99,7 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData }
           </button>
         </div>
       )}
-      <div className='occupancyIndicator' style={{ backgroundColor: getOccupancyIndicatorColor() }}>
+      <div className='occupancyIndicator' onClick={openOccupancyModal} style={{ backgroundColor: getOccupancyIndicatorColor() }}>
         <p className='roomStatus'>{editedRoomStatus}</p>
       </div>
 
@@ -173,6 +178,34 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData }
           </Button>
           <Button variant="primary" onClick={handleSaveEdit}>
             Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={occupancyModalOpen} onHide={closeOccupancyModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Change Occupancy Status</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <label htmlFor="occupancyStatus">Select Occupancy Status:</label>
+              <select
+                className="form-control"
+                id="occupancyStatus"
+                value={editedRoomStatus}
+                onChange={(e) => setEditedRoomStatus(e.target.value)}
+              >
+                <option value="Vacant">Vacant</option>
+                <option value="Occupied">Occupied</option>
+                <option value="Expected Arrival">Expected Arrival</option>
+                <option value="Needs Maintenance">Needs Maintenance</option>
+              </select>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={closeOccupancyModal}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={handleSaveEdit}>
+            Confirm Change
           </Button>
         </Modal.Footer>
       </Modal>
