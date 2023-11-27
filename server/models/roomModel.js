@@ -28,6 +28,7 @@ const roomModel = {
     })
   },
   
+  
   getAllRooms: async (req, res) => {
     return new Promise((resolve, reject) => {
       const query = 'SELECT * from room WHERE is_deleted = 0';
@@ -52,6 +53,21 @@ const roomModel = {
         }
       });
     });
+  },
+
+  search: async (searchParams) => {
+    const totalUsers = parseInt(searchParams.adults) + parseInt(searchParams.children)
+    console.log(totalUsers);
+    return new Promise((resolve, reject) => {
+      const query = `SELECT * FROM Room_Type where ? <= max_number_of_occupants`;
+      db.query(query, totalUsers, (err, results) => {
+        if(err){
+          reject(err);
+        }else{
+          resolve(results);
+        }
+      })
+    })
   },
 
   getRoomByType: async (roomType) => {

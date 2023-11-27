@@ -32,6 +32,17 @@ const roomController = {
     }
   },
 
+  search: async (req, res) => {
+    const searchParams = req.body;
+    try {
+      const rooms = await roomModel.search(searchParams);
+      res.status(200).json(rooms);
+    } catch (error) {
+      console.error('Error:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  },
+
   updateRoom: async (req, res) => {
     const roomNumber = req.params.roomNumber; 
     const updatedRoomData = req.body;

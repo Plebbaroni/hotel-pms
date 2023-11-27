@@ -11,6 +11,7 @@ import AboutUs from "./pages/AboutUs.jsx"
 import Amenities from "./pages/Amenities.jsx"
 import Reservationpage from "./pages/Reservationpage.jsx"
 import RoomPage from "./pages/RoomPage.jsx"
+import AvailableRooms from "./pages/AvailableRooms.jsx"
 import EmployeeNavbar from "./components/EmployeeNavbar"
 import EmployeePage from "./pages/EmployeePage.jsx"
 import EmployeePageInventory from "./pages/EmployeePageInventory.jsx"
@@ -61,6 +62,10 @@ function App() {
           <Route path="/room/:roomType">
             <Navbar/>
             <RoomPage/>
+          </Route>
+          <Route path="/AvailableRooms" >
+            <Navbar />
+            <AvailableRooms/>
           </Route>
           <ProtectedRouteEmployee path="/Employee" component={EmployeePage}/>
           <ProtectedRouteAdmin path="/Admin" component  ={EmployeePage}/>
