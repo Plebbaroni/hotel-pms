@@ -6,7 +6,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function InventoryOverview() {
   const [itemData, setItemData] = useState([]);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showViewModal, setShowViewModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null); // Declare state variable for selectedItem
+
 
   useEffect(() => {
     fetchData();
@@ -80,6 +82,9 @@ function InventoryOverview() {
               <td>{item.item_quantity}</td>
               <td>{item.is_perishable.toString()}</td>
               <td>
+              <button className="btn btn-sm btn-primary">
+                  View
+                </button>
                 <button className="btn btn-sm btn-secondary mr-2" onClick={() => handleEdit(item)}>
                   Edit
                 </button>
