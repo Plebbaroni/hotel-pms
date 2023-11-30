@@ -18,6 +18,7 @@ import EmployeePageInventory from "./pages/EmployeePageInventory.jsx"
 import EmployeePageHousekeeping from "./pages/EmployeePageHousekeeping.jsx"
 import AddEntry from "./pages/AddEntry.jsx"
 import UserList from "./pages/UserList.jsx"
+import UserPage from "./pages/UserPage.jsx"
 
 function App() {
   const userDataString = sessionStorage.getItem('user');
@@ -66,6 +67,10 @@ function App() {
           <Route path="/AvailableRooms" >
             <Navbar />
             <AvailableRooms/>
+          </Route>
+          <Route path="/UserPage" >
+            <Navbar />
+            <UserPage/>
           </Route>
           <ProtectedRouteEmployee path="/Employee" component={EmployeePage}/>
           <ProtectedRouteAdmin path="/Admin" component  ={EmployeePage}/>

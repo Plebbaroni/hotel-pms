@@ -1,4 +1,5 @@
 .roomsListBg{
+    position: absolute;
     overflow: hidden;
     height: 80%;
     width: 100%;

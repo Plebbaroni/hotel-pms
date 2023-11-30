@@ -9,17 +9,23 @@ function EmployeeNavbar() {
     try {
       const response = await axios.post('http://localhost:3001/user/logout', null, {
         withCredentials: true,
-        // headers: {
-        //   'Content-Type': 'application/json',
-        // },
       });
-
+  
+      // Log user data before removal
+      const userDataStringBeforeLogout = sessionStorage.getItem('user');
+      console.log('User data before logout:', userDataStringBeforeLogout);
+  
       if (response.status === 200) {
-        // Logout successful
-        history.push('/login'); // Redirect to login page or any other route after logout
+        console.log('Logout successful');
+  
+        // Remove user data from sessionStorage
         sessionStorage.removeItem('user');
-        const userDataString = sessionStorage.getItem('user');
-        console.log(userDataString);
+  
+        // Refresh the page to reflect the logout state
+        window.location.reload();
+  
+        // Redirect to login page or any other route after logout
+        history.push('/login');
       } else {
         console.error('Error logging out:', response.statusText);
         // Handle logout failure if needed
@@ -28,7 +34,9 @@ function EmployeeNavbar() {
       console.error('Error:', error);
       // Handle unexpected errors
     }
-  }  
+  };
+  
+
   return (
     <div className='employeeNavbar'> 
         <Link to="/Login" onClick={handleLogout}>
