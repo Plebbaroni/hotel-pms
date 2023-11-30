@@ -9,15 +9,14 @@ function ReservationForm() {
   const [checkOut, setCheckOut] = useState('');
   const [adults, setAdults] = useState('');
   const [children, setChildren] = useState('');
-  const [rate, setRate] = useState('');
   const [foundRooms, setFoundRooms] = useState([]);
 
   const handleResClick = async (e) => {
+
     e.preventDefault();
 
     const userDataString = sessionStorage.getItem('user');
     const userData = userDataString ? JSON.parse(userDataString) : {};
-
     if (userData && userData.role === "Customer") {
       // Assuming you have an API endpoint to fetch rooms based on criteria
       try {
@@ -25,8 +24,7 @@ function ReservationForm() {
           checkIn,
           checkOut,
           adults,
-          children,
-          rate,
+          children
         });
 
         // Handle the response, e.g., redirect to a page displaying the available rooms
@@ -84,14 +82,6 @@ function ReservationForm() {
               value={children}
               onChange={(e) => setChildren(e.target.value)}
               className='occForm'
-            />
-            <input
-              type="number"
-              name="rate"
-              placeholder="Preferred Rate"
-              value={rate}
-              onChange={(e) => setRate(e.target.value)}
-              className='rateForm'
             />
           </form>
         </div>

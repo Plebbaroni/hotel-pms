@@ -56,6 +56,13 @@ const roomModel = {
   },
 
   search: async (searchParams) => {
+    if(searchParams.adults === ''){
+      searchParams.adults = 0;
+    }
+    if(searchParams.children === ''){
+      searchParams.children = 0;
+    }
+    
     const totalUsers = parseInt(searchParams.adults) + parseInt(searchParams.children)
     console.log(totalUsers);
     return new Promise((resolve, reject) => {

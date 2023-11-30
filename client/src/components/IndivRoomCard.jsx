@@ -83,6 +83,20 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData }
     }
   };
 
+  const handleOccupancyChange = async () => {
+    try {
+      // Assuming you have an API endpoint to update the room status
+      await axios.put(`http://localhost:3001/room/updateRoom/${roomNumber}`, {
+        room_status: editedRoomStatus,
+      });
+      closeOccupancyModal();
+      fetchData(); // Fetch updated data
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+
   return (
     <div className="roomSquare">
       <p className='roomNumber'>{roomNumber}</p>
@@ -188,23 +202,23 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData }
         </Modal.Header>
         <Modal.Body>
           <label htmlFor="occupancyStatus">Select Occupancy Status:</label>
-              <select
-                className="form-control"
-                id="occupancyStatus"
-                value={editedRoomStatus}
-                onChange={(e) => setEditedRoomStatus(e.target.value)}
-              >
-                <option value="Vacant">Vacant</option>
-                <option value="Occupied">Occupied</option>
-                <option value="Expected Arrival">Expected Arrival</option>
-                <option value="Needs Maintenance">Needs Maintenance</option>
-              </select>
+          <select
+            className="form-control"
+            id="occupancyStatus"
+            value={editedRoomStatus}
+            onChange={(e) => setEditedRoomStatus(e.target.value)}
+          >
+            <option value="Vacant">Vacant</option>
+            <option value="Occupied">Occupied</option>
+            <option value="Expected Arrival">Expected Arrival</option>
+            <option value="Needs Maintenance">Needs Maintenance</option>
+          </select>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={closeOccupancyModal}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={handleSaveEdit}>
+          <Button variant="primary" onClick={handleOccupancyChange}>
             Confirm Change
           </Button>
         </Modal.Footer>
