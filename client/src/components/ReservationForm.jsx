@@ -30,7 +30,13 @@ function ReservationForm() {
         // Handle the response, e.g., redirect to a page displaying the available rooms
         console.log(response.data);
         setFoundRooms(response.data);
-        history.push('/AvailableRooms', { rooms: response.data });
+        history.push('/AvailableRooms', {
+          rooms: response.data,
+          adults: Number(adults),
+          children: Number(children),
+          checkIn,
+          checkOut,
+        });
       } catch (error) {
         console.error(error);
       }
