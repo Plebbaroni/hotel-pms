@@ -3,7 +3,7 @@
 }
 
 .roomListDiv{
-    height: 1000px;
+    padding-bottom: 2%;
     border: solid 1px;
     border-radius: 20px;
     width: 50rem;

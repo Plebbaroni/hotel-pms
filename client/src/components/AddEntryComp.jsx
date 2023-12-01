@@ -23,6 +23,7 @@ function AddEntryComp() {
     });
   };
 
+  // If no errors, adds a room that is ready for booking
   const handleRoomSubmit = async (e) => {
     e.preventDefault();
     console.log(roomFormData)

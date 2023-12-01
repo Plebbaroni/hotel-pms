@@ -13,6 +13,7 @@ function UserListComp() {
     fetchData();
   }, []);
 
+  // Gets all users from the backend
   const fetchData = async () => {
     try {
       const response = await axios.get('http://localhost:3001/user/getAllUsers');
@@ -23,11 +24,13 @@ function UserListComp() {
     }
   }
 
+  // Allows updating of the user
   const handleEdit = (user) => {
     setSelectedUser(user);
     setShowEditModal(true);
   }
 
+  // Allows deleting of the user
   const handleDelete = async (userId) => {
     try {
       // Assuming you have an API endpoint to update the user as deleted
@@ -43,6 +46,7 @@ function UserListComp() {
     setSelectedUser(null);
   }
 
+  // Updates the user
   const handleSaveEdit = async () => {
     try {
       // Assuming you have an API endpoint to update the user details
@@ -62,7 +66,7 @@ function UserListComp() {
     }
   }
 
-
+  // Table that displays all the users
   return (
     <div className='tablewrapper'>
     <table className="table table-striped table-bordered">

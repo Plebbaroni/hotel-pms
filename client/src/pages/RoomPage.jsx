@@ -9,6 +9,8 @@ function RoomPage(props) {
   console.log(params);
   
   useEffect(() => {
+    
+    // Gets the room data according to the specific room type from the backend
     axios.get(`http://localhost:3001/room/getRoomData/${params.roomType}`)
       .then((response) => {
         console.log('Response Data:', response.data);
@@ -20,6 +22,7 @@ function RoomPage(props) {
       });
   }, [params.roomType]);
 
+  // If there is room data, displays it. Otherwise displays Loading...
   return (
     <div className='RoomPage'>
     <div className='RoomImage'>

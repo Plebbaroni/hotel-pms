@@ -14,17 +14,13 @@ function AvailableRooms() {
 
   const handleConfirmClick = () => {
     setTotalPeople(adults + children);
-    setTotalRooms((prevTotalRooms) => ({ ...prevTotalRooms }));
   
     const totalCount = Object.values(totalRooms).reduce((acc, count) => acc + count, 0);
   
     if (totalCount <= totalPeople) {
-      history.push('/Reservationpage');
+      history.push('/Reservationpage', { totalRooms });
     } else {
-      // Alert if the condition is not satisfied
       alert('Total number of rooms exceeds total number of people');
-  
-      // Reset confirmClicked to false
       setConfirmClicked(false);
     }
   };

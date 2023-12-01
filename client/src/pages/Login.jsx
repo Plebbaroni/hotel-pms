@@ -4,6 +4,7 @@ import {Link, useHistory } from 'react-router-dom'
 import {useAuth} from '../contexts/AuthContext.jsx';
 import axios from 'axios';
 
+// The Login Page starts with and empty form
 const Login = ({ onLogin }) => {
   const history = useHistory();
   const {dispatch } = useAuth();
@@ -12,13 +13,14 @@ const Login = ({ onLogin }) => {
     password: '',
   });
 
+  // Changes the value of the form after each input
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
-
+    // Checks if submit button is clicked and if user type is customer, employee or admin and directs them to their proper UI.
     const handleSubmit = async (e) => {
       e.preventDefault();
 
@@ -27,7 +29,7 @@ const Login = ({ onLogin }) => {
         const { id, username, role } = response.data;
         sessionStorage.setItem('user', JSON.stringify({ id, username, role }));
         const userDataString = sessionStorage.getItem('user');
-        console.log('userDataString:', userDataString);
+        console.log('userDataString:', userDataString); //Is this necessary?
         const userData = userDataString ? JSON.parse(userDataString) : {};
         if(userData.role === "Customer"){
           history.push('/')
@@ -41,7 +43,8 @@ const Login = ({ onLogin }) => {
         
       }
     };
-
+  
+  // The login modal
   return (
     <div className='wrapper'>
             <div className='transWrapper'>

@@ -65,6 +65,7 @@ function UserPage() {
     }
   };
 
+  // Table for the list of bookings
   const renderTable = (bookings, tableTitle) => {
     if (bookings.length === 0) {
       return (

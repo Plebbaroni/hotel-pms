@@ -3,6 +3,7 @@ import {Link, useHistory} from 'react-router-dom'
 import axios from 'axios'
 import "../css/Signup.css"
 
+// The signup page starts with an empty form
 function Signup(){
     const history = useHistory();
     const [formData, setFormData] = useState({
@@ -20,6 +21,7 @@ function Signup(){
     const [pwdError, setPwdError] = useState(false);
     const [phoneErr, setPhoneErr] = useState(false);
 
+    // Changes the value of the form after each input
     const handleChange = (e) => {
       setFormData({
         ...formData,
@@ -27,9 +29,11 @@ function Signup(){
       });
     };
 
+    // Is called when clicking the sign up button
     const handleSubmit = async (e) => {
       e.preventDefault(); // Move this line to the top
-    
+      
+      // Errors that may occur when inputting
       setUserNErr(false);
       setPwdError(false);
       setFirstNErr(false);
@@ -64,7 +68,8 @@ function Signup(){
       if (!phoneRegEx.test(formData.phoneNumber)) {
         setPhoneErr(true);
       }
-    
+      
+      // If no errors, registers the user
       if (!(pwdError || emailErr || firstNErr || lastNErr || userNErr || phoneErr)) {
         try {
           const response = await axios.post('http://localhost:3001/user/register', formData);
@@ -75,7 +80,8 @@ function Signup(){
         }
       }
     };
-
+  
+  // Signup card
   return (
     <div className='wrapper'>
             <div className='transWrapper'>

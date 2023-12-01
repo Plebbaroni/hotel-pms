@@ -9,6 +9,7 @@ function HousekeepingOverview() {
       fetchData();
   }, []);
 
+  // Fetches the rooms that require housekeeping
   const fetchData = async () => {
       try{
           const response = await axios.get('http://localhost:3001/room/getHousekeeping');
@@ -26,6 +27,7 @@ function HousekeepingOverview() {
     return acc;
   }, {});
 
+  // Displays the rooms that need housekeeping
   return (
     <div className='occupancyWrapper'>
       {Object.entries(roomsByFloor).map(([floor, rooms]) => (

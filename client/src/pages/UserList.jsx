@@ -4,6 +4,7 @@ import EmployeeSidebar from '../components/EmployeeSidebar.jsx'
 import "../css/EmployeePage.css"
 import UserListComp from '../components/UserListComp.jsx'
 
+// Displays all the users
 function UserList() {
   return (
     <div className='employeePageWrapper'>

@@ -1,11 +1,20 @@
-import React from 'react'
-import { useHistory } from 'react-router-dom';
+import React, {useState, useEffect} from 'react'
+import axios from 'axios'
+import { useHistory, useLocation} from 'react-router-dom';
 
 function Body(){
     const history = useHistory();
+    const location = useLocation();
+    const room_type  = location.state;
+
+    useEffect(() => {
+        console.log(room_type);
+    }, []);
+
     function returnHome(){
         history.push('/')
     }
+
     const handleConfirm = async (e) => {
         e.preventDefault();
         //Logic for db thingy here
@@ -26,8 +35,6 @@ function Body(){
                             <input type="text" id="lname" placeholder="Last Name"/>
                             <br />
                             <input type="text" id="email" placeholder="Email"/>
-                            <br />
-                            <input type="text" id="country" placeholder="Country"/>
                             <br />
                             <input type="text" id="number"placeholder="Phone Number"/>
                         </div>
