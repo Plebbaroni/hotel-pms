@@ -11,6 +11,14 @@ function ReservationForm() {
   const [children, setChildren] = useState('');
   const [foundRooms, setFoundRooms] = useState([]);
 
+  const getCurrentDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
   const handleResClick = async (e) => {
 
     e.preventDefault();
@@ -53,24 +61,22 @@ function ReservationForm() {
         <a className='bookARoom'>Book a Room</a>
         <div className='forms'>
           <form action="submit" className='daForm'>
-            <input
-              type="text"
+             <input
+              type="date"
               name="checkIn"
               placeholder="Check In"
               value={checkIn}
               onChange={(e) => setCheckIn(e.target.value)}
-              onFocus={(e) => (e.target.type = "date")}
-              onBlur={(e) => (e.target.type = "text")}
+              min={getCurrentDate()} // Set the minimum date to the current date
               className='dateForm'
             />
             <input
-              type="text"
+              type="date"
               name="checkOut"
               placeholder="Check Out"
               value={checkOut}
               onChange={(e) => setCheckOut(e.target.value)}
-              onFocus={(e) => (e.target.type = "date")}
-              onBlur={(e) => (e.target.type = "text")}
+              min={checkIn} // Set the minimum date to the selected check-in date
               className='dateForm'
             />
             <input

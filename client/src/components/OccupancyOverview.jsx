@@ -5,10 +5,20 @@ import "../css/OccupancyOverview.css"
 
 function OccupancyOverview() {
   const [roomData, setRoomData] = useState([]);
+  const [expectedRooms, setExpectedRooms] = useState([]);
+  const [occupiedRooms, setOccupiedRooms] = useState([]);
 
   useEffect(() => {
       fetchData();
   }, []);
+
+  const getCurrentDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
 
   const fetchData = async () => {
       try{
@@ -18,6 +28,24 @@ function OccupancyOverview() {
       }catch(err){
           console.log(err);
       }
+  }
+
+  const getExpectedRooms = async (e) => {
+    e.preventDefault();
+    try{
+
+    }catch(err){
+      console.log(err)
+    }
+  }
+
+  const getOccupiedRooms = async (e) => {
+    e.preventDefault();
+    try{
+
+    }catch(err){
+      console.log(err)
+    }
   }
 
   const roomsByFloor = roomData.reduce((acc, room) => {

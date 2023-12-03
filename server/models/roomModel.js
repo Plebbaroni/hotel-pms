@@ -55,6 +55,33 @@ const roomModel = {
     });
   },
 
+  getAvailableRooms: (type, quantity, checkInDate, checkOutDate) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const query = `
+          SELECT r.room_number, r.room_type, rt.room_rate
+          FROM Room r
+          LEFT JOIN Booking b ON r.room_number = b.room_number
+          JOIN Room_Type rt ON r.room_type = rt.room_type
+          WHERE r.room_type = ? 
+            AND r.room_status = 'Vacant'
+            AND r.is_deleted != 1
+            AND (
+              b.booking_id IS NULL
+              OR (? >= b.check_out_date OR ? <= b.check_in_date)
+            )
+          LIMIT ?;`;
+
+        // Use parseInt to ensure quantity is treated as a number
+        const results = await db.promise().query(query, [type, checkOutDate, checkInDate, parseInt(quantity, 10)]);
+        resolve(results[0]); // Assuming the result is in the first element of the array
+      } catch (error) {
+        console.error('Error fetching available rooms:', error);
+        reject(error);
+      }
+    });
+  },
+
   search: async (searchParams) => {
     if(searchParams.adults === ''){
       searchParams.adults = 0;

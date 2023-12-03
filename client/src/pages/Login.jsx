@@ -7,7 +7,6 @@ import axios from 'axios';
 // The Login Page starts with and empty form
 const Login = ({ onLogin }) => {
   const history = useHistory();
-  const {dispatch } = useAuth();
   const [formData, setFormData] = useState({
     username: '',
     password: '',

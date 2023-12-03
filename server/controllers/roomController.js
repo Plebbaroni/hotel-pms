@@ -95,6 +95,17 @@ const roomController = {
     }
   },
 
+  getAvailableRooms: async (req, res) => {
+    try {
+      const { type, quantity, checkInDate, checkOutDate } = req.params;
+      const availableRooms = await roomModel.getAvailableRooms(type, quantity, checkInDate, checkOutDate);
+      res.status(200).json(availableRooms);
+    } catch (error) {
+      console.error('Error: ', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  },
+
   addRoom: async (req, res) => {
     const{roomnumber, roomfloor, roomtype} = req.body;
     try{

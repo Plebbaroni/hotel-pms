@@ -14,11 +14,11 @@ function AvailableRooms() {
 
   const handleConfirmClick = () => {
     setTotalPeople(adults + children);
-  
+    
     const totalCount = Object.values(totalRooms).reduce((acc, count) => acc + count, 0);
   
     if (totalCount <= totalPeople) {
-      history.push('/Reservationpage', { totalRooms });
+      history.push('/Reservationpage',  {totalRooms, checkIn, checkOut, adults, children} );
     } else {
       alert('Total number of rooms exceeds total number of people');
       setConfirmClicked(false);
