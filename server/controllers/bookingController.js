@@ -12,6 +12,17 @@ const bookingController = {
         }
     },
 
+    getBookingByRoom: async (req, res) => {
+      try {
+          const roomNumber = req.params.roomNumber; // Get user ID from request parameters
+          const booking = await bookingModel.getBookingByRoom(roomNumber);
+          res.status(200).json(booking);
+      } catch (error) {
+          console.error('Error: ', error);
+          res.status(500).json({ error: 'Internal server error' });
+      }
+  },
+
     createBooking: async (req, res) => {
         const bookingData = req.body;
       

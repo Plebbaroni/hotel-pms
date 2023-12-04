@@ -30,6 +30,23 @@ const bookingModel = {
         })
     },
 
+    getBookingByRoom: async (roomNumber) => {
+      return new Promise((resolve, reject) => {
+        const query = `SELECT *
+        FROM Booking
+        WHERE CURDATE() = check_in_date
+          AND room_number = ?`;
+            db.query(query, roomNumber, (err, results) => {
+                if (err) {
+                    console.error(err);
+                    reject(err);
+                } else {
+                    resolve(results);
+                }
+            })
+        })
+    },
+
     createBooking: async (bookingData) => {
         return new Promise(async (resolve, reject) => {
           const {

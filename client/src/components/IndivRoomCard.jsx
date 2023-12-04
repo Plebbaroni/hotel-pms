@@ -11,6 +11,7 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData }
   const [viewModalOpen, setViewModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [occupancyModalOpen, setOccupancyModalOpen] = useState(false);
+  const [associatedBooking, setAssociatedBooking] = useState(null);
 
   const [editedRoomNumber, setEditedRoomNumber] = useState(roomNumber);
   const [editedRoomType, setEditedRoomType] = useState(roomType);
@@ -37,7 +38,18 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData }
     openEditModal();
   }
 
-  
+  const handleViewModalOpen = async () => {
+    try {
+      if (editedRoomStatus === 'Expected Arrival') {
+        const response = await axios.get(`http://localhost:3001/booking/getBookingByRoom/${roomNumber}`);
+        setAssociatedBooking(response.data);
+        console.log(associatedBooking)
+      }
+      openViewModal();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handleCloseEditModal = () => {
     closeEditModal();
@@ -101,7 +113,7 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData }
     <div className="roomSquare">
       <p className='roomNumber'>{roomNumber}</p>
         <div className='roomCardButtons'>
-          <button className="btn btn-sm btn-primary m-2" onClick={openViewModal}>
+          <button className="btn btn-sm btn-primary m-2" onClick={handleViewModalOpen}>
             View
           </button>
         {userData.role === "Admin" && (
@@ -125,9 +137,25 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData }
           <Modal.Title>Room Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <div>
           <p>Room Number: {roomNumber}</p>
           <p>Room Type: {roomType}</p>
           <p>Room Status: {editedRoomStatus}</p>
+          </div>
+          {editedRoomStatus === 'Expected Arrival' && associatedBooking && (
+          <div>
+            <h5>Associated Booking:</h5>
+            <p>Check In: {associatedBooking[0].check_in_date}</p>
+            <p>Check Out: {associatedBooking[0].check_out_date}</p>
+            <p>Name: {associatedBooking[0].first_name} {associatedBooking[0].last_name}</p>
+            <p>Number of Guests(Adult): {associatedBooking[0].number_of_guests_adult}</p>
+            <p>Number of Guests(Children): {associatedBooking[0].number_of_guests_children}</p>
+            <p>Email: {associatedBooking[0].email}</p>
+            <p>Phone Number: {associatedBooking[0].phone_number}</p>
+            <p>Country: {associatedBooking[0].country}</p>
+            <button>Confirm Booking</button>
+          </div>
+        )}
         </Modal.Body>
       </Modal>
 
