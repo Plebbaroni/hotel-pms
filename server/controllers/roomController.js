@@ -22,6 +22,26 @@ const roomController = {
       }
     },
 
+    getExpectedRooms: async (req, res) => {
+      try {
+        const rooms = await roomModel.getExpectedRooms();
+        res.status(200).json(rooms);
+      } catch (error) {
+        console.error('Error: ', error);
+        res.status(500).json({ error: 'Internal server error' });
+      }
+    },
+
+    getOccupiedRooms: async (req, res) => {
+      try {
+        const rooms = await roomModel.getOccupiedRooms();
+        res.status(200).json(rooms);
+      } catch (error) {
+        console.error('Error: ', error);
+        res.status(500).json({ error: 'Internal server error' });
+      }
+      
+    },
   getAllRoomTypes: async (req, res) => {
     try {
       const rooms = await roomModel.getAllRoomTypes();

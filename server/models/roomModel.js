@@ -141,7 +141,49 @@ const roomModel = {
         });
       });
     },
-  
+    
+    getExpectedRooms: async () => {
+      return new Promise((resolve, reject) => {
+        const query = `UPDATE Room
+        SET room_status = 'Expected Arrival'
+        WHERE room_number IN (
+            SELECT B.room_number
+            FROM Booking B
+            WHERE B.check_in_date = CURDATE()
+            AND B.is_active = 1
+            AND B.check_in_confirmed = 0
+        )`;
+        db.query(query, (err, result) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
+      });
+    },
+
+    getOccupiedRooms: async () => {
+      return new Promise((resolve, reject) => {
+        const query = `UPDATE Room
+        SET room_status = 'Occupied'
+        WHERE room_number IN (
+            SELECT B.room_number
+            FROM Booking B
+            WHERE CURDATE() BETWEEN B.check_in_date AND B.check_out_date
+                AND B.is_active = 1
+                AND B.check_in_confirmed = 1
+        )`;
+        db.query(query, (err, result) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
+      });
+    },
+
     deleteRoom: async (roomNumber) => {
       return new Promise((resolve, reject) => {
         const query = 'UPDATE room SET is_deleted = 1 WHERE room_number = ?'

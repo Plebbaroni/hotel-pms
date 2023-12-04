@@ -11,5 +11,7 @@ router.post('/search', roomController.search)
 router.post('/addRoom', roomController.addRoom);
 router.put('/updateRoom/:roomNumber', roomController.updateRoom);
 router.put('/deleteRoom/:roomNumber', roomController.deleteRoom);
+router.put('/getExpectedRooms', roomController.getExpectedRooms);
+router.put('/getOccupiedRooms', roomController.getOccupiedRooms);
 
 module.exports = router;

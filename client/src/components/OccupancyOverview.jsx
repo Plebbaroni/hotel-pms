@@ -5,10 +5,10 @@ import "../css/OccupancyOverview.css"
 
 function OccupancyOverview() {
   const [roomData, setRoomData] = useState([]);
-  const [expectedRooms, setExpectedRooms] = useState([]);
-  const [occupiedRooms, setOccupiedRooms] = useState([]);
 
   useEffect(() => {
+      getOccupiedRooms();
+      getExpectedRooms();
       fetchData();
   }, []);
 
@@ -30,19 +30,17 @@ function OccupancyOverview() {
       }
   }
 
-  const getExpectedRooms = async (e) => {
-    e.preventDefault();
+  const getExpectedRooms = async () => {
     try{
-
+      await axios.put(`http://localhost:3001/room/getExpectedRooms`)
     }catch(err){
       console.log(err)
     }
   }
 
-  const getOccupiedRooms = async (e) => {
-    e.preventDefault();
+  const getOccupiedRooms = async () => {
     try{
-
+      await axios.put(`http://localhost:3001/room/getOccupiedRooms`)
     }catch(err){
       console.log(err)
     }

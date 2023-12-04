@@ -37,7 +37,7 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData }
     openEditModal();
   }
 
-
+  
 
   const handleCloseEditModal = () => {
     closeEditModal();
@@ -100,19 +100,21 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData }
   return (
     <div className="roomSquare">
       <p className='roomNumber'>{roomNumber}</p>
-      {userData.role === "Admin" && (
         <div className='roomCardButtons'>
           <button className="btn btn-sm btn-primary m-2" onClick={openViewModal}>
             View
           </button>
-          <button className="btn btn-sm btn-secondary mr-2" onClick={() => handleEdit({ roomNumber, roomType, roomStatus, floorNumber })}>
-            Edit
-          </button>
-          <button className="btn btn-sm btn-danger m-2" onClick={() => handleDelete(roomNumber)}>
-            Delete
-          </button>
-        </div>
+        {userData.role === "Admin" && (
+          <div>
+            <button className="btn btn-sm btn-secondary mr-2" onClick={() => handleEdit({ roomNumber, roomType, roomStatus, floorNumber })}>
+              Edit
+            </button>
+            <button className="btn btn-sm btn-danger m-2" onClick={() => handleDelete(roomNumber)}>
+              Delete
+            </button>
+          </div>
       )}
+      </div>
       <div className='occupancyIndicator' onClick={openOccupancyModal} style={{ backgroundColor: getOccupancyIndicatorColor() }}>
         <p className='roomStatus'>{editedRoomStatus}</p>
       </div>
