@@ -163,6 +163,36 @@ const roomModel = {
       });
     },
 
+    getVacantRooms: async () => {
+      return new Promise((resolve, reject) => {
+        const query = `UPDATE Room
+        SET room_status = 'Vacant'
+        WHERE room_number NOT IN (SELECT DISTINCT room_number FROM Booking WHERE is_active = 1)`;
+        db.query(query, (err, result) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
+      });
+    },
+
+    autoCheckOut: async () => {
+      return new Promise((resolve, reject) => {
+        const query = `UPDATE Booking
+        SET is_active = 0
+        WHERE check_out_date < CURDATE() AND is_active = 1`;
+        db.query(query, (err, result) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
+      });
+    },
+
     getOccupiedRooms: async () => {
       return new Promise((resolve, reject) => {
         const query = `UPDATE Room

@@ -9,10 +9,27 @@ function OccupancyOverview() {
     const [triggerUpdate, setTriggerUpdate] = useState(0); // New state for triggering update
   
     useEffect(() => {
-      fetchData();
-      getOccupiedRooms();
-      getExpectedRooms();
-    }, [triggerUpdate]); // Empty dependency array to run only once on mount
+      const fetchDataAndRooms = async () => {
+        try {
+          // Wait for all promises to resolve using Promise.all
+          await Promise.all([
+            autoCheckOut(),
+            getOccupiedRooms(),
+            getExpectedRooms(),
+            getVacantRooms(),
+            fetchData(),
+          ]);
+    
+          // Now that all asynchronous operations are done, you can update the state
+          // or perform any other actions that depend on the fetched data.
+          setTriggerUpdate(prevValue => prevValue + 1);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+    
+      fetchDataAndRooms();
+    }, []); // Empty dependency array to run only once on mount
 
   const getCurrentDate = () => {
     const today = new Date();
@@ -31,6 +48,14 @@ function OccupancyOverview() {
     }
   };
 
+  const autoCheckOut = async () => {
+    try {
+      await axios.put('http://localhost:3001/room/autoCheckOut');
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   const getExpectedRooms = async () => {
     try {
       await axios.put('http://localhost:3001/room/getExpectedRooms');
@@ -46,6 +71,14 @@ function OccupancyOverview() {
       console.log(err);
     }
   };
+
+  const getVacantRooms = async () => {
+    try {
+      await axios.put('http://localhost:3001/room/getVacantRooms');
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   const roomsByFloor = roomData.reduce((acc, room) => {
     const floor = room.floor_number; // Replace 'floor_number' with your actual property name

@@ -35,7 +35,8 @@ const bookingModel = {
         const query = `SELECT *
         FROM Booking
         WHERE CURDATE() = check_in_date
-          AND room_number = ?`;
+          AND room_number = ?
+          AND is_active = 1`;
             db.query(query, roomNumber, (err, results) => {
                 if (err) {
                     console.error(err);

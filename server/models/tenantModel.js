@@ -97,11 +97,13 @@ const tenantModel = {
 
           getTenantByRoom: async (roomNumber) => {
             return new Promise((resolve, reject) => {
-                const query = `SELECT t.*
+                const query = `SELECT t.*, cb.*
                 FROM Room r INNER JOIN Booking b
                 ON b.room_number = r.room_number
                 INNER JOIN tenant t 
                 ON t.booking_id = b.booking_id
+                INNER JOIN checkout_balance cb
+                ON t.tenant_id = cb.tenant_id
                 WHERE CURDATE() BETWEEN b.check_in_date and b.check_out_date
                   AND b.is_active = 1
                   AND b.check_in_confirmed = 1

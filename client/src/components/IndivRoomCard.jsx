@@ -103,12 +103,25 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData, 
   const handleDelete = async (roomNumber) => {
     try {
       // Assuming you have an API endpoint to delete the room
+
       await axios.put(`http://localhost:3001/room/deleteRoom/${roomNumber}`);
       await fetchData(); // Fetch updated data
     } catch (err) {
       console.log(err);
     }
   }
+
+  const handleCheckOut = async (roomNumber) => {
+    try {
+      console.log(roomNumber)
+        await axios.put(`http://localhost:3001/transaction/handleCheckOut/${roomNumber}`);
+        closeViewModal();
+        await fetchData(); // Fetch updated data
+        window.location.reload();
+    } catch (err) {
+        console.log(err);
+    }
+}
 
   const getOccupancyIndicatorColor = () => {
     if (editedRoomStatus === 'Vacant') {
@@ -212,13 +225,13 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData, 
         {editedRoomStatus === 'Occupied' && currentTenant && (
           <div>
             <h1>Current Tenant</h1>
-            <p>Name: {currentTenant[0].first_name} {currentTenant[0].last_name}</p>
-            <p></p>
-            <p></p>
+            <p>Name: {currentTenant[0].first_name || "N/A"} {currentTenant[0].last_name || "N/A"}</p>
+            <p>Current Balance: {currentTenant[0].current_balance || "N/A"}</p>
+            <p>Additional Details: {currentTenant[0].additional_details || "N/A"}</p>
             <Button variant="primary" onClick={confirmBooking}>
               Add Item
             </Button>
-            <Button variant="secondary" onClick={confirmBooking}>
+            <Button variant="secondary" onClick={(e) => handleCheckOut(roomNumber)}>
               Check Out
             </Button>
           </div>

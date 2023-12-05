@@ -13,5 +13,7 @@ router.put('/updateRoom/:roomNumber', roomController.updateRoom);
 router.put('/deleteRoom/:roomNumber', roomController.deleteRoom);
 router.put('/getExpectedRooms', roomController.getExpectedRooms);
 router.put('/getOccupiedRooms', roomController.getOccupiedRooms);
+router.put('/getVacantRooms', roomController.getVacantRooms);
+router.put('/autoCheckOut', roomController.autoCheckOut);
 
 module.exports = router;
