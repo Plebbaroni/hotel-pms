@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {Link, useHistory} from 'react-router-dom'
 import axios from 'axios'
+import validator from 'validator'
 import "../css/Signup.css"
 
 // The signup page starts with an empty form
@@ -41,11 +42,9 @@ function Signup(){
       setPhoneErr(false); // Correct the state name
       setEmailErr(false);
     
-      const emailRegEx = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
       const passwRegEx = new RegExp('^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$');
-      const phoneRegEx = new RegExp('^[0-9]+$');
     
-      if (formData.username === "") {
+      if (validator.isEmpty(formData.username)) {
         setUserNErr(true);
       }
     
@@ -53,19 +52,19 @@ function Signup(){
         setPwdError(true);
       }
     
-      if (formData.firstName === "") {
+      if (validator.isEmpty(formData.firstName)) {
         setFirstNErr(true);
       }
     
-      if (formData.lastName === "") {
+      if (validator.isEmpty(formData.lastName)) {
         setLastNErr(true);
       }
     
-      if (!emailRegEx.test(formData.email)) {
+      if (!validator.isEmail(formData.email)) {
         setEmailErr(true);
       }
     
-      if (!phoneRegEx.test(formData.phoneNumber)) {
+      if (!validator.isMobilePhone(formData.phoneNumber,'en-PH')) {
         setPhoneErr(true);
       }
       
