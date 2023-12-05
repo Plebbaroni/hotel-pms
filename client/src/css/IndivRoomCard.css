@@ -10,6 +10,9 @@
     flex-shrink: 0;
     justify-content: center;
     align-items: center;
+    background-color:  #FFF9F9;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
 }
 
 .roomNumber{

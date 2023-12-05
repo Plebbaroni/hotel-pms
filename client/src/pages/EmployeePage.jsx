@@ -5,14 +5,15 @@ import "../css/EmployeePage.css"
 import OccupancyOverview from '../components/OccupancyOverview.jsx'
 
 function EmployeePage() {
-  function getCurrentDate(separator=''){
-
+  function getCurrentDate(){
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     let newDate = new Date()
     let date = newDate.getDate();
-    let month = newDate.getMonth() + 1;
+    let month = months[newDate.getMonth()];
     let year = newDate.getFullYear();
-    
-    return `${date}${separator}${month<10?`0${month}`:`${month}`}${separator}${year}`
+   
+
+    return `${month<10?`0${month}`:`${month}`}${' '}${date}${','}${year}`
     }
 
   return (
@@ -21,7 +22,7 @@ function EmployeePage() {
       <div className='employeePageMain'>
         <EmployeeSidebar/>
         <div className='floorcontent'>
-          <h1>{getCurrentDate('/')}</h1>
+          <h1>{getCurrentDate()}</h1>
           <OccupancyOverview/>
         </div>
       </div>

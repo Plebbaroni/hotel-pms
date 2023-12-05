@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
+import { faEye } from '@fortawesome/free-solid-svg-icons'
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'; // Import axios for making API requests
 import '../css/IndivRoomCard.css';
 
@@ -164,22 +168,22 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData, 
     <div className="roomSquare">
       <p className='roomNumber'>{roomNumber}</p>
         <div className='roomCardButtons'>
-          <button className="btn btn-sm btn-primary m-2" onClick={handleViewModalOpen}>
-            View
+          <button className="btn" onClick={handleViewModalOpen}>
+          <FontAwesomeIcon icon={faEye}/>
           </button>
         {userData.role === "Admin" && (
           <div>
-            <button className="btn btn-sm btn-secondary mr-2" onClick={() => handleEdit({ roomNumber, roomType, roomStatus, floorNumber })}>
-              Edit
+            <button className="btn" onClick={() => handleEdit({ roomNumber, roomType, roomStatus, floorNumber })}>
+            <FontAwesomeIcon icon={faPenToSquare}/>
             </button>
-            <button className="btn btn-sm btn-danger m-2" onClick={() => handleDelete(roomNumber)}>
-              Delete
+            <button className="btn" onClick={() => handleDelete(roomNumber)}>
+            <FontAwesomeIcon icon={faTrashCan}/>
             </button>
           </div>
       )}
       </div>
-      <div className='occupancyIndicator' onClick={openOccupancyModal} style={{ backgroundColor: getOccupancyIndicatorColor() }}>
-        <p className='roomStatus'>{editedRoomStatus}</p>
+      <div className='occupancyIndicator' onClick={openOccupancyModal} style={{ backgroundColor: getOccupancyIndicatorColor()}}>
+      <p className='roomStatus'>{editedRoomStatus}</p>
       </div>
 
       {/* View Modal */}
