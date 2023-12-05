@@ -47,6 +47,8 @@ const bookingModel = {
         })
     },
 
+    
+
     createBooking: async (bookingData) => {
         return new Promise(async (resolve, reject) => {
           const {

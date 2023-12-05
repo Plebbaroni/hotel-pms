@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios'; // Import axios for making API requests
 import '../css/IndivRoomCard.css';
 
-const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData }) => {
+const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData, updateOccupancyOverview }) => {
   const userDataString = sessionStorage.getItem('user');
   const userData = userDataString ? JSON.parse(userDataString) : {};
 
@@ -12,15 +12,19 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData }
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [occupancyModalOpen, setOccupancyModalOpen] = useState(false);
   const [associatedBooking, setAssociatedBooking] = useState(null);
-
-  const [editedRoomNumber, setEditedRoomNumber] = useState(roomNumber);
+  const [currentTenant, setCurrentTenant] = useState(null)
+;  const [editedRoomNumber, setEditedRoomNumber] = useState(roomNumber);
   const [editedRoomType, setEditedRoomType] = useState(roomType);
   const [editedFloorNumber, setEditedFloorNumber] = useState(floorNumber);
   const [editedRoomStatus, setEditedRoomStatus] = useState(roomStatus); // State for edited room status
   const [selectedItem, setSelectedItem] = useState(null);
   
 
-  const openViewModal = () => setViewModalOpen(true);
+  const openViewModal = (bookingData) => {
+    setAssociatedBooking(bookingData);
+    setViewModalOpen(true);
+  };
+
   const closeViewModal = () => setViewModalOpen(false);
 
   const openEditModal = () => setEditModalOpen(true);
@@ -28,6 +32,11 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData }
 
   const openOccupancyModal = () => setOccupancyModalOpen(true);
   const closeOccupancyModal = () => setOccupancyModalOpen(false);
+
+  const reRender = () => {
+    const [, setValue] = useState(0);
+    return () => setValue(value => ++value);
+  };
 
   const handleEdit = (roomData) => {
     setSelectedItem(roomData);
@@ -40,12 +49,17 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData }
 
   const handleViewModalOpen = async () => {
     try {
+      let bookingData = null;
+  
       if (editedRoomStatus === 'Expected Arrival') {
         const response = await axios.get(`http://localhost:3001/booking/getBookingByRoom/${roomNumber}`);
-        setAssociatedBooking(response.data);
-        console.log(associatedBooking)
+        bookingData = response.data;
       }
-      openViewModal();
+      if(roomStatus === 'Occupied'){
+        getTenantByRoom(roomNumber);
+      }
+      console.log(currentTenant);
+      openViewModal(bookingData);
     } catch (err) {
       console.log(err);
     }
@@ -65,11 +79,24 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData }
         floor_number: editedFloorNumber,
         room_status: editedRoomStatus,
       });
-      closeEditModal();
       setSelectedItem(null);
-      fetchData(); // Fetch updated data
+      closeViewModal();
+      await fetchData(); // Fetch updated data
+      console.log("Fetch data completed")
     } catch (err) {
       console.log(err);
+    }
+  }
+
+  const getTenantByRoom = async (roomNumber) => {
+    try{
+      console.log(roomNumber)
+      const response = await axios.get(`http://localhost:3001/tenant/getTenantByRoom/${roomNumber}`)
+      if(response){
+        setCurrentTenant(response.data);
+      }
+    }catch(err){
+      console.log(err)
     }
   }
 
@@ -77,7 +104,7 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData }
     try {
       // Assuming you have an API endpoint to delete the room
       await axios.put(`http://localhost:3001/room/deleteRoom/${roomNumber}`);
-      fetchData(); // Fetch updated data
+      await fetchData(); // Fetch updated data
     } catch (err) {
       console.log(err);
     }
@@ -95,19 +122,43 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData }
     }
   };
 
-  const handleOccupancyChange = async () => {
+  const handleOccupancyChange = async (roomNumber) => {
     try {
       // Assuming you have an API endpoint to update the room status
       await axios.put(`http://localhost:3001/room/updateRoom/${roomNumber}`, {
         room_status: editedRoomStatus,
       });
       closeOccupancyModal();
+      setSelectedItem(null);
       fetchData(); // Fetch updated data
+      
     } catch (err) {
       console.log(err);
     }
   };
 
+  const confirmBooking = async () => {
+    try{
+      const tenantData = {
+        first_name: associatedBooking[0].first_name,
+        last_name: associatedBooking[0].last_name,
+        booking_id: associatedBooking[0].booking_id
+      };
+      const response = await axios.post('http://localhost:3001/tenant/createTenant', tenantData)
+      console.log(response.data);
+      setAssociatedBooking(null);
+      closeViewModal();
+      await new Promise(resolve => setTimeout(resolve, 500));
+        // Fetch updated data
+      await fetchData();
+  
+        // Update the occupancy overview
+        updateOccupancyOverview();
+        console.log("IM DONE");
+    }catch(error){
+      console.log(error)
+    }
+  }
 
   return (
     <div className="roomSquare">
@@ -145,15 +196,31 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData }
           {editedRoomStatus === 'Expected Arrival' && associatedBooking && (
           <div>
             <h5>Associated Booking:</h5>
-            <p>Check In: {associatedBooking[0].check_in_date}</p>
-            <p>Check Out: {associatedBooking[0].check_out_date}</p>
-            <p>Name: {associatedBooking[0].first_name} {associatedBooking[0].last_name}</p>
-            <p>Number of Guests(Adult): {associatedBooking[0].number_of_guests_adult}</p>
-            <p>Number of Guests(Children): {associatedBooking[0].number_of_guests_children}</p>
-            <p>Email: {associatedBooking[0].email}</p>
-            <p>Phone Number: {associatedBooking[0].phone_number}</p>
-            <p>Country: {associatedBooking[0].country}</p>
-            <button>Confirm Booking</button>
+            <p>Check In: {associatedBooking[0].check_in_date || "N/A"}</p>
+            <p>Check Out: {associatedBooking[0].check_out_date || "N/A"}</p>
+            <p>Name: {associatedBooking[0].first_name || "N/A"} {associatedBooking[0].last_name || "N/A"}</p>
+            <p>Number of Guests(Adult): {associatedBooking[0].number_of_guests_adult || "N/A"}</p>
+            <p>Number of Guests(Children): {associatedBooking[0].number_of_guests_children || "N/A"}</p>
+            <p>Email: {associatedBooking[0].email || "N/A"}</p>
+            <p>Phone Number: {associatedBooking[0].phone_number || "N/A"}</p>
+            <p>Country: {associatedBooking[0].country || "N/A"}</p>
+            <Button variant="primary" onClick={confirmBooking}>
+            Confirm Booking
+            </Button>
+          </div>
+        )}
+        {editedRoomStatus === 'Occupied' && currentTenant && (
+          <div>
+            <h1>Current Tenant</h1>
+            <p>Name: {currentTenant[0].first_name} {currentTenant[0].last_name}</p>
+            <p></p>
+            <p></p>
+            <Button variant="primary" onClick={confirmBooking}>
+              Add Item
+            </Button>
+            <Button variant="secondary" onClick={confirmBooking}>
+              Check Out
+            </Button>
           </div>
         )}
         </Modal.Body>
