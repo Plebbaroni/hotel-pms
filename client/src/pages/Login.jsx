@@ -47,16 +47,20 @@ const Login = ({ onLogin }) => {
   return (
     <div className='wrapper'>
             <div className='transWrapper'>
-                <div className='loginWrapper'>
-                    <div className='loginCard'>
-                            <p className='loginHeader'>Log In</p>
-                            <form action="submit" className='loginForm' autoComplete='off'>
-                                <input type="text" name="username" id=""  onChange={handleChange} placeholder="Username" className='inputFormLogin'/>
-                                <input type="password" name="password" id=""  onChange={handleChange} placeholder="Password" className='inputFormLogin'/>
-                            </form>
-                                <p className='joeText'>Don't have an account?<Link to="/Signup"> Sign Up</Link></p>
-                            <button className='loginButton' onClick={handleSubmit}>Log In</button>
-                    </div>
+                <div className='loginCard'>
+                        <div className='loginHeader'>
+                          <p>Login</p>
+                        </div>
+                        <div className='loginForm'>
+                          <form action="submit" className='loginForm' autoComplete='off'>
+                              <input type="text" name="username" id=""  onChange={handleChange} placeholder="Username" className='inputFormLogin'/>
+                              <input type="password" name="password" id=""  onChange={handleChange} placeholder="Password" className='inputFormLogin'/>
+                          </form>
+                        </div>
+                        <div className='buttons'>
+                          <button className='loginButton' onClick={handleSubmit}>Log In</button>
+                          <button className='signupButton'><a><Link to="/Signup" className='link'>Sign Up</Link></a></button>
+                        </div>
                 </div>
             </div>
         
