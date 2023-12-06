@@ -1,0 +1,24 @@
+.employeeSidebarWrapper{
+    height: 100%;
+    width: 15%;
+    border-right: 1px solid black;
+    background-color: #2a2a2a;
+    box-sizing: border-box;
+}
+.sidebarThingy{
+    text-decoration: none;  
+    padding-left: 40px;
+    height: 5%;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    color:white;
+    transition: .4s;
+    border-top: 1px solid rgba(255,255,255,.1);
+    border-bottom: 1px solid black;
+}
+
+.sidebarThingy:hover{
+    background-color: white;
+    color: black;
+}
