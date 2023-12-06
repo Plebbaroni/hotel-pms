@@ -98,7 +98,7 @@ const tenantModel = {
 
           getTenantByRoom: async (roomNumber) => {
             return new Promise((resolve, reject) => {
-                const query = `SELECT t.*, cb.*
+                const query = `SELECT t.*, b.*
                 FROM Room r INNER JOIN Booking b
                 ON b.room_number = r.room_number
                 INNER JOIN tenant t 

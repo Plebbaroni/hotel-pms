@@ -22,7 +22,36 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData, 
   const [editedFloorNumber, setEditedFloorNumber] = useState(floorNumber);
   const [editedRoomStatus, setEditedRoomStatus] = useState(roomStatus); // State for edited room status
   const [selectedItem, setSelectedItem] = useState(null);
-  
+  const [addItemModalOpen, setAddItemModalOpen] = useState(false);
+  const [selectedInventoryItem, setSelectedInventoryItem] = useState(null);
+  const [quantityCounter, setQuantityCounter] = useState(1);
+  const [inventoryItems, setInventoryItems] = useState([]);
+
+  const openAddItemModal = () => setAddItemModalOpen(true);
+  const closeAddItemModal = () => setAddItemModalOpen(false);
+
+  const handleItemSelection = (inventoryItem) => {
+    setSelectedInventoryItem(inventoryItem);
+  };
+
+  const handleQuantityChange = (event) => {
+    setQuantityCounter(Number(event.target.value));
+  };
+
+  const handleAddItem = async () => {
+    try {
+      // Assuming you have an API endpoint to add items to the room
+      await axios.post(`http://localhost:3001/room/addItemToRoom/${roomNumber}`, {
+        inventory_item_id: selectedInventoryItem.id, // Adjust the field according to your data model
+        quantity: quantityCounter,
+      });
+
+      closeAddItemModal();
+      await fetchData(); // Fetch updated data
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const openViewModal = (bookingData) => {
     setAssociatedBooking(bookingData);
@@ -232,8 +261,9 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData, 
             <h1>Current Tenant</h1>
             <p>Name: {currentTenant[0].first_name || "N/A"} {currentTenant[0].last_name || "N/A"}</p>
             <p>Current Balance: {currentTenant[0].current_balance || "N/A"}</p>
+            <p>Duration of Stay: {currentTenant[0].check_in_date || "N/A"} - {currentTenant[0].check_out_date || "N/A"}</p>
             <p>Additional Details: {currentTenant[0].additional_details || "N/A"}</p>
-            <Button variant="primary" onClick={confirmBooking}>
+            <Button variant="primary" onClick={openAddItemModal}>
               Add Item
             </Button>
             <Button variant="secondary" onClick={(e) => handleCheckOut(roomNumber)}>
@@ -338,6 +368,54 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData, 
           </Button>
         </Modal.Footer>
       </Modal>
+
+      {/* Add Item Modal */}
+      <Modal show={addItemModalOpen} onHide={closeAddItemModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add Item to Room</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {/* Form for selecting inventory item and setting quantity */}
+          <form>
+            <div className="form-group">
+              <label htmlFor="inventoryItem">Select Inventory Item:</label>
+              {/* Implement a dropdown or other selection mechanism for inventory items */}
+              {/* Example: */}
+              <select
+                className="form-control"
+                id="inventoryItem"
+                onChange={(e) => handleItemSelection(e.target.value)}
+              >
+                {/* Map over the inventory items to populate the dropdown */}
+                {inventoryItems.map((item) => (
+                  <option key={item.id} value={item}>
+                    {item.item_name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="form-group">
+              <label htmlFor="quantity">Quantity:</label>
+              <input
+                type="number"
+                className="form-control"
+                id="quantity"
+                value={quantityCounter}
+                onChange={handleQuantityChange}
+              />
+            </div>
+          </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={closeAddItemModal}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={handleAddItem}>
+            Add Item
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
     </div>
   );
 };

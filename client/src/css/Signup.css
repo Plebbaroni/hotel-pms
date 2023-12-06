@@ -1,10 +1,5 @@
-body {
-	font-family: Arial, Helvetica, sans-serif;
-	text-align: center;
-}
-
 .wrapper{
-    height: 90%;
+    height: 80%;
     width: 100%;
     background-image: url('../src/assets/homepagebg.jpeg');
     background-size: cover;
@@ -13,7 +8,7 @@ body {
     align-items: center;
 }
 
-.transSignWrapper{
+.transWrapper{
     display: flex;
     height: 90%;
     width: 95%;
@@ -50,43 +45,31 @@ body {
     grid-template-columns: 1fr 1fr;
     place-items: center;
     width: 80%;
-    height: 50%;
+    height: 40%;
 }
 
 .Red{
-    display:flex;
-    flex-wrap: wrap;
-    margin-bottom: 5%;
-    padding: 8px 16px;
-    width: 90%;
-    height: auto;
-    box-sizing: border-box;
-    border-radius: 10px;
-    border: 1px solid rgb(102, 102, 102);
-    background-color: #f8f8f8;
+    width: 250px;
+    height: 30px;
     border-color: red;
 }
 
 .inputFormSignup{
-    display:flex;
-    flex-wrap: wrap;
-    margin-bottom: 5%;
-    padding: 8px 16px;
-    width: 90%;
-    height: auto;
-    box-sizing: border-box;
-    border-radius: 10px;
-    border: 1px solid rgb(102, 102, 102);
-    background-color: #f8f8f8;
-    vertical-align:middle;
+    width: 250px;
+    height: 30px;
 }
 .signupHeader{
     font-size: 32px;
-    font-weight:bold;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-Link{
+a{
     text-decoration: none;
+}
+
+.joeText{
+    font-size: 24px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .signupText{
@@ -100,7 +83,6 @@ Link{
     background-color: #E0FDFF;
     border: 1px solid black;
     cursor: pointer;
-    font-weight: bold;
 }
 
 form > span{

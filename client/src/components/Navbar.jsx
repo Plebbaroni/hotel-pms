@@ -11,19 +11,20 @@ function Navbar() {
 
   return (
     <div className='customnavbar'>
-      <div className='logo'>
-        <Link to='/'><img src='src/assets/logo.jpeg' alt='' className='logoImg' /></Link>
-      </div>
+      <Link to='/'>
+        <img src='src/assets/logo.jpeg' alt='' className='logoImg' />
+      </Link>
       <div className='links'>
-          <div className='room'>
-              <Link to='/RoomsList' className='navbarLink'>Our Rooms</Link>
-          </div>
-          <div className='amenities'>
-              <Link to='/Amenities' className='navbarLink'>Amenities</Link>
-          </div>
-          <div className='aboutus'>
-              <Link to='/AboutUs' className='navbarLink'>About Us</Link>
-          </div>
+        <Link to='/RoomsList' className='navbarLink'>
+          Our Rooms
+        </Link>
+        <Link to='/Amenities' className='navbarLink'>
+          Amenities
+        </Link>
+        <Link to='/AboutUs' className='navbarLink'>
+          About Us
+        </Link>
+
         {isLoggedIn ? (
           // Show user profile and popup
           <Link to='/UserPage' className='navbarLink'>

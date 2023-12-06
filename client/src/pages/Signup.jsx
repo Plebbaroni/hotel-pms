@@ -84,36 +84,28 @@ function Signup(){
   // Signup card
   return (
     <div className='wrapper'>
-            <div className='transSignWrapper'>
+            <div className='transWrapper'>
                 <div className='signupWrapper'>
                     <div className='signupCard'>
-                      <div className='signupHeader'>
-                        <p>Sign Up</p>
-                      </div>
-                      <div className='signupForm'>
-                          <form action="submit" autoComplete='off'>
-                            <input type="text" name="username" id=""  onChange={handleChange} placeholder="Username" className={userNErr ? "Red" : "inputFormSignup"}/>                               
-                            <input type="password" name="password" id=""  onChange={handleChange} placeholder="Password" className={pwdError ? "Red" : "inputFormSignup"}/>
-                            <span style={{ color: "red" }}>{userNErr ? "Please enter a username" : null}</span>
-                            <span style={{ color: "red" }}>{pwdError ? "Please enter a password" : null}</span>
+                            <p className='signupHeader'>Sign Up</p>
+                            <form action="submit" className='signupForm' autoComplete='off'>
+                                <input type="text" name="username" id=""  onChange={handleChange} placeholder="Username" className={userNErr ? "Red" : "inputFormSignup"}/>                               
+                                <input type="password" name="password" id=""  onChange={handleChange} placeholder="Password" className={pwdError ? "Red" : "inputFormSignup"}/>
+                                <span style={{ color: "red" }}>{userNErr ? "Please enter a username" : null}</span>
+                                <span style={{ color: "red" }}>{pwdError ? "Please enter a password" : null}</span>
 
-                            <input type="text" name="firstName" id=""  onChange={handleChange} placeholder="First Name" className={firstNErr ? "Red" : "inputFormSignup"}/>
-                            <input type="text" name="lastName" id="" onChange={handleChange} placeholder="Last Name" className={lastNErr ? "Red" : "inputFormSignup"}/>
-                            <span style={{ color: "red" }}>{firstNErr ? "Please enter your first name" : null}</span>
-                            <span style={{ color: "red" }}>{lastNErr ? "Please enter your last name" : null}</span>     
+                                <input type="text" name="firstName" id=""  onChange={handleChange} placeholder="First Name" className={firstNErr ? "Red" : "inputFormSignup"}/>
+                                <input type="text" name="lastName" id="" onChange={handleChange} placeholder="Last Name" className={lastNErr ? "Red" : "inputFormSignup"}/>
+                                <span style={{ color: "red" }}>{firstNErr ? "Please enter your first name" : null}</span>
+                                <span style={{ color: "red" }}>{lastNErr ? "Please enter your last name" : null}</span>     
 
-                            <input type="number" name="phoneNumber" id="" onChange={handleChange} placeholder="Phone Number" className={phoneErr ? "Red" : "inputFormSignup"}/>
-                            <input type="email" name="email" id=""  onChange={handleChange} placeholder="Email" className={emailErr ? "Red" : "inputFormSignup"}/>
-                            <span style={{ color: "red" }}>{phoneErr ? "Please enter your phone number" : null}</span>
-                            <span style={{ color: "red" }}>{emailErr ? "Please enter valid Email Address" : null}</span>
-                        </form>
-                      </div>
-                      <div className='foot'>
-                        <button className='signupButton' onClick={handleSubmit}>Sign Up</button>
-                        <p className='joeText'>Already have an account?<Link to="/Login"> Log In</Link></p>
-                      </div>
-                      
-                            
+                                <input type="number" name="phoneNumber" id="" onChange={handleChange} placeholder="Phone Number" className={phoneErr ? "Red" : "inputFormSignup"}/>
+                                <input type="email" name="email" id=""  onChange={handleChange} placeholder="Email" className={emailErr ? "Red" : "inputFormSignup"}/>
+                                <span style={{ color: "red" }}>{phoneErr ? "Please enter your phone number" : null}</span>
+                                <span style={{ color: "red" }}>{emailErr ? "Please enter valid Email Address" : null}</span>
+                            </form>
+                                <p className='joeText'>Already have an account?<Link to="/Login"> Log In</Link></p>
+                            <button className='signupButton' onClick={handleSubmit}>Sign Up</button>
                     </div>
                 </div>
             </div>   
