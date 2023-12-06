@@ -35,11 +35,12 @@ function AvailableRooms() {
   return (
     <div className='roomsListBg'>
       <div className='roomsListWrapper'>
-        <a className='ourRooms'>Rooms Found</a>
+        <center>
+          <p className='ourRooms'>Rooms Found</p>
+        </center>
         <div className='roomListDiv'>
-          <center>
             {rooms.map((item) => (
-              <div key={item.room_type} state={{ room_type: item.room_type }} className='cardLink'>
+              <div key={item.room_type} state={{ room_type: item.room_type }} className='cardLink2'>
                 <BookingRoomCard
                   key={item.room_type}
                   TypeRoom={item.room_type}
@@ -50,10 +51,11 @@ function AvailableRooms() {
                 />
               </div>
             ))}
-            <button className='confirmRoomsButton' onClick={handleConfirmClick}>
-              Confirm Rooms
-            </button>
-          </center>
+            <center>
+              <button className='confirmRoomsButton' onClick={handleConfirmClick}>
+                Confirm Rooms
+              </button>
+            </center>
         </div>
       </div>
     </div>
