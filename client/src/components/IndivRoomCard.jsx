@@ -27,9 +27,28 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData, 
   const [quantityCounter, setQuantityCounter] = useState(1);
   const [inventoryItems, setInventoryItems] = useState([]);
 
-  const openAddItemModal = () => setAddItemModalOpen(true);
+  const openAddItemModal = () => {
+    setAddItemModalOpen(true);
+    closeViewModal();
+    retrieveInventoryItems();
+  }
+
+  const cancelAddItem = () => {
+    closeAddItemModal();
+    openViewModal();
+  }
+
   const closeAddItemModal = () => setAddItemModalOpen(false);
 
+  const retrieveInventoryItems = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/inventory/getAllItems');
+      console.log(response);
+      setInventoryItems(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
   const handleItemSelection = (inventoryItem) => {
     setSelectedInventoryItem(inventoryItem);
   };
@@ -263,6 +282,7 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData, 
             <p>Current Balance: {currentTenant[0].current_balance || "N/A"}</p>
             <p>Duration of Stay: {currentTenant[0].check_in_date || "N/A"} - {currentTenant[0].check_out_date || "N/A"}</p>
             <p>Additional Details: {currentTenant[0].additional_details || "N/A"}</p>
+            <h1>Orders</h1>
             <Button variant="primary" onClick={openAddItemModal}>
               Add Item
             </Button>
@@ -387,6 +407,7 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData, 
                 onChange={(e) => handleItemSelection(e.target.value)}
               >
                 {/* Map over the inventory items to populate the dropdown */}
+                <option value="" disabled selected hidden>Choose Item</option>
                 {inventoryItems.map((item) => (
                   <option key={item.id} value={item}>
                     {item.item_name}
@@ -407,7 +428,7 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData, 
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={closeAddItemModal}>
+          <Button variant="secondary" onClick={cancelAddItem}>
             Cancel
           </Button>
           <Button variant="primary" onClick={handleAddItem}>

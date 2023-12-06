@@ -30,7 +30,7 @@ function InventoryOverview() {
   }
 
   const handleDelete = async (item_id) => {
-    try {
+    try { 
       // Assuming you have an API endpoint to delete the item
       await axios.put(`http://localhost:3001/inventory/deleteItem/${item_id}`);
       fetchData(); // Fetch updated data
