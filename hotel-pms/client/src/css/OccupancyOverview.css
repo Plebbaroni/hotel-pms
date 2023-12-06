@@ -1,0 +1,22 @@
+.occupancyWrapper{
+    height: 100%;
+    width: 100%;   
+    overflow: hidden;
+    overflow-y: scroll;
+    padding-left: 10px;
+}
+
+.horizontalFloorWrapper{
+    display: flex;
+    overflow-x: scroll;
+    padding-bottom: 10px;
+    scroll-snap-type: x proximity;
+}
+
+.floorHeader{
+    width: 250px;
+    border: 5px solid #2a2a2a;
+    border-bottom: 0px;
+    border-radius: 100px;
+    background-color:  #FFF9F9;
+}

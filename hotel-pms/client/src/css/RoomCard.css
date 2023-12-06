@@ -1,0 +1,55 @@
+.cardLink{
+    color: black;
+}
+
+.roomListDiv{
+    padding-bottom: 2%;
+    border: solid 1px;
+    border-radius: 20px;
+    width: 50rem;
+    background-color: whitesmoke;
+    overflow-y: scroll;
+}
+
+.roomCard{
+    width: 45rem;
+    height: 180px;
+    border: solid 1px;
+    border-radius: 20px;
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    cursor: pointer;
+}
+
+.roomCard:last-child{
+    margin-bottom: 30px;
+}
+
+.roomCardImgDiv{
+    margin-left: 10px;
+}
+
+.roomCardText{
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.roomCardText h1{
+    margin: 0;
+    float: left;
+}
+
+
+.roomCardText p{
+    margin: 0;
+    text-align: left;
+}
+
+
+center > h1{
+    font-size: 50px;
+}

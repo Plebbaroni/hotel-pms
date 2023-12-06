@@ -1,0 +1,109 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: center;
+}
+
+.wrapper{
+    height: 90%;
+    width: 100%;
+    background-image: url('../src/assets/homepagebg.jpeg');
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.transSignWrapper{
+    display: flex;
+    height: 90%;
+    width: 95%;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, .7)
+}
+
+.signupWrapper{
+    display: flex;
+    height: 90%;
+    width: 95%;
+    align-items: center;
+    justify-content: center;
+    background-color: whitesmoke;
+    flex-direction: column;
+    opacity: 100%;
+}
+
+.signupCard{
+    height: 80%;
+    width: 50%;
+    border-radius: 10%;
+    border: 1px solid lightgray;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.signupForm{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+    width: 80%;
+    height: 50%;
+}
+
+.Red{
+    display:flex;
+    flex-wrap: wrap;
+    margin-bottom: 5%;
+    padding: 8px 16px;
+    width: 90%;
+    height: auto;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 1px solid rgb(102, 102, 102);
+    background-color: #f8f8f8;
+    border-color: red;
+}
+
+.inputFormSignup{
+    display:flex;
+    flex-wrap: wrap;
+    margin-bottom: 5%;
+    padding: 8px 16px;
+    width: 90%;
+    height: auto;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 1px solid rgb(102, 102, 102);
+    background-color: #f8f8f8;
+    vertical-align:middle;
+}
+.signupHeader{
+    font-size: 32px;
+    font-weight:bold;
+}
+
+Link{
+    text-decoration: none;
+}
+
+.signupText{
+    text-decoration: none!important;
+}
+
+.signupButton{
+    width: 30%;
+    height: 10%;
+    margin-bottom: 10%;
+    background-color: #E0FDFF;
+    border: 1px solid black;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+form > span{
+    min-width: 250px;
+    min-height: 30px;
+}
