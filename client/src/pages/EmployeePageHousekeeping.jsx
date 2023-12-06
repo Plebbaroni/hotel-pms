@@ -11,7 +11,7 @@ function EmployeePage() {
       <div className='employeePageMain'>
         <EmployeeSidebar/>
         <div className='floorcontent'>
-          <h1>Maintain Me Pls</h1>
+          <h1>Maintenance</h1>
           <HousekeepingOverview/>
         </div>
       </div>

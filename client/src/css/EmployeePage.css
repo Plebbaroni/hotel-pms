@@ -69,8 +69,13 @@
     overflow-y: scroll;
 }
 
+.floorDiv{
+    margin-top: 30px;
+}
 
-
+.floorDiv:first-child{
+    margin-top: 10px;
+}   
   ::-webkit-scrollbar {
     width:  5px;
     height: 5px;
