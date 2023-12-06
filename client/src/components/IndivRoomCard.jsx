@@ -155,7 +155,8 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData, 
       const tenantData = {
         first_name: associatedBooking[0].first_name,
         last_name: associatedBooking[0].last_name,
-        booking_id: associatedBooking[0].booking_id
+        booking_id: associatedBooking[0].booking_id,
+        room_number: roomNumber
       };
       const response = await axios.post('http://localhost:3001/tenant/createTenant', tenantData)
       console.log(response.data);

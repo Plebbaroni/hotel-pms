@@ -7,6 +7,7 @@ const tenantModel = {
                 first_name,
                 last_name,
                 booking_id,
+                room_number
             } = tenantData;
     
             try {
