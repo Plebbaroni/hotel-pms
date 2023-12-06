@@ -26,6 +26,7 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData, 
   const [selectedInventoryItem, setSelectedInventoryItem] = useState(null);
   const [quantityCounter, setQuantityCounter] = useState(1);
   const [inventoryItems, setInventoryItems] = useState([]);
+  const [itemOrders, setItemOrders] = useState([]);
 
   const openAddItemModal = () => {
     setAddItemModalOpen(true);
@@ -49,6 +50,18 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData, 
       console.log(err);
     }
   }
+
+  const retrieveInventoryItemsByTenant = async () => {
+    try {
+      const tenant_id = currentTenant[0].tenant_id;
+      const response = await axios.get(`http://localhost:3001/inventory/getAllItemsByTenant/${tenant_id}`, tenant_id);
+      console.log(response.data);
+      setItemOrders(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   const handleItemSelection = (inventoryItem) => {
     setSelectedInventoryItem(inventoryItem);
   };
@@ -57,18 +70,30 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData, 
     setQuantityCounter(Number(event.target.value));
   };
 
-  const handleAddItem = async () => {
-    try {
-      // Assuming you have an API endpoint to add items to the room
-      await axios.post(`http://localhost:3001/room/addItemToRoom/${roomNumber}`, {
-        inventory_item_id: selectedInventoryItem.id, // Adjust the field according to your data model
-        quantity: quantityCounter,
-      });
+  const handleInventoryOrder = async () => {
+    // Validate that an item is selected before proceeding
+    if (selectedInventoryItem) {
+      try {
+        // Call your API or perform actions with selected item and quantity
+        console.log(selectedInventoryItem.item_id)
+        console.log(currentTenant[0].tenant_id)
+        const response = await axios.post('http://localhost:3001/transaction/handleInventoryOrder', {
+          item_id: selectedInventoryItem.item_id, // Assuming 'id' is the property representing the item ID
+          item_quantity: quantityCounter,
+          tenant_id: currentTenant[0].tenant_id,
+        });
+        console.log(response.data);
+        // Handle success or do something with the response
 
-      closeAddItemModal();
-      await fetchData(); // Fetch updated data
-    } catch (err) {
-      console.log(err);
+        // Close the modal or reset state as needed
+        closeAddItemModal();
+      } catch (error) {
+        console.error(error);
+        // Handle error
+      }
+    } else {
+      // Show an error or prompt the user to select an item
+      console.error('Please select an item before adding.');
     }
   };
 
@@ -111,6 +136,7 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData, 
         getTenantByRoom(roomNumber);
       }
       console.log(currentTenant);
+      retrieveInventoryItemsByTenant();
       openViewModal(bookingData);
     } catch (err) {
       console.log(err);
@@ -166,7 +192,8 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData, 
   const handleCheckOut = async (roomNumber) => {
     try {
       console.log(roomNumber)
-        await axios.put(`http://localhost:3001/transaction/handleCheckOut/${roomNumber}`);
+      const tenant_id = currentTenant[0].tenant_id
+        await axios.put(`http://localhost:3001/transaction/handleCheckOut/${roomNumber}`, {tenant_id});
         closeViewModal();
         await fetchData(); // Fetch updated data
         window.location.reload();
@@ -391,51 +418,49 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData, 
 
       {/* Add Item Modal */}
       <Modal show={addItemModalOpen} onHide={closeAddItemModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Add Item to Room</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {/* Form for selecting inventory item and setting quantity */}
-          <form>
-            <div className="form-group">
-              <label htmlFor="inventoryItem">Select Inventory Item:</label>
-              {/* Implement a dropdown or other selection mechanism for inventory items */}
-              {/* Example: */}
-              <select
-                className="form-control"
-                id="inventoryItem"
-                onChange={(e) => handleItemSelection(e.target.value)}
-              >
-                {/* Map over the inventory items to populate the dropdown */}
-                <option value="" disabled selected hidden>Choose Item</option>
-                {inventoryItems.map((item) => (
-                  <option key={item.id} value={item}>
-                    {item.item_name}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="form-group">
-              <label htmlFor="quantity">Quantity:</label>
-              <input
-                type="number"
-                className="form-control"
-                id="quantity"
-                value={quantityCounter}
-                onChange={handleQuantityChange}
-              />
-            </div>
-          </form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={cancelAddItem}>
-            Cancel
-          </Button>
-          <Button variant="primary" onClick={handleAddItem}>
-            Add Item
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <Modal.Header closeButton>
+        <Modal.Title>Add Item to Room</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <form>
+          <div className="form-group">
+            <label htmlFor="inventoryItem">Select Inventory Item:</label>
+            <select
+              className="form-control"
+              id="selectedInventoryItem"
+              onChange={(e) => handleItemSelection(JSON.parse(e.target.value))}
+            >
+              <option value="" disabled selected hidden>
+                Choose Item
+              </option>
+              {inventoryItems.map((item) => (
+                <option key={item.id} value={JSON.stringify(item)}>
+                  {item.item_name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="form-group">
+            <label htmlFor="quantity">Quantity:</label>
+            <input
+              type="number"
+              className="form-control"
+              id="quantity"
+              value={quantityCounter}
+              onChange={handleQuantityChange}
+            />
+          </div>
+        </form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={cancelAddItem}>
+          Cancel
+        </Button>
+        <Button variant="primary" onClick={handleInventoryOrder}>
+          Add Item
+        </Button>
+      </Modal.Footer>
+    </Modal>  
 
     </div>
   );

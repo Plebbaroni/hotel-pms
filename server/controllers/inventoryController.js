@@ -12,6 +12,18 @@ const inventoryController = {
         }
     },
 
+    getAllItemsByTenant: async (req, res) => {
+      const tenant_id = req.params.tenant_id;
+      console.log(tenant_id)
+      try{
+          const items = await inventoryModel.getAllItemsByTenant(tenant_id);
+          res.status(200).json(items);
+      }catch(error){
+          console.error('Error: ', error);
+          res.status(500).json({error: 'Internal server error'});
+      }
+  },
+
     updateItem: async (req, res) => {
         const itemId = req.params.id; 
         const updatedItemData = req.body;

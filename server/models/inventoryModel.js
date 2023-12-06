@@ -16,6 +16,30 @@ const inventoryModel = {
       })
     },
 
+    getAllItemsByTenant: async (tenant_id) => {
+      return new Promise((resolve, reject) => {
+        const query = `SELECT
+        io.item_quantity,
+        io.item_price,
+        ii.item_name
+    FROM
+        Inventory_Order io
+    JOIN
+        Inventory_Item ii ON io.item_id = ii.item_id
+    JOIN
+        Tenant t ON io.tenant_id = t.tenant_id
+    WHERE
+        io.tenant_id = ?;`;
+        db.query(query, [tenant_id], (err, results) => {
+          if(err){
+            reject(err);
+          }else{
+            resolve(results);
+          }
+        })
+      })
+    },
+
     checkItemExists: async (itemname) => {
         return new Promise((resolve, reject) => {
           db.query('SELECT * FROM inventory_item WHERE item_name = ? AND is_deleted = 0', [itemname], (err, result) => {
