@@ -104,6 +104,23 @@ const bookingModel = {
             reject(error);
           }
         });
+      },
+
+      cancelBooking: (booking_id) => {
+        return new Promise((resolve, reject) => {
+          const query = `UPDATE Booking
+          SET is_active = 0
+          WHERE booking_id = ?
+            AND check_in_confirmed = 0;`;
+          db.query(query, booking_id, (err, results)=>{
+            if(err){
+              console.log(err)
+              reject(err)
+            }else{
+              resolve(results)
+            }
+          })
+        })
       }
 }
 

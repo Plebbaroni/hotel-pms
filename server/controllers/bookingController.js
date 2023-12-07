@@ -23,6 +23,16 @@ const bookingController = {
       }
   },
 
+  cancelBooking: async (req, res) => {
+    booking_id = req.params.bookingId;
+    try{
+      const result = await bookingModel.cancelBooking(booking_id);
+      res.status(200).json(result);
+    }catch(error){
+      console.error(error)
+    }
+  },
+
     createBooking: async (req, res) => {
         const bookingData = req.body;
       
