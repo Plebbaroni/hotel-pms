@@ -59,18 +59,19 @@ const roomModel = {
     return new Promise(async (resolve, reject) => {
       try {
         const query = `
-          SELECT r.room_number, r.room_type, rt.room_rate
-          FROM Room r
-          LEFT JOIN Booking b ON r.room_number = b.room_number
-          JOIN Room_Type rt ON r.room_type = rt.room_type
-          WHERE r.room_type = ? 
-            AND r.room_status = 'Vacant'
-            AND r.is_deleted != 1
-            AND (
-              b.booking_id IS NULL
-              OR (? >= b.check_out_date OR ? <= b.check_in_date)
-            )
-          LIMIT ?;`;
+        SELECT r.room_number, r.room_type, rt.room_rate
+        FROM Room r
+        LEFT JOIN Booking b ON r.room_number = b.room_number
+        JOIN Room_Type rt ON r.room_type = rt.room_type
+        WHERE r.room_type = ? 
+          AND r.room_status = 'Vacant'
+          AND r.is_deleted != 1
+          AND (
+            b.is_active = 0
+            OR (b.booking_id IS NULL)  -- Add this condition to include rooms without bookings
+            OR (? >= b.check_out_date OR ? <= b.check_in_date)
+          )
+        LIMIT ?`;
 
         // Use parseInt to ensure quantity is treated as a number
         const results = await db.promise().query(query, [type, checkOutDate, checkInDate, parseInt(quantity, 10)]);

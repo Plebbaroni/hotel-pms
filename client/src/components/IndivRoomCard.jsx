@@ -310,6 +310,11 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData, 
             <p>Duration of Stay: {currentTenant[0].check_in_date || "N/A"} - {currentTenant[0].check_out_date || "N/A"}</p>
             <p>Additional Details: {currentTenant[0].additional_details || "N/A"}</p>
             <h1>Orders</h1>
+            {itemOrders.map((item) => (
+                <p key={item.id}>
+                  {item.item_name}  X{item.item_quantity}
+                </p>
+              ))}
             <Button variant="primary" onClick={openAddItemModal}>
               Add Item
             </Button>
