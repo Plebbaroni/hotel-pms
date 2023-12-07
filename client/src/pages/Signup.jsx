@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {Link, useHistory} from 'react-router-dom'
+import validator from 'validator'
 import axios from 'axios'
 import "../css/Signup.css"
 
@@ -41,31 +42,29 @@ function Signup(){
       setPhoneErr(false); // Correct the state name
       setEmailErr(false);
     
-      const emailRegEx = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
       const passwRegEx = new RegExp('^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$');
-      const phoneRegEx = new RegExp('^[0-9]+$');
     
-      if (formData.username === "") {
+      if (validator.isEmpty(formData.username)) {
         setUserNErr(true);
       }
-    
+      
       if (!passwRegEx.test(formData.password)) {
         setPwdError(true);
       }
     
-      if (formData.firstName === "") {
+      if (validator.isEmpty(formData.firstName)) {
         setFirstNErr(true);
       }
     
-      if (formData.lastName === "") {
+      if (validator.isEmpty(formData.lastName)) {
         setLastNErr(true);
       }
     
-      if (!emailRegEx.test(formData.email)) {
+      if (!validator.isEmail(formData.email)) {
         setEmailErr(true);
       }
     
-      if (!phoneRegEx.test(formData.phoneNumber)) {
+      if (!validator.isMobilePhone(formData.phoneNumber)) {
         setPhoneErr(true);
       }
       
@@ -99,7 +98,7 @@ function Signup(){
                                 <span style={{ color: "red" }}>{firstNErr ? "Please enter your first name" : null}</span>
                                 <span style={{ color: "red" }}>{lastNErr ? "Please enter your last name" : null}</span>     
 
-                                <input type="number" name="phoneNumber" id="" onChange={handleChange} placeholder="Phone Number" className={phoneErr ? "Red" : "inputFormSignup"}/>
+                                <input type="tel" name="phoneNumber" id="" onChange={handleChange} placeholder="Phone Number" className={phoneErr ? "Red" : "inputFormSignup"}/>
                                 <input type="email" name="email" id=""  onChange={handleChange} placeholder="Email" className={emailErr ? "Red" : "inputFormSignup"}/>
                                 <span style={{ color: "red" }}>{phoneErr ? "Please enter your phone number" : null}</span>
                                 <span style={{ color: "red" }}>{emailErr ? "Please enter valid Email Address" : null}</span>
