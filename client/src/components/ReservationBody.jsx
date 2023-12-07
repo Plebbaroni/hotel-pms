@@ -110,7 +110,11 @@ function Body() {
       }
 
       // After creating all bookings, return to the home page
-      returnHome();
+      if(userData.role === "Customer"){
+        returnHome();
+      }else if(userData.role === "Admin" || userData.role === "Employee"){
+        history.push("/Employee");
+      }
     } catch (error) {
       console.error('Error creating bookings:', error);
     }
