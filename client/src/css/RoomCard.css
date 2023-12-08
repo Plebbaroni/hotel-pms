@@ -16,7 +16,7 @@
     width: 100%;
     font-size: 30px;
     color: black;
-    flex-basis: calc(10%);
+    flex-basis: 10%;
     margin: 20px;
 }
 
@@ -27,7 +27,7 @@
     width: 100%;
     font-size: 30px;
     color: black;
-    flex-basis: calc(40%);
+    flex-basis: 10%;
     margin: 20px;
     margin-top: 0px;
 }
@@ -74,4 +74,26 @@
 .roomCardText h1{
     margin-top: 10px;
     font-size: 35px;
+}
+.roomCounter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.roomCounter > p{
+    height: 30px;
+    margin-bottom: 0px;
+    border: solid 1px;
+    border-radius: 20px;
+    border-color: black;
+    width: 30px;
+    background-color: white;
+}
+
+.roomCounter > p:hover{
+    background-color: gray;
+}
+.roomCounter span{
+    margin: 20px;
 }
