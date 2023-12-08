@@ -3,6 +3,7 @@ import EmployeeNavbar from '../components/EmployeeNavbar.jsx'
 import EmployeeSidebar from '../components/EmployeeSidebar.jsx'
 import "../css/EmployeePage.css"
 import OccupancyOverview from '../components/OccupancyOverview.jsx'
+import {Link} from 'react-router-dom'
 
 function EmployeePage() {
   function getCurrentDate(){
@@ -13,7 +14,7 @@ function EmployeePage() {
     let year = newDate.getFullYear();
    
 
-    return `${month<10?`0${month}`:`${month}`}${' '}${date}${','}${year}`
+    return `${month<10?`0${month}`:`${month}`}${' '}${date}${','} ${year}`
     }
 
   return (

@@ -1,21 +1,22 @@
-import React, {useState, useEffect} from 'react'
-import axios from 'axios'
-import {Link, useHistory} from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Link, useHistory } from 'react-router-dom';
 import { Table, Modal, Button } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css'
-import '../css/userPage.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../css/userPage.css';
 import '../css/Login.css';
 
 function UserPage() {
-
   const history = useHistory();
   const [activeBookings, setActiveBookings] = useState([]);
   const [inactiveBookings, setInactiveBookings] = useState([]);
   const userDataString = sessionStorage.getItem('user');
   const userData = userDataString ? JSON.parse(userDataString) : {};
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [selectedBookingId, setSelectedBookingId] = useState(null);
 
   useEffect(() => {
-      fetchData();
+    fetchData();
   }, []);
 
   const fetchData = async () => {
@@ -23,10 +24,9 @@ function UserPage() {
       const response = await axios.get(`http://localhost:3001/booking/getBookingByUser/${userData.id}`);
       const allBookings = response.data;
 
-      // Separate active and inactive bookings
       const activeBookingsData = allBookings.filter(booking => booking.is_active === 1);
       const inactiveBookingsData = allBookings.filter(booking => booking.is_active === 0);
-      console.log(response.data);
+
       setActiveBookings(activeBookingsData);
       setInactiveBookings(inactiveBookingsData);
     } catch (err) {
@@ -39,38 +39,50 @@ function UserPage() {
       const response = await axios.post('http://localhost:3001/user/logout', null, {
         withCredentials: true,
       });
-  
-      // Log user data before removal
+
       const userDataStringBeforeLogout = sessionStorage.getItem('user');
       console.log('User data before logout:', userDataStringBeforeLogout);
-  
+
       if (response.status === 200) {
         console.log('Logout successful');
-  
-        // Remove user data from sessionStorage
         sessionStorage.removeItem('user');
-  
-        // Refresh the page to reflect the logout state
         window.location.reload();
-  
-        // Redirect to login page or any other route after logout
         history.push('/login');
       } else {
         console.error('Error logging out:', response.statusText);
-        // Handle logout failure if needed
       }
     } catch (error) {
       console.error('Error:', error);
-      // Handle unexpected errors
     }
   };
 
-  // Table for the list of bookings
+  const handleDelete = (bookingId) => {
+    setShowConfirmationModal(true);
+    setSelectedBookingId(bookingId);
+  };
+
+  const confirmDelete = async () => {
+    try {
+      const bookingId = selectedBookingId;
+      // Perform the delete operation using selectedBookingId
+      await axios.put(`http://localhost:3001/booking/cancelBooking/${bookingId}`);
+
+      // Close the confirmation modal after successful delete
+      setShowConfirmationModal(false);
+      // Fetch data again to update the UI
+      fetchData();
+    } catch (error) {
+      alert('Check in is already confirmed!');
+      console.error('Error deleting booking:', error);
+      // Handle delete failure if needed
+    }
+  };
+
   const renderTable = (bookings, tableTitle) => {
     if (bookings.length === 0) {
       return (
         <div>
-          <h2>Bookings Empty</h2>
+          <h2>You have no active bookings!</h2>
         </div>
       );
     }
@@ -83,6 +95,7 @@ function UserPage() {
             <th>Check In Date</th>
             <th>Check Out Date</th>
             <th>Room Rate</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -92,6 +105,11 @@ function UserPage() {
               <td>{booking.check_in}</td>
               <td>{booking.check_out}</td>
               <td>{booking.room_rate}</td>
+              <td>
+                <button className="btn btn-sm btn-danger m-1" onClick={() => handleDelete(booking.booking_id)}>
+                  Delete
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -106,12 +124,7 @@ function UserPage() {
           <h1>Your Bookings</h1>
           <div className='Bookings'>
             <div className='activeBookings'>
-              <h1>Active Bookings</h1>
               {renderTable(activeBookings, 'Active Bookings')}
-            </div>
-            <div className='inactiveBookings'>
-              <h1>Inactive Bookings</h1>
-              {renderTable(inactiveBookings, 'Inactive Bookings')}
             </div>
           </div>
           <Link to="/Login" onClick={handleLogout}>
@@ -119,6 +132,26 @@ function UserPage() {
           </Link>
         </div>
       </div>
+
+      {/* Confirmation Modal */}
+      <Modal show={showConfirmationModal} onHide={() => setShowConfirmationModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Delete</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to cancel your booking? 
+          <p></p>
+          You will not be able to reactivate your booking.
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowConfirmationModal(false)}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={confirmDelete}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

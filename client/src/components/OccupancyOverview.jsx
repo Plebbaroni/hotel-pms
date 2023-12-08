@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import IndivRoomCard from './IndivRoomCard.jsx';
 import '../css/OccupancyOverview.css';
+import {Link} from 'react-router-dom';
 
 function OccupancyOverview() {
   const [roomData, setRoomData] = useState([]);
