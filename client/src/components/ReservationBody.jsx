@@ -24,6 +24,11 @@ function Body() {
     country: '',
   });
 
+  const [lastNErr, setLastNErr] = useState(false);
+  const [firstNErr, setFirstNErr] = useState(false);
+  const [emailErr, setEmailErr] = useState(false);
+  const [phoneErr, setPhoneErr] = useState(false);
+
   // Update form data on input change
   const handleInputChange = (e) => {
     setFormData({
@@ -83,36 +88,75 @@ function Body() {
   const handleConfirm = async (e) => {
     e.preventDefault();
 
-    try {
-      // Iterate through each room type in bookRooms
-      for (const roomType of bookRooms) {
-        // Iterate through each room in the current room type
-        for (const room of roomType) {
-          // Prepare data for the booking
-          const bookingData = {
-            room_number: room.room_number,
-            number_of_guests_adult: adults,
-            number_of_guests_children: children,
-            check_in_date: checkIn,
-            check_out_date: checkOut,
-            user_id: userData.id, // Replace with the actual user_id from your data source
-            country: formData.country, // Replace with the actual country value
-            first_name: formData.firstName,
-            last_name: formData.lastName,
-            email: formData.email,
-            phone_number: formData.phoneNumber,
-          };
-          console.log(bookingData)
-          // Make the Axios call to create the booking
-          const response = await axios.post('http://localhost:3001/booking/createBooking', bookingData);
-          console.log('Booking created:', response.data);
+    var valid=true;
+    setPwdError(false);
+    setFirstNErr(false);
+    setLastNErr(false);
+    setPhoneErr(false);
+    setEmailErr(false);
+
+    if (validator.isEmpty(formData.username)) {
+      setUserNErr(true);
+      valid=false;
+      console.error("No username detected")
+    }
+  
+    if (validator.isEmpty(formData.firstName)) {
+      setFirstNErr(true);
+      valid=false;
+      console.error("No first name")
+    }
+  
+    if (validator.isEmpty(formData.lastName)) {
+      setLastNErr(true);
+      valid=false;
+      console.error("no last name")
+    }
+  
+    if (!(validator.isEmail(formData.email))) {
+      setEmailErr(true);
+      valid=false;
+      console.error("Invalid or no email")
+    }
+  
+    if (!(validator.isMobilePhone(formData.phoneNumber))) {
+      setPhoneErr(true);
+      valid=false;
+      console.error("Invalid or no phone no.")
+    }
+
+    if (valid) {
+      try {
+        // Iterate through each room type in bookRooms
+        for (const roomType of bookRooms) {
+          // Iterate through each room in the current room type
+          for (const room of roomType) {
+            // Prepare data for the booking
+            const bookingData = {
+              room_number: room.room_number,
+              number_of_guests_adult: adults,
+              number_of_guests_children: children,
+              check_in_date: checkIn,
+              check_out_date: checkOut,
+              user_id: userData.id, // Replace with the actual user_id from your data source
+              country: formData.country, // Replace with the actual country value
+              first_name: formData.firstName,
+              last_name: formData.lastName,
+              email: formData.email,
+              phone_number: formData.phoneNumber,
+            };
+            console.log(bookingData)
+            // Make the Axios call to create the booking
+            const response = await axios.post('http://localhost:3001/booking/createBooking', bookingData);
+            console.log('Booking created:', response.data);
+          }
         }
-      }
 
       // After creating all bookings, return to the home page
       returnHome();
-    } catch (error) {
-      console.error('Error creating bookings:', error);
+      } catch (error) {
+        console.error('Error creating bookings:', error);
+      }
     }
   };
 
@@ -156,6 +200,7 @@ function Body() {
               value={formData.firstName}
               onChange={handleInputChange}
             />
+            <span style={{ color: "red" }}>{firstNErr ? "Please enter your first name" : null}</span>
             <br />
             <input
               type="text"
@@ -164,6 +209,7 @@ function Body() {
               value={formData.lastName}
               onChange={handleInputChange}
             />
+            <span style={{ color: "red" }}>{lastNErr ? "Please enter your last name" : null}</span>   
             <br />
             <input
               type="text"
@@ -172,6 +218,7 @@ function Body() {
               value={formData.email}
               onChange={handleInputChange}
             />
+            <span style={{ color: "red" }}>{emailErr ? "Please enter valid Email Address" : null}</span>
             <br />
             <input
               type="text"
@@ -180,6 +227,7 @@ function Body() {
               value={formData.phoneNumber}
               onChange={handleInputChange}
             />
+            <span style={{ color: "red" }}>{phoneErr ? "Please enter your phone number" : null}</span>
             <br />
             <input
               type="text"
