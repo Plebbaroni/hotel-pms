@@ -39,7 +39,7 @@ function EmployeeNavbar() {
 
   return (
     <div className='employeeNavbar'> 
-        <Link to={{}}><img src="src/assets/logo.jpeg" alt="" srcset="" className='logoImg'/></Link>
+        <Link to="/Employee"><img src="src/assets/logo.jpeg" alt="" srcset="" className='logoImg'/></Link>
         <div className='employeeLogout'>
           <Link to="/Login" className='employeelogbutton' onClick={handleLogout}>
             Log Out

@@ -17,10 +17,14 @@ function AvailableRooms() {
     
     const totalCount = Object.values(totalRooms).reduce((acc, count) => acc + count, 0);
   
-    if (totalCount <= totalPeople) {
+    if (totalCount <= totalPeople && totalCount > 0) {
       history.push('/Reservationpage',  {totalRooms, checkIn, checkOut, adults, children} );
     } else {
-      alert('Total number of rooms exceeds total number of people');
+      if(totalCount > totalPeople){
+        alert('Total number of rooms exceeds total number of people');
+      }else if(totalCount === 0){
+        alert('Please choose a room.') 
+      }
       setConfirmClicked(false);
     }
   };
