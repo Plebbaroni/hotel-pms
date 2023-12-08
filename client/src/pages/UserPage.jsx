@@ -124,7 +124,7 @@ function UserPage() {
           <div>
             <h1>Your Bookings</h1>
             <div className='Bookings'>
-              <div className='activeBookings'>
+              <div className={activeBookings=="" ? "activeBookings":"activeBookings borderControl "}>
                 {renderTable(activeBookings, 'Active Bookings')}
               </div>
             </div>

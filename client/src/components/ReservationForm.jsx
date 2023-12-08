@@ -22,43 +22,46 @@ function ReservationForm() {
   const handleResClick = async (e) => {
 
     e.preventDefault();
+    if(checkIn!="" || checkOut!=""){
+        const userDataString = sessionStorage.getItem('user');
+      const userData = userDataString ? JSON.parse(userDataString) : {};
+      if (userData && (userData.role === "Customer" || userData.role === "Admin" || userData.role === "Employee")) {
+        // Assuming you have an API endpoint to fetch rooms based on criteria
+        try {
+          const response = await axios.post('http://localhost:3001/room/search', {
+            checkIn,
+            checkOut,
+            adults,
+            children
+          });
 
-    const userDataString = sessionStorage.getItem('user');
-    const userData = userDataString ? JSON.parse(userDataString) : {};
-    if (userData && (userData.role === "Customer" || userData.role === "Admin" || userData.role === "Employee")) {
-      // Assuming you have an API endpoint to fetch rooms based on criteria
-      try {
-        const response = await axios.post('http://localhost:3001/room/search', {
-          checkIn,
-          checkOut,
-          adults,
-          children
-        });
-
-        // Handle the response, e.g., redirect to a page displaying the available rooms
-        console.log(response.data);
-        setFoundRooms(response.data);
-        history.push('/AvailableRooms', {
-          rooms: response.data,
-          adults: Number(adults),
-          children: Number(children),
-          checkIn,
-          checkOut,
-        });
-      } catch (error) {
-        console.error(error);
+          // Handle the response, e.g., redirect to a page displaying the available rooms
+          console.log(response.data);
+          setFoundRooms(response.data);
+          history.push('/AvailableRooms', {
+            rooms: response.data,
+            adults: Number(adults),
+            children: Number(children),
+            checkIn,
+            checkOut,
+          });
+        } catch (error) {
+          console.error(error);
+        }
+      } else if (userData && (userData.role === "Admin" || userData.role === "Employee")) {
+        history.push('/Employee')
+      } else {
+        history.push('/Login');
       }
-    } else if (userData && (userData.role === "Admin" || userData.role === "Employee")) {
-      history.push('/Employee')
-    } else {
-      history.push('/Login');
+    }else{
+      alert("Please fill out all input fields");
     }
   }
 
   return (
     <div className='transWrapper'>
       <div className='reserveWrapper'>
-        <p className='bookARoom'>Book a Room</p>
+        <a className='bookARoom'>Book a Room</a>
         <div className='forms'>
           <form action="submit" className='daForm'>
              <input
