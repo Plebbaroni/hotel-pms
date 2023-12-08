@@ -17,10 +17,14 @@ function AvailableRooms() {
     
     const totalCount = Object.values(totalRooms).reduce((acc, count) => acc + count, 0);
   
-    if (totalCount <= totalPeople) {
+    if (totalCount <= totalPeople && totalCount > 0) {
       history.push('/Reservationpage',  {totalRooms, checkIn, checkOut, adults, children} );
     } else {
-      alert('Total number of rooms exceeds total number of people');
+      if(totalCount > totalPeople){
+        alert('Total number of rooms exceeds total number of people');
+      }else if(totalCount === 0){
+        alert('Please choose a room.') 
+      }
       setConfirmClicked(false);
     }
   };
@@ -35,11 +39,12 @@ function AvailableRooms() {
   return (
     <div className='roomsListBg'>
       <div className='roomsListWrapper'>
-        <a className='ourRooms'>Rooms Found</a>
+        <center>
+          <p className='ourRooms'>Rooms Found</p>
+        </center>
         <div className='roomListDiv'>
-          <center>
             {rooms.map((item) => (
-              <div key={item.room_type} state={{ room_type: item.room_type }} className='cardLink'>
+              <div key={item.room_type} state={{ room_type: item.room_type }} className='cardLink2'>
                 <BookingRoomCard
                   key={item.room_type}
                   TypeRoom={item.room_type}
@@ -50,11 +55,12 @@ function AvailableRooms() {
                 />
               </div>
             ))}
-            <button className='confirmRoomsButton' onClick={handleConfirmClick}>
-              Confirm Rooms
-            </button>
-          </center>
         </div>
+        <center>
+          <button className='confirmRoomsButton' onClick={handleConfirmClick}>
+            Confirm Rooms
+          </button>
+        </center>
       </div>
     </div>
   );

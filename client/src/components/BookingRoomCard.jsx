@@ -24,9 +24,9 @@ function BookingRoomCard({ TypeRoom, DescriptionRoom, RoomOccMin, RoomOccMax, on
         <h1>{TypeRoom}</h1>
         <p>Min Occ: {RoomOccMin} | Max Occ: {RoomOccMax}</p>
         <div className='roomCounter'>
-          <button onClick={handleDecrement}>-</button>
+          <p onClick={handleDecrement}>-</p>
           <span>{roomCount}</span>
-          <button onClick={handleIncrement}>+</button>
+          <p onClick={handleIncrement}>+</p>
         </div>
       </div>
     </div>

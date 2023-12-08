@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import IndivRoomCard from './IndivRoomCard.jsx';
 import '../css/OccupancyOverview.css';
-import {Link} from 'react-router-dom';
 
-function OccupancyOverview() {
+function CheckOutOverview() {
   const [roomData, setRoomData] = useState([]);
   
     const [triggerUpdate, setTriggerUpdate] = useState(0); // New state for triggering update
@@ -15,9 +14,6 @@ function OccupancyOverview() {
           // Wait for all promises to resolve using Promise.all
           await Promise.all([
             autoCheckOut(),
-            getOccupiedRooms(),
-            getExpectedRooms(),
-            getVacantRooms(),
             fetchData(),
           ]);
     
@@ -42,7 +38,7 @@ function OccupancyOverview() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/room/getAllRooms');
+      const response = await axios.get('http://localhost:3001/room/getCheckoutRooms');
       setRoomData([...response.data]); // Create a new array
     } catch (err) {
       console.log(err);
@@ -52,30 +48,6 @@ function OccupancyOverview() {
   const autoCheckOut = async () => {
     try {
       await axios.put('http://localhost:3001/room/autoCheckOut');
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  const getExpectedRooms = async () => {
-    try {
-      await axios.put('http://localhost:3001/room/getExpectedRooms');
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const getOccupiedRooms = async () => {
-    try {
-      await axios.put('http://localhost:3001/room/getOccupiedRooms');
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const getVacantRooms = async () => {
-    try {
-      await axios.put('http://localhost:3001/room/getVacantRooms');
     } catch (err) {
       console.log(err);
     }
@@ -119,4 +91,4 @@ function OccupancyOverview() {
   );
 }
 
-export default OccupancyOverview;
+export default CheckOutOverview;

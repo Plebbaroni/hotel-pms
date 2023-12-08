@@ -2,6 +2,8 @@ import React from 'react'
 import {Link, useHistory} from 'react-router-dom'
 import "../css/EmployeeNavbar.css"
 import axios from 'axios'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 
 function EmployeeNavbar() {
   const history = useHistory();
@@ -39,10 +41,10 @@ function EmployeeNavbar() {
 
   return (
     <div className='employeeNavbar'> 
-        <Link to={{}}><img src="src/assets/logo.jpeg" alt="" srcset="" className='logoImg'/></Link>
+        <Link to="/Employee"><img src="src/assets/logo.jpeg" alt="" srcset="" className='logoImg'/></Link>
         <div className='employeeLogout'>
           <Link to="/Login" className='employeelogbutton' onClick={handleLogout}>
-            Log Out
+          <FontAwesomeIcon icon={faRightFromBracket} /> Log Out
           </Link>
         </div>
     </div>
