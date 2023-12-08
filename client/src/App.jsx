@@ -19,6 +19,8 @@ import EmployeePageHousekeeping from "./pages/EmployeePageHousekeeping.jsx"
 import AddEntry from "./pages/AddEntry.jsx"
 import UserList from "./pages/UserList.jsx"
 import UserPage from "./pages/UserPage.jsx"
+import CheckOutOverview from "./pages/EmployeePageCheckout.jsx"
+import WalkIn from './pages/Walkin.jsx'
 
 function App() {
   const userDataString = sessionStorage.getItem('user');
@@ -78,6 +80,8 @@ function App() {
           <ProtectedRouteAdmin path="/AddEntry" component={AddEntry}/>
           <ProtectedRouteEmployee path="/Housekeeping" component={EmployeePageHousekeeping}/>
           <ProtectedRouteEmployee path="/Inventory" component={EmployeePageInventory}/>
+          <ProtectedRouteEmployee path="/Checkout" component={CheckOutOverview}/>
+          <ProtectedRouteEmployee path="/WalkIn" component={WalkIn}/>
       </Switch>
     </>
   )
