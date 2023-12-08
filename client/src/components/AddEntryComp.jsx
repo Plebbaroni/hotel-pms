@@ -57,9 +57,10 @@ function AddEntryComp() {
     <div className='addEntryWrapper'>
       <div className='addRoomDiv'>
         <h1>Add Room</h1>
-        <form action="submit" autoComplete='off'>
+        <form className='entryForm' action="submit" autoComplete='off'>
           <input type="number" name="roomnumber" placeholder='Room Number' onChange={handleChangeRoom}/>
           <input type="number" name="roomfloor" placeholder='Room Floor' onChange={handleChangeRoom}/>
+          <br />
           <select name="roomtype" placeholder='Room Type' onChange={handleChangeRoom} value={roomFormData.roomtype}>
             <option value="" disabled selected>Room Type</option>
             <option value="Deluxe Room">Deluxe Room</option>
@@ -73,10 +74,11 @@ function AddEntryComp() {
       </div>
       <div className='addInvDiv'>
         <h1>Add Inventory</h1>
-        <form action="submit" autoComplete='off'>
+        <form className='entryForm' action="submit" autoComplete='off'>
           <input type="text" name="itemname" placeholder='Item Name' onChange={handleChangeItem}/>
           <input type="number" name="itemprice" placeholder='Item Price' onChange={handleChangeItem}/>
           <input type="number" name="itemquantity" placeholder='Item Quantity' onChange={handleChangeItem}/>
+          <br />
           <select name="isperishable" id="" onChange={handleChangeItem} value={inventoryFormData.isperishable}>
             <option value="" disabled selected>Perishable?</option>
             <option value="0">No</option>
