@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import { useHistory, useLocation } from 'react-router-dom';
+import countryList from 'react-select-country-list';
+import Select from 'react-select';
+import validator from 'validator';
 
 function Body() {
   const history = useHistory();
@@ -16,6 +19,8 @@ function Body() {
   const userDataString = sessionStorage.getItem('user');
   const userData = userDataString ? JSON.parse(userDataString) : {};
 
+  const options = useMemo(() => countryList().getData(), [])
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -24,11 +29,24 @@ function Body() {
     country: '',
   });
 
+  const [lastNErr, setLastNErr] = useState(false);
+  const [firstNErr, setFirstNErr] = useState(false);
+  const [emailErr, setEmailErr] = useState(false);
+  const [phoneErr, setPhoneErr] = useState(false);
+  const [countryErr, setCountryErr] = useState(false);
+
   // Update form data on input change
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.id]: e.target.value,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleCountryChange = (country) => {
+    setFormData({
+      ...formData,
+      country: country.label,
     });
   };
 
@@ -83,33 +101,72 @@ function Body() {
   const handleConfirm = async (e) => {
     e.preventDefault();
 
-    try {
-      // Iterate through each room type in bookRooms
-      for (const roomType of bookRooms) {
-        // Iterate through each room in the current room type
-        for (const room of roomType) {
-          // Prepare data for the booking
-          const bookingData = {
-            room_number: room.room_number,
-            number_of_guests_adult: adults,
-            number_of_guests_children: children,
-            check_in_date: checkIn,
-            check_out_date: checkOut,
-            user_id: userData.id, // Replace with the actual user_id from your data source
-            country: formData.country, // Replace with the actual country value
-            first_name: formData.firstName,
-            last_name: formData.lastName,
-            email: formData.email,
-            phone_number: formData.phoneNumber,
-          };
-          console.log(bookingData)
-          // Make the Axios call to create the booking
-          const response = await axios.post('http://localhost:3001/booking/createBooking', bookingData);
-          console.log('Booking created:', response.data);
+    var valid=true;
+    setCountryErr(false);
+    setFirstNErr(false);
+    setLastNErr(false);
+    setPhoneErr(false);
+    setEmailErr(false);
+  
+    if (validator.isEmpty(formData.firstName)) {
+      setFirstNErr(true);
+      valid=false;
+      console.error("No first name")
+    }
+  
+    if (validator.isEmpty(formData.lastName)) {
+      setLastNErr(true);
+      valid=false;
+      console.error("No last name")
+    }
+  
+    if (!(validator.isEmail(formData.email))) {
+      setEmailErr(true);
+      valid=false;
+      console.error("Invalid or no email")
+    }
+  
+    if (!(validator.isMobilePhone(formData.phoneNumber))) {
+      setPhoneErr(true);
+      valid=false;
+      console.error("Invalid or no phone no.")
+    }
+    
+    if (validator.isEmpty(formData.country)) {
+      setCountryErr(true);
+      valid=false;
+      console.error("No Country")
+    }
+
+    if (valid) {
+      try {
+        // Iterate through each room type in bookRooms
+        for (const roomType of bookRooms) {
+          // Iterate through each room in the current room type
+          for (const room of roomType) {
+            // Prepare data for the booking
+            const bookingData = {
+              room_number: room.room_number,
+              number_of_guests_adult: adults,
+              number_of_guests_children: children,
+              check_in_date: checkIn,
+              check_out_date: checkOut,
+              user_id: userData.id, // Replace with the actual user_id from your data source
+              country: formData.country, // Replace with the actual country value
+              first_name: formData.firstName,
+              last_name: formData.lastName,
+              email: formData.email,
+              phone_number: formData.phoneNumber,
+            };
+            console.log(bookingData)
+            // Make the Axios call to create the booking
+            const response = await axios.post('http://localhost:3001/booking/createBooking', bookingData);
+            console.log('Booking created:', response.data);
+          }
         }
-      }
 
       // After creating all bookings, return to the home page
+
       if(userData.role === "Customer"){
         returnHome();
       }else if(userData.role === "Admin" || userData.role === "Employee"){
@@ -155,43 +212,47 @@ function Body() {
                <h1>Personal Information</h1>
             <input
               type="text"
-              id="firstName"
+              name="firstName"
               placeholder="First Name"
               value={formData.firstName}
               onChange={handleInputChange}
             />
+            <span style={{ color: "red" }}>{firstNErr ? "Please enter your first name" : null}</span>
             <br />
             <input
               type="text"
-              id="lastName"
+              name="lastName"
               placeholder="Last Name"
               value={formData.lastName}
               onChange={handleInputChange}
             />
+            <span style={{ color: "red" }}>{lastNErr ? "Please enter your last name" : null}</span>   
             <br />
             <input
               type="text"
-              id="email"
+              name="email"
               placeholder="Email"
               value={formData.email}
               onChange={handleInputChange}
             />
+            <span style={{ color: "red" }}>{emailErr ? "Please enter valid Email Address" : null}</span>
             <br />
             <input
               type="text"
-              id="phoneNumber"
+              name="phoneNumber"
               placeholder="Phone Number"
               value={formData.phoneNumber}
               onChange={handleInputChange}
             />
+            <span style={{ color: "red" }}>{phoneErr ? "Please enter your phone number" : null}</span>
             <br />
-            <input
-              type="text"
-              id="country"
-              placeholder="Country"
-              value={formData.country}
-              onChange={handleInputChange}
+            <Select 
+              name='country'
+              options={options} 
+              value={options.find((option) => option.value === formData.country)}
+              onChange={handleCountryChange}
             />
+            <span style={{ color: "red" }}>{countryErr ? "Please enter a country" : null}</span>
             </div>
           </div>
           <div className="ReserveBox">
