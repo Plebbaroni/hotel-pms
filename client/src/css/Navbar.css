@@ -22,6 +22,10 @@
     color: white;
     font-size: 28px;
   }
+
+  .navbarLink:active{
+    transform: translateY(1px);
+  }
   
   .logoImg {
     margin-left: 10%;

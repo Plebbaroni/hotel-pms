@@ -18,8 +18,7 @@ const bookingModel = {
         JOIN
             Room_Type rt ON r.room_type = rt.room_type
         WHERE
-            b.user_id = ?
-            AND b.check_in_confirmed = 0;`;
+            b.user_id = ?;`;
             db.query(query, userId, (err, results) => {
                 if (err) {
                     console.error(err);
@@ -105,23 +104,6 @@ const bookingModel = {
             reject(error);
           }
         });
-      },
-
-      cancelBooking: (booking_id) => {
-        return new Promise((resolve, reject) => {
-          const query = `UPDATE Booking
-          SET is_active = 0
-          WHERE booking_id = ?
-            AND check_in_confirmed = 0;`;
-          db.query(query, booking_id, (err, results)=>{
-            if(err){
-              console.log(err)
-              reject(err)
-            }else{
-              resolve(results)
-            }
-          })
-        })
       }
 }
 

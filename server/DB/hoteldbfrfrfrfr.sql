@@ -1,3 +1,6 @@
+CREATE DATABASE hoteldb;
+USE hoteldb;
+
 CREATE TABLE `Booking` (
   `booking_id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `room_number` int NOT NULL,

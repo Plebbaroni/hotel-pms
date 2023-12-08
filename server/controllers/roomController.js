@@ -22,27 +22,6 @@ const roomController = {
       }
     },
 
-    getCheckoutRooms: async (req, res) => {
-      try {
-        const rooms = await roomModel.getCheckoutRooms();
-        res.status(200).json(rooms);
-      } catch (error) {
-        console.error('Error: ', error);
-        res.status(500).json({ error: 'Internal server error' });
-      }
-    },
-
-    updateOccupancy: async (req, res) => {
-      const newOcc = req.body.room_status;
-      const roomNumber = req.body.roomNumber
-      try{
-        const result = await roomModel.updateOccupancy(newOcc, roomNumber);
-        res.status(200).json(result);
-      }catch(err){
-        console.error(err);
-      }
-    },
-
     getExpectedRooms: async (req, res) => {
       try {
         const rooms = await roomModel.getExpectedRooms();
