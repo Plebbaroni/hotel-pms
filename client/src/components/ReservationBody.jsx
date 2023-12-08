@@ -110,11 +110,7 @@ function Body() {
       }
 
       // After creating all bookings, return to the home page
-      if(userData.role === "Customer"){
-        returnHome();
-      }else if(userData.role === "Admin" || userData.role === "Employee"){
-        history.push("/Employee");
-      }
+      returnHome();
     } catch (error) {
       console.error('Error creating bookings:', error);
     }
@@ -143,80 +139,89 @@ function Body() {
   return (
     <div>
       <center>
-        <div className="Title">
-          <h1>Your Reservation</h1>
-          <a href="">
-            <button onClick={returnHome}>X</button>
-          </a>
-        </div>
-        <div className="Form">
-          <div className="ReserveBox">
-            <div className="Personal">
-               <h1>Personal Information</h1>
-            <input
-              type="text"
-              id="firstName"
-              placeholder="First Name"
-              value={formData.firstName}
-              onChange={handleInputChange}
-            />
-            <br />
-            <input
-              type="text"
-              id="lastName"
-              placeholder="Last Name"
-              value={formData.lastName}
-              onChange={handleInputChange}
-            />
-            <br />
-            <input
-              type="text"
-              id="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleInputChange}
-            />
-            <br />
-            <input
-              type="text"
-              id="phoneNumber"
-              placeholder="Phone Number"
-              value={formData.phoneNumber}
-              onChange={handleInputChange}
-            />
-            <br />
-            <input
-              type="text"
-              id="country"
-              placeholder="Country"
-              value={formData.country}
-              onChange={handleInputChange}
-            />
+        <div className='ReserveBox'>
+          <div className='header'>
+            <div className="Title">
+              <h1>Your Reservation</h1>
+            </div>
+            <div className="close-page">
+                <a href="">
+                  <button onClick={returnHome} className='close-button'>&#x2715;</button>
+                </a>
             </div>
           </div>
-          <div className="ReserveBox">
-            <div>
-              <h1>Payment Information</h1>
-            </div>
-          </div>
-          <div className="ReserveBox">
-            <div>
-              <h1>Price Summary</h1>
-              <div>
-                {bookRooms.map((roomType, index) => (
-                  <div key={index}>
-                    {roomType.map((room, roomIndex) => (
-                      <div key={roomIndex}>
-                        <p>Room Type: {room.room_type}</p>
-                        <p>Room Rate: {room.room_rate} X {numberOfNights}</p>
-                        <hr />
-                      </div>
-                    ))}
-                  </div>
-                ))}
-                <p>Total Price: {totalPrice}</p>
+          <div className="Form">
+              <div className="Personal">
+                <h3>Personal Information</h3>
+                <hr className='hr-div'/>
+                <div className='first-name'>
+                <h5>First Name</h5>
+                  <input
+                    type="text"
+                    id="firstName"
+                    value={formData.firstName}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className='last-name'>
+                  <h5>Last Name</h5>
+                  <input
+                    type="text"
+                    id="lastName"
+                    value={formData.lastName}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className='email'>     
+                  <h5>Email</h5>
+                  <input
+                    type="text"
+                    id="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className='phone-number'>
+                  <h5>Phone Number</h5>
+                  <input
+                    type="text"
+                    id="phoneNumber"
+                    value={formData.phoneNumber}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className='country'>
+                  <h5>Country</h5>
+                  <input
+                    type="text"
+                    id="country"
+                    value={formData.country}
+                    onChange={handleInputChange}
+                  />
+                </div>
               </div>
-            </div>
+              <div className='payment-info'>
+                <h3>Payment Information</h3>
+              </div>
+              <hr className='hr-div'/>
+              <div className='price-sum'>
+                <h3>Price Summary</h3>
+                <hr className='hr-div'/>
+                <div>
+                  {bookRooms.map((roomType, index) => (
+                    <div key={index}>
+                      {roomType.map((room, roomIndex) => (
+                        <div key={roomIndex}>
+                          <p>Room Type: {room.room_type}</p>
+                          <p>Room Rate: &#8369;{room.room_rate.toFixed(2)} * {numberOfNights}</p>
+                          <hr className='total'/>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                  <p>Total Price: &#8369;{totalPrice.toFixed(2)}</p>
+                </div>
+              </div>
           </div>
           <div className="ButtonDiv">
             <button onClick={handleConfirm}>Confirm</button>

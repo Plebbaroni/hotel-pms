@@ -31,10 +31,10 @@ function RoomPage(props) {
         <br />
         <div className='roomDataDiv'>
           {Object.keys(roomData).length > 0 ? (
-            <div className='minmax'>
+            <>
               <p>min: {roomData.min_number_of_occupants || "N/A"} </p>
               <p>max: {roomData.max_number_of_occupants || "N/A"} </p>
-            </div>
+            </>
           ) : (
             <p>Loading...</p>
           )}
