@@ -305,12 +305,14 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData, 
           </div>
         )}
         {editedRoomStatus === 'Occupied' && currentTenant && (
-          <div>
+          <div className='roomDetails'>
             <h1>Current Tenant</h1>
-            <p>Name: {currentTenant[0].first_name || "N/A"} {currentTenant[0].last_name || "N/A"}</p>
-            <p>Current Balance: ${currentTenant[0].current_balance || "N/A"}</p>
-            <p>Duration of Stay: {currentTenant[0].check_in_date || "N/A"} - {currentTenant[0].check_out_date || "N/A"}</p>
-            <p>Additional Details: {currentTenant[0].additional_details || "N/A"}</p>
+            <div className='tenantDetails'>
+                <p>Name: {currentTenant[0].first_name || "N/A"} {currentTenant[0].last_name || "N/A"}</p>
+                <p>Current Balance: ${currentTenant[0].current_balance || "N/A"}</p>
+                <p>Duration of Stay: <br />{currentTenant[0].check_in_date || "N/A"} <br />{currentTenant[0].check_out_date || "N/A"}</p>
+                <p>Additional Details: {currentTenant[0].additional_details || "N/A"}</p>
+            </div>
             <h1>Orders</h1>
             {itemOrders.map((item) => (
                 <p key={item.id}>

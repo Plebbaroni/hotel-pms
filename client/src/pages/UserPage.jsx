@@ -121,15 +121,21 @@ function UserPage() {
     <div className='wrapper'>
       <div className='transWrapper'>
         <div className='userWrapper'>
-          <h1>Your Bookings</h1>
-          <div className='Bookings'>
-            <div className='activeBookings'>
-              {renderTable(activeBookings, 'Active Bookings')}
+          <div>
+            <h1>Your Bookings</h1>
+            <div className='Bookings'>
+              <div className='activeBookings'>
+                {renderTable(activeBookings, 'Active Bookings')}
+              </div>
             </div>
           </div>
-          <Link to="/Login" onClick={handleLogout}>
-            Log Out
-          </Link>
+          <div>
+            <Link to="/Login" onClick={handleLogout}>
+              <Button variant="danger">
+              Log Out
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
 

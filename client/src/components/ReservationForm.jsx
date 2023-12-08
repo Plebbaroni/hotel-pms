@@ -58,7 +58,7 @@ function ReservationForm() {
   return (
     <div className='transWrapper'>
       <div className='reserveWrapper'>
-        <a className='bookARoom'>Book a Room</a>
+        <p className='bookARoom'>Book a Room</p>
         <div className='forms'>
           <form action="submit" className='daForm'>
              <input

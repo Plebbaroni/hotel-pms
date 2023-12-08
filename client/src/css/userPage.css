@@ -1,11 +1,24 @@
 .userWrapper{
     display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
     height: 90%;
     width: 95%;
-    align-items: center;
-    justify-content: center;
     background-color: whitesmoke;
-    flex-direction: column;
-    opacity: 100%;
-    overflow-y: scroll;
+}
+.userWrapper>div{
+    margin:  50px;
+}
+
+.userWrapper > div > h1{
+   text-align: center;
+}
+
+.activeBookings{
+    border: solid 2px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    padding-bottom: 0px;
+    background-color: white;
 }
