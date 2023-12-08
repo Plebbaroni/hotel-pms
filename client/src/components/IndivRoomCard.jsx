@@ -88,7 +88,6 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData, 
         // Close the modal or reset state as needed
         closeAddItemModal();
       } catch (error) {
-        alert('Insufficient Quality.');
         console.error(error);
         // Handle error
       }
@@ -215,12 +214,11 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData, 
     }
   };
 
-  const handleOccupancyChange = async () => {
+  const handleOccupancyChange = async (roomNumber) => {
     try {
       // Assuming you have an API endpoint to update the room status
-      await axios.put(`http://localhost:3001/room/updateOccupancy`, {
+      await axios.put(`http://localhost:3001/room/updateRoom/${roomNumber}`, {
         room_status: editedRoomStatus,
-        roomNumber: roomNumber
       });
       closeOccupancyModal();
       setSelectedItem(null);
@@ -308,7 +306,7 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData, 
           <div>
             <h1>Current Tenant</h1>
             <p>Name: {currentTenant[0].first_name || "N/A"} {currentTenant[0].last_name || "N/A"}</p>
-            <p>Current Balance: ${currentTenant[0].current_balance || "N/A"}</p>
+            <p>Current Balance: {currentTenant[0].current_balance || "N/A"}</p>
             <p>Duration of Stay: {currentTenant[0].check_in_date || "N/A"} - {currentTenant[0].check_out_date || "N/A"}</p>
             <p>Additional Details: {currentTenant[0].additional_details || "N/A"}</p>
             <h1>Orders</h1>

@@ -29,13 +29,9 @@ const roomModel = {
   },
   
   
-  getCheckoutRooms: async (req, res) => {
+  getAllRooms: async (req, res) => {
     return new Promise((resolve, reject) => {
-      const query = `select * from room r
-      inner join booking b
-      on b.room_number = r.room_number
-      and b.check_out_date = curdate()
-      and b.is_active = 1`;
+      const query = 'SELECT * from room WHERE is_deleted = 0';
       db.query(query, (err, results) => {
         if(err){
           reject(err);
@@ -138,19 +134,6 @@ const roomModel = {
       return new Promise((resolve, reject) => {
         const query = 'UPDATE room SET ? WHERE room_number = ?';
         db.query(query, [updatedRoomData, roomNumber], (err, result) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(result);
-          }
-        });
-      });
-    },
-
-    updateOccupancy: async (newOcc, roomNumber) => {
-      return new Promise((resolve, reject) => {
-        const query = 'UPDATE room SET room_status = ? WHERE room_number = ?';
-        db.query(query, [newOcc, roomNumber], (err, result) => {
           if (err) {
             reject(err);
           } else {

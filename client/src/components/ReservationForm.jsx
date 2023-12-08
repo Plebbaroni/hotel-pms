@@ -25,7 +25,7 @@ function ReservationForm() {
 
     const userDataString = sessionStorage.getItem('user');
     const userData = userDataString ? JSON.parse(userDataString) : {};
-    if (userData && (userData.role === "Customer" || userData.role === "Admin" || userData.role === "Employee")) {
+    if (userData && userData.role === "Customer") {
       // Assuming you have an API endpoint to fetch rooms based on criteria
       try {
         const response = await axios.post('http://localhost:3001/room/search', {
@@ -49,7 +49,7 @@ function ReservationForm() {
         console.error(error);
       }
     } else if (userData && (userData.role === "Admin" || userData.role === "Employee")) {
-      history.push('/Employee')
+      alert("You do not have the necessary permissions.");
     } else {
       history.push('/Login');
     }
