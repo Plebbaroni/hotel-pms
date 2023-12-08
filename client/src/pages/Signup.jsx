@@ -32,40 +32,46 @@ function Signup(){
 
     // Is called when clicking the sign up button
     const handleSubmit = async (e) => {
-      e.preventDefault(); // Move this line to the top
+      e.preventDefault(); 
       
       // Errors that may occur when inputting
       setUserNErr(false);
       setPwdError(false);
       setFirstNErr(false);
       setLastNErr(false);
-      setPhoneErr(false); // Correct the state name
+      setPhoneErr(false);
       setEmailErr(false);
     
       const passwRegEx = new RegExp('^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$');
     
       if (validator.isEmpty(formData.username)) {
         setUserNErr(true);
+        console.error("No username detected")
       }
       
-      if (!passwRegEx.test(formData.password)) {
+      if (!(passwRegEx.test(formData.password))) {
         setPwdError(true);
+        console.error("Invalid or no password")
       }
     
       if (validator.isEmpty(formData.firstName)) {
         setFirstNErr(true);
+        console.error("No first name")
       }
     
       if (validator.isEmpty(formData.lastName)) {
         setLastNErr(true);
+        console.error("no last name")
       }
     
-      if (!validator.isEmail(formData.email)) {
+      if (!(validator.isEmail(formData.email))) {
         setEmailErr(true);
+        console.error("Invalid or no email")
       }
     
-      if (!validator.isMobilePhone(formData.phoneNumber)) {
+      if (!(validator.isMobilePhone(formData.phoneNumber))) {
         setPhoneErr(true);
+        console.error("Invalid or no phone no.")
       }
       
       // If no errors, registers the user
@@ -77,6 +83,8 @@ function Signup(){
         } catch (error) {
           console.error('Error submitting form:', error.response.data);
         }
+      }else{
+        console.error('Form submission aborted due to validation errors');
       }
     };
   
@@ -91,7 +99,7 @@ function Signup(){
                                 <input type="text" name="username" id=""  onChange={handleChange} placeholder="Username" className={userNErr ? "Red" : "inputFormSignup"}/>                               
                                 <input type="password" name="password" id=""  onChange={handleChange} placeholder="Password" className={pwdError ? "Red" : "inputFormSignup"}/>
                                 <span style={{ color: "red" }}>{userNErr ? "Please enter a username" : null}</span>
-                                <span style={{ color: "red" }}>{pwdError ? "Please enter a password" : null}</span>
+                                <span style={{ color: "red" }}>{pwdError ? "Password must have numbers, upper case, and 6 characters" : null}</span>
 
                                 <input type="text" name="firstName" id=""  onChange={handleChange} placeholder="First Name" className={firstNErr ? "Red" : "inputFormSignup"}/>
                                 <input type="text" name="lastName" id="" onChange={handleChange} placeholder="Last Name" className={lastNErr ? "Red" : "inputFormSignup"}/>
