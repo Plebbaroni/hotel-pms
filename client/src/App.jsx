@@ -69,7 +69,7 @@ function App() {
           </Route>
           <Route path="/AvailableRooms" >
           {userData.role === 'Customer' ? <Navbar /> : <EmployeeNavbar />}
-            <AvailableRooms/>
+          <AvailableRooms/>
           </Route>
           <Route path="/UserPage" >
             <Navbar />

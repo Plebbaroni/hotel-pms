@@ -2,35 +2,72 @@
     box-sizing: border-box;
 }
 
+.wrapper{
+    height: 80%;
+    width: 100%;
+}
+
 body{
     background-color: #fff9f9;
 }
 
+.close-button{
+    background-color: whitesmoke;
+    color:black;
+    justify-content: center;
+    width:40px;
+    height:40px;
+    border:none;
+    border-radius: 100%;
+    font-weight: bold;
+}
+
+.close-button:active{
+    transform:translateY(1px);
+}
+
+.close-page{
+    display: flex;
+    float:right;
+    justify-content: flex-end;
+    width: 50%;
+}
+
+.first-name{
+    width: 45%;
+    float:left;
+}
+.last-name{
+    width:45%;
+    float:left;
+}
+.email{
+    width:45%;
+    float:left;
+}
+.phone-number{
+    width:45%;
+    float:left;
+}
+.country{
+    width:45%;
+    float:left;
+}
 .Title{
     display: flex;
-    justify-content: center;
+    float:left;
+    justify-content: flex-start;
+    width: 50%;
 }
 
-.Title>a>button{
-    margin-top: 25px;
-    border: none;
-    background: none;
-    width: 50px;
-    height: 30px;
-    cursor: pointer;
-}
-
-.Title>a>button:hover{
-    font-size: 25px;
-}
 
 .ReserveBox{
-    background-color: white;
-    width: 60vw;
-    background-color: white;
+    background-color: whitesmoke;
+    width: 50vw;
     border: 1px solid black;
-    margin-bottom: 20px;
+    margin: 20px;
     border-radius: 10px;
+    box-shadow: 3px 2px gray;
 }
 
 .ReserveBox > div{
@@ -43,15 +80,46 @@ body{
     font-size: 20px;
 }
 
-.Personal > input{
+.Personal{
+    width:100%;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    float:left;
+}
+input{
     padding: 5px;
-    width: 45%;
-    margin-bottom: 5px;
-    border: 1px solid black;
+    width: 95%;
+    border-radius: 10px;
+    border: 1px solid rgb(102, 102, 102);
+    background-color: white;
 }
 
+hr.hr-div{
+    width:99%;
+    color:black;
+    border-top: 2px solid black;
+}
+hr.total{
+    width:25%;
+    color:black;
+    border-top: 3px dashed black;
+}
 .Personal:last-child{
     margin-bottom: 10px;
+}
+
+.payment-info{
+    width:100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    float:left;
+}
+
+.price-sum{
+    width:100%;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    float:left;
 }
 
 .ButtonDiv button{
@@ -59,13 +127,21 @@ body{
     border:none;
     border-radius: 20px;
     font-weight: 700;
-    padding: 16px 25px 18px;
+    padding: 8px 25px;
     color: #fff;
     background-color: #15883e;
     height: 48px;
     cursor: pointer;
+    justify-content: center;
 }
 
+.ButtonDiv{
+    margin:10px;
+}
 .ButtonDiv > button:hover{
-    background-color: #1db954;
+    background-color: #137836;
+}
+
+.ButtonDiv > button:active{
+    transform: translateY(1px);
 }

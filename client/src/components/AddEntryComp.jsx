@@ -28,6 +28,7 @@ function AddEntryComp() {
     e.preventDefault();
     console.log(roomFormData)
     try{
+      roomFormData.roomfloor = JSON.parse(Math.floor(roomFormData.roomnumber / 100 % 10));
       const response = await axios.post('http://localhost:3001/room/addRoom', roomFormData);
       console.log(response.data);
     }catch(error){
@@ -59,7 +60,7 @@ function AddEntryComp() {
         <h1>Add Room</h1>
         <form className='entryForm' action="submit" autoComplete='off'>
           <input type="number" name="roomnumber" placeholder='Room Number' onChange={handleChangeRoom}/>
-          <input type="number" name="roomfloor" placeholder='Room Floor' onChange={handleChangeRoom}/>
+          <input type="number" name="roomfloor" disabled onChange={handleChangeRoom} value={Math.floor(roomFormData.roomnumber / 100 % 10)}/>
           <br />
           <select name="roomtype" placeholder='Room Type' onChange={handleChangeRoom} value={roomFormData.roomtype}>
             <option value="" disabled selected>Room Type</option>

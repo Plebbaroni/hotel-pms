@@ -9,6 +9,9 @@
     "mysql": "^2.18.1",
     "mysql2": "^3.6.3",
     "node-pre-gyp": "^0.17.0",
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "react-select": "^5.8.0",
+    "react-select-country-list": "^2.2.3",
+    "validator": "^13.11.0"
   }
 }
