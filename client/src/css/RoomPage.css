@@ -35,3 +35,10 @@ center > p{
     display: flex;
     justify-content: center;
 }
+
+.minmax{
+    width: 25%;
+    display: flex;
+    gap: 30%;
+    justify-content: center;
+}

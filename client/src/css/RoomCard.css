@@ -1,24 +1,40 @@
-.cardLink{
-    color: black;
+.roomListDiv{
+    width: 80vw;
+    display: grid;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 12.5px;
+    display: flex;
+    flex-wrap: wrap;               
+    justify-content: center;
 }
 
-.roomListDiv{
-    padding-bottom: 2%;
-    border: solid 1px;
-    border-radius: 20px;
-    width: 50rem;
-    background-color: whitesmoke;
-    overflow-y: scroll;
+.cardLink{
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    height: 25rem;
+    width: 100%;
+    font-size: 30px;
+    color: black;
+    flex-basis: 10%;
+    margin: 20px;
+}
+
+.cardLink2{
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    height: 25rem;
+    width: 100%;
+    font-size: 30px;
+    color: black;
+    flex-basis: 10%;
+    margin: 20px;
+    margin-top: 0px;
 }
 
 .roomCard{
-    width: 45rem;
-    height: 180px;
-    border: solid 1px;
-    border-radius: 20px;
-    margin-top: 30px;
-    display: flex;
-    align-items: center;
+    width: inherit;
+    height: inherit;
     background-color: white;
     cursor: pointer;
 }
@@ -28,7 +44,12 @@
 }
 
 .roomCardImgDiv{
-    margin-left: 10px;
+    width: inherit;
+    height: 13rem;
+}
+.roomCardImgDiv > img{
+    height: inherit;
+    width: inherit;
 }
 
 .roomCardText{
@@ -40,16 +61,39 @@
 
 .roomCardText h1{
     margin: 0;
+    font-size: 30px;
     float: left;
 }
 
 
 .roomCardText p{
-    margin: 0;
-    text-align: left;
+    font-size: 20px;
 }
 
 
-center > h1{
-    font-size: 50px;
+.roomCardText h1{
+    margin-top: 10px;
+    font-size: 35px;
+}
+.roomCounter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.roomCounter > p{
+    height: 30px;
+    margin-bottom: 0px;
+    border: solid 1px;
+    border-radius: 20px;
+    border-color: black;
+    width: 30px;
+    background-color: white;
+}
+
+.roomCounter > p:hover{
+    background-color: gray;
+}
+.roomCounter span{
+    margin: 20px;
 }
