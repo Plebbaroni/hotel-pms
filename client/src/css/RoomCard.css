@@ -97,3 +97,16 @@
 .roomCounter span{
     margin: 20px;
 }
+
+.tenantDetails{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tenantDetails > p{
+    flex-basis: 50%;
+}
+
+.roomDetails > button{
+    margin-right: 10px;
+}
