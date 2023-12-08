@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import { useHistory, useLocation } from 'react-router-dom';
+import countryList from 'react-select-country-list';
+import Select from 'react-select';
+import validator from 'validator';
 
 function Body() {
   const history = useHistory();
@@ -16,6 +19,8 @@ function Body() {
   const userDataString = sessionStorage.getItem('user');
   const userData = userDataString ? JSON.parse(userDataString) : {};
 
+  const options = useMemo(() => countryList().getData(), [])
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -28,12 +33,20 @@ function Body() {
   const [firstNErr, setFirstNErr] = useState(false);
   const [emailErr, setEmailErr] = useState(false);
   const [phoneErr, setPhoneErr] = useState(false);
+  const [countryErr, setCountryErr] = useState(false);
 
   // Update form data on input change
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.id]: e.target.value,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleCountryChange = (country) => {
+    setFormData({
+      ...formData,
+      country: country.label,
     });
   };
 
@@ -89,17 +102,11 @@ function Body() {
     e.preventDefault();
 
     var valid=true;
-    setPwdError(false);
+    setCountryErr(false);
     setFirstNErr(false);
     setLastNErr(false);
     setPhoneErr(false);
     setEmailErr(false);
-
-    if (validator.isEmpty(formData.username)) {
-      setUserNErr(true);
-      valid=false;
-      console.error("No username detected")
-    }
   
     if (validator.isEmpty(formData.firstName)) {
       setFirstNErr(true);
@@ -110,7 +117,7 @@ function Body() {
     if (validator.isEmpty(formData.lastName)) {
       setLastNErr(true);
       valid=false;
-      console.error("no last name")
+      console.error("No last name")
     }
   
     if (!(validator.isEmail(formData.email))) {
@@ -123,6 +130,12 @@ function Body() {
       setPhoneErr(true);
       valid=false;
       console.error("Invalid or no phone no.")
+    }
+    
+    if (validator.isEmpty(formData.country)) {
+      setCountryErr(true);
+      valid=false;
+      console.error("No Country")
     }
 
     if (valid) {
@@ -195,7 +208,7 @@ function Body() {
                <h1>Personal Information</h1>
             <input
               type="text"
-              id="firstName"
+              name="firstName"
               placeholder="First Name"
               value={formData.firstName}
               onChange={handleInputChange}
@@ -204,7 +217,7 @@ function Body() {
             <br />
             <input
               type="text"
-              id="lastName"
+              name="lastName"
               placeholder="Last Name"
               value={formData.lastName}
               onChange={handleInputChange}
@@ -213,7 +226,7 @@ function Body() {
             <br />
             <input
               type="text"
-              id="email"
+              name="email"
               placeholder="Email"
               value={formData.email}
               onChange={handleInputChange}
@@ -222,20 +235,20 @@ function Body() {
             <br />
             <input
               type="text"
-              id="phoneNumber"
+              name="phoneNumber"
               placeholder="Phone Number"
               value={formData.phoneNumber}
               onChange={handleInputChange}
             />
             <span style={{ color: "red" }}>{phoneErr ? "Please enter your phone number" : null}</span>
             <br />
-            <input
-              type="text"
-              id="country"
-              placeholder="Country"
-              value={formData.country}
-              onChange={handleInputChange}
+            <Select 
+              name='country'
+              options={options} 
+              value={options.find((option) => option.value === formData.country)}
+              onChange={handleCountryChange}
             />
+            <span style={{ color: "red" }}>{countryErr ? "Please enter a country" : null}</span>
             </div>
           </div>
           <div className="ReserveBox">
