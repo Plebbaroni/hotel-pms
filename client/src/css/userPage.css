@@ -15,10 +15,12 @@
    text-align: center;
 }
 
-.activeBookings{
+.activeBookings > table{
+    padding-bottom: 0px;
+}
+
+.borderControl{
     border: solid 2px;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
-    padding-bottom: 0px;
-    background-color: white;
 }
