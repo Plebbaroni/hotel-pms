@@ -88,6 +88,7 @@ const RoomSquare = ({ roomNumber, roomType, roomStatus, floorNumber, fetchData, 
         // Close the modal or reset state as needed
         closeAddItemModal();
       } catch (error) {
+        alert('Insufficient Quality.');
         console.error(error);
         // Handle error
       }

@@ -72,6 +72,7 @@ function UserPage() {
       // Fetch data again to update the UI
       fetchData();
     } catch (error) {
+      alert('Check in is already confirmed!');
       console.error('Error deleting booking:', error);
       // Handle delete failure if needed
     }
@@ -81,7 +82,7 @@ function UserPage() {
     if (bookings.length === 0) {
       return (
         <div>
-          <h2>{tableTitle} Empty</h2>
+          <h2>You have no active bookings!</h2>
         </div>
       );
     }
@@ -123,7 +124,6 @@ function UserPage() {
           <h1>Your Bookings</h1>
           <div className='Bookings'>
             <div className='activeBookings'>
-              <h1>Active Bookings</h1>
               {renderTable(activeBookings, 'Active Bookings')}
             </div>
           </div>
@@ -139,7 +139,9 @@ function UserPage() {
           <Modal.Title>Confirm Delete</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Are you sure you want to delete this booking?
+          Are you sure you want to cancel your booking? 
+          <p></p>
+          You will not be able to reactivate your booking.
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowConfirmationModal(false)}>

@@ -18,7 +18,8 @@ const bookingModel = {
         JOIN
             Room_Type rt ON r.room_type = rt.room_type
         WHERE
-            b.user_id = ?;`;
+            b.user_id = ?
+            AND b.check_in_confirmed = 0;`;
             db.query(query, userId, (err, results) => {
                 if (err) {
                     console.error(err);
